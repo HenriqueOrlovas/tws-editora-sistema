@@ -1,0 +1,15 @@
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\obj\Debug\tws-sistema.csproj.AssemblyReference.cache
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\obj\Debug\tws_sistema.Properties.Resources.resources
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\obj\Debug\tws-sistema.csproj.GenerateResource.cache
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\obj\Debug\tws-sistema.csproj.CoreCompileInputs.cache
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\bin\Debug\tws-sistema.exe.config
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\bin\Debug\tws-sistema.exe
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\bin\Debug\tws-sistema.pdb
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\obj\Debug\tws-sistema.exe
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\obj\Debug\tws-sistema.pdb
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\bin\Debug\MySql.Data.dll
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\bin\Debug\System.Memory.dll
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\bin\Debug\System.Numerics.Vectors.dll
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\bin\Debug\MySql.Data.xml
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\obj\Debug\tws-sist.8F8E8099.Up2Date
+E:\vsssssssssssssssssssssssss\trabalhos\tws-sistema\obj\Debug\tws-sistema.exe.config
