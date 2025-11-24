@@ -79,14 +79,6 @@ namespace SeuProjeto
 
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-
-            // Colors
-            var corFundo = System.Drawing.ColorTranslator.FromHtml("#CFCFCF");
-            var corAzul = System.Drawing.ColorTranslator.FromHtml("#072E6A");
-            var corBranco = System.Drawing.Color.White;
-
-            // menuStrip
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuCadastros = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLivros = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,12 +88,9 @@ namespace SeuProjeto
             this.menuVendas = new System.Windows.Forms.ToolStripMenuItem();
             this.menuRelatorios = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSair = new System.Windows.Forms.ToolStripMenuItem();
-
             this.panelConteudo = new System.Windows.Forms.Panel();
-
-            // livros
             this.panelLivros = new System.Windows.Forms.Panel();
-            this.dgvLivros = new System.Windows.Forms.DataGridView();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtLivroTitulo = new System.Windows.Forms.TextBox();
             this.cmbLivroAutor = new System.Windows.Forms.ComboBox();
             this.txtLivroCategoria = new System.Windows.Forms.TextBox();
@@ -111,122 +100,131 @@ namespace SeuProjeto
             this.btnLivroEditar = new System.Windows.Forms.Button();
             this.btnLivroExcluir = new System.Windows.Forms.Button();
             this.btnLivroAtualizar = new System.Windows.Forms.Button();
-
-            // autores
+            this.dgvLivros = new System.Windows.Forms.DataGridView();
             this.panelAutores = new System.Windows.Forms.Panel();
-            this.dgvAutores = new System.Windows.Forms.DataGridView();
             this.txtAutorNome = new System.Windows.Forms.TextBox();
             this.btnAutorAdicionar = new System.Windows.Forms.Button();
             this.btnAutorExcluir = new System.Windows.Forms.Button();
             this.btnAutorAtualizar = new System.Windows.Forms.Button();
-
-            // estoque
+            this.dgvAutores = new System.Windows.Forms.DataGridView();
             this.panelEstoque = new System.Windows.Forms.Panel();
             this.cmbEstoqueLivro = new System.Windows.Forms.ComboBox();
             this.nudEstoqueQtd = new System.Windows.Forms.NumericUpDown();
             this.btnEstoqueEntrada = new System.Windows.Forms.Button();
             this.btnEstoqueSaida = new System.Windows.Forms.Button();
             this.btnEstoqueAtualizar = new System.Windows.Forms.Button();
-
-            // vendas
             this.panelVendas = new System.Windows.Forms.Panel();
             this.cmbVendaLivro = new System.Windows.Forms.ComboBox();
             this.nudVendaQtd = new System.Windows.Forms.NumericUpDown();
             this.btnRegistrarVenda = new System.Windows.Forms.Button();
             this.dgvVendas = new System.Windows.Forms.DataGridView();
-
-            // relatorios
             this.panelRelatorios = new System.Windows.Forms.Panel();
-            this.dgvRelatorios = new System.Windows.Forms.DataGridView();
             this.btnRelTop = new System.Windows.Forms.Button();
             this.btnRelEstoqueBaixo = new System.Windows.Forms.Button();
-
-            // Menu structure
+            this.dgvRelatorios = new System.Windows.Forms.DataGridView();
+            this.menuStrip1.SuspendLayout();
+            this.panelConteudo.SuspendLayout();
+            this.panelLivros.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLivros)).BeginInit();
+            this.panelAutores.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAutores)).BeginInit();
+            this.panelEstoque.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEstoqueQtd)).BeginInit();
+            this.panelVendas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudVendaQtd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVendas)).BeginInit();
+            this.panelRelatorios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatorios)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(46)))), ((int)(((byte)(106)))));
+            this.menuStrip1.ForeColor = System.Drawing.Color.White;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.menuCadastros,
-                this.menuConsultas,
-                this.menuRelatorios,
-                this.menuSair
-            });
+            this.menuCadastros,
+            this.menuConsultas,
+            this.menuRelatorios,
+            this.menuSair});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.menuStrip1.Size = new System.Drawing.Size(1100, 24);
+            this.menuStrip1.TabIndex = 1;
+            // 
+            // menuCadastros
+            // 
             this.menuCadastros.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.menuLivros,
-                this.menuAutores
-            });
-            this.menuConsultas.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.menuEstoque,
-                this.menuVendas
-            });
-
+            this.menuLivros,
+            this.menuAutores});
+            this.menuCadastros.Name = "menuCadastros";
+            this.menuCadastros.Size = new System.Drawing.Size(71, 20);
             this.menuCadastros.Text = "Cadastros";
+            // 
+            // menuLivros
+            // 
+            this.menuLivros.Name = "menuLivros";
+            this.menuLivros.Size = new System.Drawing.Size(115, 22);
             this.menuLivros.Text = "Livros";
+            // 
+            // menuAutores
+            // 
+            this.menuAutores.Name = "menuAutores";
+            this.menuAutores.Size = new System.Drawing.Size(115, 22);
             this.menuAutores.Text = "Autores";
+            // 
+            // menuConsultas
+            // 
+            this.menuConsultas.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuEstoque,
+            this.menuVendas});
+            this.menuConsultas.Name = "menuConsultas";
+            this.menuConsultas.Size = new System.Drawing.Size(71, 20);
             this.menuConsultas.Text = "Consultas";
+            // 
+            // menuEstoque
+            // 
+            this.menuEstoque.Name = "menuEstoque";
+            this.menuEstoque.Size = new System.Drawing.Size(116, 22);
             this.menuEstoque.Text = "Estoque";
+            // 
+            // menuVendas
+            // 
+            this.menuVendas.Name = "menuVendas";
+            this.menuVendas.Size = new System.Drawing.Size(116, 22);
             this.menuVendas.Text = "Vendas";
+            // 
+            // menuRelatorios
+            // 
+            this.menuRelatorios.Name = "menuRelatorios";
+            this.menuRelatorios.Size = new System.Drawing.Size(71, 20);
             this.menuRelatorios.Text = "Relatórios";
+            // 
+            // menuSair
+            // 
+            this.menuSair.Name = "menuSair";
+            this.menuSair.Size = new System.Drawing.Size(38, 20);
             this.menuSair.Text = "Sair";
-
-            // apply menu colors
-            this.menuStrip1.BackColor = corAzul;
-            this.menuStrip1.ForeColor = corBranco;
-            this.menuStrip1.RenderMode = ToolStripRenderMode.Professional;
-
+            // 
             // panelConteudo
+            // 
+            this.panelConteudo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(207)))), ((int)(((byte)(207)))));
+            this.panelConteudo.Controls.Add(this.panelLivros);
+            this.panelConteudo.Controls.Add(this.panelAutores);
+            this.panelConteudo.Controls.Add(this.panelEstoque);
+            this.panelConteudo.Controls.Add(this.panelVendas);
+            this.panelConteudo.Controls.Add(this.panelRelatorios);
             this.panelConteudo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelConteudo.Location = new System.Drawing.Point(0, 28);
+            this.panelConteudo.Location = new System.Drawing.Point(0, 24);
             this.panelConteudo.Name = "panelConteudo";
-            this.panelConteudo.Size = new System.Drawing.Size(1100, 620);
-            this.panelConteudo.BackColor = corFundo;
-
-            // form base
-            this.BackColor = corFundo;
-            this.ClientSize = new System.Drawing.Size(1100, 650);
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Sistema TWS - Editora";
-
-            // -------------------- LIVROS PANEL --------------------
-            this.panelLivros.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelLivros.Visible = false;
-            this.panelLivros.BackColor = corFundo;
-
-            // inputs
-            var txtStyleWidth = 300;
-            this.txtLivroTitulo.Location = new System.Drawing.Point(20, 18);
-            this.txtLivroTitulo.Width = txtStyleWidth;
-            this.txtLivroTitulo.Name = "txtLivroTitulo";
-
-            this.cmbLivroAutor.Location = new System.Drawing.Point(340, 18);
-            this.cmbLivroAutor.Width = 220;
-            this.cmbLivroAutor.Name = "cmbLivroAutor";
-
-            this.txtLivroCategoria.Location = new System.Drawing.Point(570, 18);
-            this.txtLivroCategoria.Width = 180;
-            this.txtLivroCategoria.Name = "txtLivroCategoria";
-
-            this.txtLivroPreco.Location = new System.Drawing.Point(20, 56);
-            this.txtLivroPreco.Width = 120;
-            this.txtLivroPreco.Name = "txtLivroPreco";
-
-            this.txtLivroEstoque.Location = new System.Drawing.Point(160, 56);
-            this.txtLivroEstoque.Width = 120;
-            this.txtLivroEstoque.Name = "txtLivroEstoque";
-
-            // buttons styled
-            ApplyPrimaryButtonStyle(this.btnLivroAdicionar, "Adicionar", 300, 54, corAzul, corBranco);
-            ApplyPrimaryButtonStyle(this.btnLivroEditar, "Editar", 410, 54, corAzul, corBranco);
-            ApplyPrimaryButtonStyle(this.btnLivroExcluir, "Excluir", 520, 54, corAzul, corBranco);
-            ApplyPrimaryButtonStyle(this.btnLivroAtualizar, "Atualizar", 640, 54, corAzul, corBranco);
-
-            // datagrid livros
-            this.dgvLivros.Location = new System.Drawing.Point(20, 100);
-            this.dgvLivros.Size = new System.Drawing.Size(980, 480);
-            this.dgvLivros.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                                  | System.Windows.Forms.AnchorStyles.Left)
-                                  | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvLivros.ReadOnly = true;
-            this.dgvLivros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            StyleDataGridView(this.dgvLivros, corAzul);
-
+            this.panelConteudo.Size = new System.Drawing.Size(1100, 626);
+            this.panelConteudo.TabIndex = 0;
+            // 
+            // panelLivros
+            // 
+            this.panelLivros.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(207)))), ((int)(((byte)(207)))));
+            this.panelLivros.Controls.Add(this.pictureBox1);
             this.panelLivros.Controls.Add(this.txtLivroTitulo);
             this.panelLivros.Controls.Add(this.cmbLivroAutor);
             this.panelLivros.Controls.Add(this.txtLivroCategoria);
@@ -237,111 +235,320 @@ namespace SeuProjeto
             this.panelLivros.Controls.Add(this.btnLivroExcluir);
             this.panelLivros.Controls.Add(this.btnLivroAtualizar);
             this.panelLivros.Controls.Add(this.dgvLivros);
-
-            // -------------------- AUTORES PANEL --------------------
-            this.panelAutores.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelAutores.Visible = false;
-            this.panelAutores.BackColor = corFundo;
-
-            this.txtAutorNome.Location = new System.Drawing.Point(20, 18);
-            this.txtAutorNome.Width = 420;
-            this.txtAutorNome.Name = "txtAutorNome";
-
-            ApplyPrimaryButtonStyle(this.btnAutorAdicionar, "Adicionar", 460, 16, corAzul, corBranco);
-            ApplyPrimaryButtonStyle(this.btnAutorExcluir, "Excluir", 580, 16, corAzul, corBranco);
-            ApplyPrimaryButtonStyle(this.btnAutorAtualizar, "Atualizar", 700, 16, corAzul, corBranco);
-
-            this.dgvAutores.Location = new System.Drawing.Point(20, 60);
-            this.dgvAutores.Size = new System.Drawing.Size(980, 520);
-            this.dgvAutores.ReadOnly = true;
-            this.dgvAutores.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            StyleDataGridView(this.dgvAutores, corAzul);
-
+            this.panelLivros.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelLivros.Location = new System.Drawing.Point(0, 0);
+            this.panelLivros.Name = "panelLivros";
+            this.panelLivros.Size = new System.Drawing.Size(1100, 626);
+            this.panelLivros.TabIndex = 0;
+            this.panelLivros.Visible = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::tws_sistema.Properties.Resources.slogan_Tws1;
+            this.pictureBox1.Location = new System.Drawing.Point(1014, 18);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(74, 76);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
+            // txtLivroTitulo
+            // 
+            this.txtLivroTitulo.Location = new System.Drawing.Point(20, 18);
+            this.txtLivroTitulo.Name = "txtLivroTitulo";
+            this.txtLivroTitulo.Size = new System.Drawing.Size(300, 20);
+            this.txtLivroTitulo.TabIndex = 0;
+            // 
+            // cmbLivroAutor
+            // 
+            this.cmbLivroAutor.Location = new System.Drawing.Point(340, 18);
+            this.cmbLivroAutor.Name = "cmbLivroAutor";
+            this.cmbLivroAutor.Size = new System.Drawing.Size(220, 21);
+            this.cmbLivroAutor.TabIndex = 1;
+            // 
+            // txtLivroCategoria
+            // 
+            this.txtLivroCategoria.Location = new System.Drawing.Point(570, 18);
+            this.txtLivroCategoria.Name = "txtLivroCategoria";
+            this.txtLivroCategoria.Size = new System.Drawing.Size(180, 20);
+            this.txtLivroCategoria.TabIndex = 2;
+            // 
+            // txtLivroPreco
+            // 
+            this.txtLivroPreco.Location = new System.Drawing.Point(20, 56);
+            this.txtLivroPreco.Name = "txtLivroPreco";
+            this.txtLivroPreco.Size = new System.Drawing.Size(120, 20);
+            this.txtLivroPreco.TabIndex = 3;
+            // 
+            // txtLivroEstoque
+            // 
+            this.txtLivroEstoque.Location = new System.Drawing.Point(160, 56);
+            this.txtLivroEstoque.Name = "txtLivroEstoque";
+            this.txtLivroEstoque.Size = new System.Drawing.Size(120, 20);
+            this.txtLivroEstoque.TabIndex = 4;
+            // 
+            // btnLivroAdicionar
+            // 
+            this.btnLivroAdicionar.Location = new System.Drawing.Point(0, 0);
+            this.btnLivroAdicionar.Name = "btnLivroAdicionar";
+            this.btnLivroAdicionar.Size = new System.Drawing.Size(75, 23);
+            this.btnLivroAdicionar.TabIndex = 5;
+            // 
+            // btnLivroEditar
+            // 
+            this.btnLivroEditar.Location = new System.Drawing.Point(0, 0);
+            this.btnLivroEditar.Name = "btnLivroEditar";
+            this.btnLivroEditar.Size = new System.Drawing.Size(75, 23);
+            this.btnLivroEditar.TabIndex = 6;
+            // 
+            // btnLivroExcluir
+            // 
+            this.btnLivroExcluir.Location = new System.Drawing.Point(0, 0);
+            this.btnLivroExcluir.Name = "btnLivroExcluir";
+            this.btnLivroExcluir.Size = new System.Drawing.Size(75, 23);
+            this.btnLivroExcluir.TabIndex = 7;
+            // 
+            // btnLivroAtualizar
+            // 
+            this.btnLivroAtualizar.Location = new System.Drawing.Point(0, 0);
+            this.btnLivroAtualizar.Name = "btnLivroAtualizar";
+            this.btnLivroAtualizar.Size = new System.Drawing.Size(75, 23);
+            this.btnLivroAtualizar.TabIndex = 8;
+            // 
+            // dgvLivros
+            // 
+            this.dgvLivros.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvLivros.Location = new System.Drawing.Point(20, 100);
+            this.dgvLivros.Name = "dgvLivros";
+            this.dgvLivros.ReadOnly = true;
+            this.dgvLivros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvLivros.Size = new System.Drawing.Size(1880, 1006);
+            this.dgvLivros.TabIndex = 9;
+            // 
+            // panelAutores
+            // 
+            this.panelAutores.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(207)))), ((int)(((byte)(207)))));
             this.panelAutores.Controls.Add(this.txtAutorNome);
             this.panelAutores.Controls.Add(this.btnAutorAdicionar);
             this.panelAutores.Controls.Add(this.btnAutorExcluir);
             this.panelAutores.Controls.Add(this.btnAutorAtualizar);
             this.panelAutores.Controls.Add(this.dgvAutores);
-
-            // -------------------- ESTOQUE PANEL --------------------
-            this.panelEstoque.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelEstoque.Visible = false;
-            this.panelEstoque.BackColor = corFundo;
-
-            this.cmbEstoqueLivro.Location = new System.Drawing.Point(20, 18);
-            this.cmbEstoqueLivro.Width = 520;
-            this.cmbEstoqueLivro.Name = "cmbEstoqueLivro";
-
-            this.nudEstoqueQtd.Location = new System.Drawing.Point(560, 18);
-            this.nudEstoqueQtd.Width = 80;
-
-            ApplyPrimaryButtonStyle(this.btnEstoqueEntrada, "Entrada", 660, 16, corAzul, corBranco);
-            ApplyPrimaryButtonStyle(this.btnEstoqueSaida, "Saída", 780, 16, corAzul, corBranco);
-            ApplyPrimaryButtonStyle(this.btnEstoqueAtualizar, "Atualizar", 900, 16, corAzul, corBranco);
-
+            this.panelAutores.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelAutores.Location = new System.Drawing.Point(0, 0);
+            this.panelAutores.Name = "panelAutores";
+            this.panelAutores.Size = new System.Drawing.Size(1100, 626);
+            this.panelAutores.TabIndex = 1;
+            this.panelAutores.Visible = false;
+            // 
+            // txtAutorNome
+            // 
+            this.txtAutorNome.Location = new System.Drawing.Point(20, 18);
+            this.txtAutorNome.Name = "txtAutorNome";
+            this.txtAutorNome.Size = new System.Drawing.Size(420, 20);
+            this.txtAutorNome.TabIndex = 0;
+            // 
+            // btnAutorAdicionar
+            // 
+            this.btnAutorAdicionar.Location = new System.Drawing.Point(0, 0);
+            this.btnAutorAdicionar.Name = "btnAutorAdicionar";
+            this.btnAutorAdicionar.Size = new System.Drawing.Size(75, 23);
+            this.btnAutorAdicionar.TabIndex = 1;
+            // 
+            // btnAutorExcluir
+            // 
+            this.btnAutorExcluir.Location = new System.Drawing.Point(0, 0);
+            this.btnAutorExcluir.Name = "btnAutorExcluir";
+            this.btnAutorExcluir.Size = new System.Drawing.Size(75, 23);
+            this.btnAutorExcluir.TabIndex = 2;
+            // 
+            // btnAutorAtualizar
+            // 
+            this.btnAutorAtualizar.Location = new System.Drawing.Point(0, 0);
+            this.btnAutorAtualizar.Name = "btnAutorAtualizar";
+            this.btnAutorAtualizar.Size = new System.Drawing.Size(75, 23);
+            this.btnAutorAtualizar.TabIndex = 3;
+            // 
+            // dgvAutores
+            // 
+            this.dgvAutores.Location = new System.Drawing.Point(20, 60);
+            this.dgvAutores.Name = "dgvAutores";
+            this.dgvAutores.ReadOnly = true;
+            this.dgvAutores.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAutores.Size = new System.Drawing.Size(980, 520);
+            this.dgvAutores.TabIndex = 4;
+            // 
+            // panelEstoque
+            // 
+            this.panelEstoque.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(207)))), ((int)(((byte)(207)))));
             this.panelEstoque.Controls.Add(this.cmbEstoqueLivro);
             this.panelEstoque.Controls.Add(this.nudEstoqueQtd);
             this.panelEstoque.Controls.Add(this.btnEstoqueEntrada);
             this.panelEstoque.Controls.Add(this.btnEstoqueSaida);
             this.panelEstoque.Controls.Add(this.btnEstoqueAtualizar);
-
-            // -------------------- VENDAS PANEL --------------------
-            this.panelVendas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelVendas.Visible = false;
-            this.panelVendas.BackColor = corFundo;
-
-            this.cmbVendaLivro.Location = new System.Drawing.Point(20, 18);
-            this.cmbVendaLivro.Width = 520;
-            this.cmbVendaLivro.Name = "cmbVendaLivro";
-
-            this.nudVendaQtd.Location = new System.Drawing.Point(560, 18);
-            this.nudVendaQtd.Width = 80;
-            this.nudVendaQtd.Minimum = 1;
-            this.nudVendaQtd.Value = 1;
-
-            ApplyPrimaryButtonStyle(this.btnRegistrarVenda, "Registrar Venda", 660, 16, corAzul, corBranco);
-
-            this.dgvVendas.Location = new System.Drawing.Point(20, 60);
-            this.dgvVendas.Size = new System.Drawing.Size(980, 520);
-            this.dgvVendas.ReadOnly = true;
-            this.dgvVendas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            StyleDataGridView(this.dgvVendas, corAzul);
-
+            this.panelEstoque.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelEstoque.Location = new System.Drawing.Point(0, 0);
+            this.panelEstoque.Name = "panelEstoque";
+            this.panelEstoque.Size = new System.Drawing.Size(1100, 626);
+            this.panelEstoque.TabIndex = 2;
+            this.panelEstoque.Visible = false;
+            // 
+            // cmbEstoqueLivro
+            // 
+            this.cmbEstoqueLivro.Location = new System.Drawing.Point(20, 18);
+            this.cmbEstoqueLivro.Name = "cmbEstoqueLivro";
+            this.cmbEstoqueLivro.Size = new System.Drawing.Size(520, 21);
+            this.cmbEstoqueLivro.TabIndex = 0;
+            // 
+            // nudEstoqueQtd
+            // 
+            this.nudEstoqueQtd.Location = new System.Drawing.Point(560, 18);
+            this.nudEstoqueQtd.Name = "nudEstoqueQtd";
+            this.nudEstoqueQtd.Size = new System.Drawing.Size(80, 20);
+            this.nudEstoqueQtd.TabIndex = 1;
+            // 
+            // btnEstoqueEntrada
+            // 
+            this.btnEstoqueEntrada.Location = new System.Drawing.Point(0, 0);
+            this.btnEstoqueEntrada.Name = "btnEstoqueEntrada";
+            this.btnEstoqueEntrada.Size = new System.Drawing.Size(75, 23);
+            this.btnEstoqueEntrada.TabIndex = 2;
+            // 
+            // btnEstoqueSaida
+            // 
+            this.btnEstoqueSaida.Location = new System.Drawing.Point(0, 0);
+            this.btnEstoqueSaida.Name = "btnEstoqueSaida";
+            this.btnEstoqueSaida.Size = new System.Drawing.Size(75, 23);
+            this.btnEstoqueSaida.TabIndex = 3;
+            // 
+            // btnEstoqueAtualizar
+            // 
+            this.btnEstoqueAtualizar.Location = new System.Drawing.Point(0, 0);
+            this.btnEstoqueAtualizar.Name = "btnEstoqueAtualizar";
+            this.btnEstoqueAtualizar.Size = new System.Drawing.Size(75, 23);
+            this.btnEstoqueAtualizar.TabIndex = 4;
+            // 
+            // panelVendas
+            // 
+            this.panelVendas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(207)))), ((int)(((byte)(207)))));
             this.panelVendas.Controls.Add(this.cmbVendaLivro);
             this.panelVendas.Controls.Add(this.nudVendaQtd);
             this.panelVendas.Controls.Add(this.btnRegistrarVenda);
             this.panelVendas.Controls.Add(this.dgvVendas);
-
-            // -------------------- RELATÓRIOS PANEL --------------------
-            this.panelRelatorios.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelRelatorios.Visible = false;
-            this.panelRelatorios.BackColor = corFundo;
-
-            ApplyPrimaryButtonStyle(this.btnRelTop, "Top vendidos", 20, 18, corAzul, corBranco);
-            ApplyPrimaryButtonStyle(this.btnRelEstoqueBaixo, "Estoque baixo", 160, 18, corAzul, corBranco);
-
-            this.dgvRelatorios.Location = new System.Drawing.Point(20, 60);
-            this.dgvRelatorios.Size = new System.Drawing.Size(980, 520);
-            this.dgvRelatorios.ReadOnly = true;
-            this.dgvRelatorios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            StyleDataGridView(this.dgvRelatorios, corAzul);
-
+            this.panelVendas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelVendas.Location = new System.Drawing.Point(0, 0);
+            this.panelVendas.Name = "panelVendas";
+            this.panelVendas.Size = new System.Drawing.Size(1100, 626);
+            this.panelVendas.TabIndex = 3;
+            this.panelVendas.Visible = false;
+            // 
+            // cmbVendaLivro
+            // 
+            this.cmbVendaLivro.Location = new System.Drawing.Point(20, 18);
+            this.cmbVendaLivro.Name = "cmbVendaLivro";
+            this.cmbVendaLivro.Size = new System.Drawing.Size(520, 21);
+            this.cmbVendaLivro.TabIndex = 0;
+            // 
+            // nudVendaQtd
+            // 
+            this.nudVendaQtd.Location = new System.Drawing.Point(560, 18);
+            this.nudVendaQtd.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudVendaQtd.Name = "nudVendaQtd";
+            this.nudVendaQtd.Size = new System.Drawing.Size(80, 20);
+            this.nudVendaQtd.TabIndex = 1;
+            this.nudVendaQtd.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // btnRegistrarVenda
+            // 
+            this.btnRegistrarVenda.Location = new System.Drawing.Point(0, 0);
+            this.btnRegistrarVenda.Name = "btnRegistrarVenda";
+            this.btnRegistrarVenda.Size = new System.Drawing.Size(75, 23);
+            this.btnRegistrarVenda.TabIndex = 2;
+            // 
+            // dgvVendas
+            // 
+            this.dgvVendas.Location = new System.Drawing.Point(20, 60);
+            this.dgvVendas.Name = "dgvVendas";
+            this.dgvVendas.ReadOnly = true;
+            this.dgvVendas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvVendas.Size = new System.Drawing.Size(980, 520);
+            this.dgvVendas.TabIndex = 3;
+            // 
+            // panelRelatorios
+            // 
+            this.panelRelatorios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(207)))), ((int)(((byte)(207)))));
             this.panelRelatorios.Controls.Add(this.btnRelTop);
             this.panelRelatorios.Controls.Add(this.btnRelEstoqueBaixo);
             this.panelRelatorios.Controls.Add(this.dgvRelatorios);
-
-            // Add panels to panelConteudo
-            this.panelConteudo.Controls.Add(this.panelLivros);
-            this.panelConteudo.Controls.Add(this.panelAutores);
-            this.panelConteudo.Controls.Add(this.panelEstoque);
-            this.panelConteudo.Controls.Add(this.panelVendas);
-            this.panelConteudo.Controls.Add(this.panelRelatorios);
-
-            // Add to form
+            this.panelRelatorios.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelRelatorios.Location = new System.Drawing.Point(0, 0);
+            this.panelRelatorios.Name = "panelRelatorios";
+            this.panelRelatorios.Size = new System.Drawing.Size(1100, 626);
+            this.panelRelatorios.TabIndex = 4;
+            this.panelRelatorios.Visible = false;
+            // 
+            // btnRelTop
+            // 
+            this.btnRelTop.Location = new System.Drawing.Point(0, 0);
+            this.btnRelTop.Name = "btnRelTop";
+            this.btnRelTop.Size = new System.Drawing.Size(75, 23);
+            this.btnRelTop.TabIndex = 0;
+            // 
+            // btnRelEstoqueBaixo
+            // 
+            this.btnRelEstoqueBaixo.Location = new System.Drawing.Point(0, 0);
+            this.btnRelEstoqueBaixo.Name = "btnRelEstoqueBaixo";
+            this.btnRelEstoqueBaixo.Size = new System.Drawing.Size(75, 23);
+            this.btnRelEstoqueBaixo.TabIndex = 1;
+            // 
+            // dgvRelatorios
+            // 
+            this.dgvRelatorios.Location = new System.Drawing.Point(20, 60);
+            this.dgvRelatorios.Name = "dgvRelatorios";
+            this.dgvRelatorios.ReadOnly = true;
+            this.dgvRelatorios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRelatorios.Size = new System.Drawing.Size(980, 520);
+            this.dgvRelatorios.TabIndex = 2;
+            // 
+            // FormSistema
+            // 
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(207)))), ((int)(((byte)(207)))));
+            this.ClientSize = new System.Drawing.Size(1100, 650);
             this.Controls.Add(this.panelConteudo);
             this.Controls.Add(this.menuStrip1);
-
             this.MainMenuStrip = this.menuStrip1;
+            this.Name = "FormSistema";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Sistema TWS - Editora";
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.panelConteudo.ResumeLayout(false);
+            this.panelLivros.ResumeLayout(false);
+            this.panelLivros.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLivros)).EndInit();
+            this.panelAutores.ResumeLayout(false);
+            this.panelAutores.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAutores)).EndInit();
+            this.panelEstoque.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudEstoqueQtd)).EndInit();
+            this.panelVendas.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudVendaQtd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVendas)).EndInit();
+            this.panelRelatorios.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatorios)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
@@ -374,5 +581,7 @@ namespace SeuProjeto
             dgv.GridColor = System.Drawing.Color.LightGray;
             dgv.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(245, 245, 245);
         }
+
+        private PictureBox pictureBox1;
     }
 }
