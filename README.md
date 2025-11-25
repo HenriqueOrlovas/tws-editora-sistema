@@ -1,1 +1,6 @@
-Sistema Interno para a Editora, não foi feito em mais de uma pagina, mas pretendo adicionar mais uma para o login dos administradores.
+Projeto de Sistema Interno para adicionar livros e autores, remover livros e autores, e ver a lista de livros vendidos
+feito por
+Bruno Spinelli
+Henrique Batista
+João Andrade
+Luiza Maciel
