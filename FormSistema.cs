@@ -1,150 +1,78 @@
-﻿using MySql.Data.MySqlClient;
+﻿// FormSistema.cs
+using MySql.Data.MySqlClient;
+using SeuProjeto;
 using System;
 using System.Data;
-using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
-namespace SeuProjeto
+namespace Sistema_tws
 {
     public partial class FormSistema : Form
     {
-        // colors used across code (same as designer)
-        private readonly Color CorFundo = ColorTranslator.FromHtml("#CFCFCF");
-        private readonly Color CorAzul = ColorTranslator.FromHtml("#072E6A");
-        private readonly Color CorBranco = Color.White;
+        private DataTable vendaCarrinho = new DataTable();
 
         public FormSistema()
         {
             InitializeComponent();
-            WireEvents();
-            ShowPanel("livros"); // abrir direto em Livros
+            WireRuntimeEvents();
+            InitHelpers();
         }
 
-        private void WireEvents()
+        private void InitHelpers()
         {
-            // menu navigation
-            menuLivros.Click += (s, e) => ShowPanel("livros");
-            menuAutores.Click += (s, e) => ShowPanel("autores");
-            menuEstoque.Click += (s, e) => ShowPanel("estoque");
-            menuVendas.Click += (s, e) => ShowPanel("vendas");
-            menuRelatorios.Click += (s, e) => ShowPanel("relatorios");
-            menuSair.Click += (s, e) => Application.Exit();
+            vendaCarrinho.Columns.Add("IdLivro", typeof(int));
+            vendaCarrinho.Columns.Add("Título", typeof(string));
+            vendaCarrinho.Columns.Add("Quantidade", typeof(int));
+            vendaCarrinho.Columns.Add("PreçoUnit", typeof(decimal));
+            vendaCarrinho.Columns.Add("Subtotal", typeof(decimal));
 
-            // livros
-            btnLivroAdicionar.Click += BtnLivroAdicionar_Click;
-            btnLivroAtualizar.Click += (s, e) => LoadLivros();
-            btnLivroExcluir.Click += BtnLivroExcluir_Click;
-            btnLivroEditar.Click += BtnLivroEditar_Click;
-            dgvLivros.CellDoubleClick += DgvLivros_CellDoubleClick;
-
-            // autores
-            btnAutorAdicionar.Click += BtnAutorAdicionar_Click;
-            btnAutorAtualizar.Click += (s, e) => LoadAutores();
-            btnAutorExcluir.Click += BtnAutorExcluir_Click;
-            dgvAutores.CellDoubleClick += DgvAutores_CellDoubleClick;
-
-            // estoque
-            btnEstoqueEntrada.Click += BtnEstoqueEntrada_Click;
-            btnEstoqueSaida.Click += BtnEstoqueSaida_Click;
-            btnEstoqueAtualizar.Click += (s, e) => LoadLivrosInEstoqueCombo();
-
-            // vendas
-            btnRegistrarVenda.Click += BtnRegistrarVenda_Click;
-            btnRegistrarVenda.MouseEnter += (s, e) => ((Button)s).BackColor = ControlPaint.Light(CorAzul);
-            btnRegistrarVenda.MouseLeave += (s, e) => ((Button)s).BackColor = CorAzul;
-
-            // relatorios
-            btnRelTop.Click += BtnRelTop_Click;
-            btnRelEstoqueBaixo.Click += BtnRelEstoqueBaixo_Click;
-
-            // Add hover effects for primary buttons globally
-            foreach (Control c in this.Controls)
-            {
-                WireHoverRecursive(c);
-            }
+            // safe init: if designer didn't create some controls, skip
+            try { RefreshLivrosGrid(); } catch { }
+            try { RefreshAutoresGrid(); } catch { }
+            try { RefreshCuponsGrid(); } catch { }
+            try { RefreshVendasHistorico(); } catch { }
+            try { LoadCombos(); } catch { }
         }
 
-        private void WireHoverRecursive(Control parent)
+        private void WireRuntimeEvents()
         {
-            foreach (Control c in parent.Controls)
-            {
-                if (c is Button b)
-                {
-                    b.MouseEnter += (s, e) => b.BackColor = ControlPaint.Light(CorAzul);
-                    b.MouseLeave += (s, e) => b.BackColor = CorAzul;
-                }
-                // recurse
-                if (c.HasChildren) WireHoverRecursive(c);
-            }
+            // Attach events only if controls exist (prevents null-ref)
+            if (btnLivroAdd != null) btnLivroAdd.Click += (s, e) => AddLivro();
+            if (btnLivroEdit != null) btnLivroEdit.Click += (s, e) => EditLivro();
+            if (btnLivroDelete != null) btnLivroDelete.Click += (s, e) => DeleteLivro();
+            if (btnLivroRefresh != null) btnLivroRefresh.Click += (s, e) => RefreshLivrosGrid();
+
+            if (btnAutorAdd != null) btnAutorAdd.Click += (s, e) => AddAutor();
+            if (btnAutorEdit != null) btnAutorEdit.Click += (s, e) => EditAutor();
+            if (btnAutorDelete != null) btnAutorDelete.Click += (s, e) => DeleteAutor();
+            if (btnAutorRefresh != null) btnAutorRefresh.Click += (s, e) => RefreshAutoresGrid();
+
+            if (btnEstoqueEntrada != null) btnEstoqueEntrada.Click += (s, e) => AjustarEstoque(true);
+            if (btnEstoqueSaida != null) btnEstoqueSaida.Click += (s, e) => AjustarEstoque(false);
+            if (btnEstoqueRefresh != null) btnEstoqueRefresh.Click += (s, e) => LoadCombos();
+
+            if (btnCupomAdd != null) btnCupomAdd.Click += (s, e) => AddCupom();
+            if (btnCupomDelete != null) btnCupomDelete.Click += (s, e) => DeleteCupom();
+            if (btnCupomRefresh != null) btnCupomRefresh.Click += (s, e) => RefreshCuponsGrid();
+
+            if (btnVendaAdicionarItem != null) btnVendaAdicionarItem.Click += (s, e) => AddItemToCart();
+            if (btnVendaConcluir != null) btnVendaConcluir.Click += (s, e) => ConcluirVenda();
+
+            if (btnRelTopVendidos != null) btnRelTopVendidos.Click += (s, e) => RelTopVendidos();
+            if (btnRelEstoqueBaixo != null) btnRelEstoqueBaixo.Click += (s, e) => RelEstoqueBaixo();
         }
 
-        private void ShowPanel(string name)
+        // ------------------- Combos -------------------
+        private void LoadCombos()
         {
-            HideAllPanels();
-            switch (name.ToLower())
-            {
-                case "livros":
-                    panelLivros.Visible = true;
-                    LoadLivros();
-                    LoadAutoresInLivroCombo();
-                    LoadLivrosIntoCombos();
-                    break;
-                case "autores":
-                    panelAutores.Visible = true;
-                    LoadAutores();
-                    break;
-                case "estoque":
-                    panelEstoque.Visible = true;
-                    LoadLivrosInEstoqueCombo();
-                    break;
-                case "vendas":
-                    panelVendas.Visible = true;
-                    LoadLivrosInVendaCombo();
-                    LoadVendas();
-                    break;
-                case "relatorios":
-                    panelRelatorios.Visible = true;
-                    break;
-            }
+            LoadAutoresToCombo();
+            LoadLivrosToCombos();
         }
 
-        private void HideAllPanels()
+        private void LoadAutoresToCombo()
         {
-            panelLivros.Visible = false;
-            panelAutores.Visible = false;
-            panelEstoque.Visible = false;
-            panelVendas.Visible = false;
-            panelRelatorios.Visible = false;
-        }
-
-        // --------------- livros ----------------
-        private void LoadLivros()
-        {
-            try
-            {
-                using (var conn = Conexao.Conectar())
-                {
-                    conn.Open();
-                    string sql = @"
-                        SELECT l.IdLivros, l.Titulo_Liv, l.Preco_Liv, l.Categoria_Liv, l.Formato, l.Estoque_Liv,
-                               (SELECT GROUP_CONCAT(a.Nome_Aut SEPARATOR ', ')
-                                FROM Autores_Has_Livros ah JOIN Autores a ON ah.IdAutores = a.IdAutores
-                                WHERE ah.IdLivros = l.IdLivros) AS Autores
-                        FROM Livros l
-                        ORDER BY l.Titulo_Liv;";
-                    using (var da = new MySqlDataAdapter(sql, conn))
-                    {
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-                        dgvLivros.DataSource = dt;
-                    }
-                }
-            }
-            catch (Exception ex) { MessageBox.Show("Erro ao carregar livros: " + ex.Message); }
-        }
-
-        private void LoadAutoresInLivroCombo()
-        {
+            if (cmbLivroAutor == null) return;
             cmbLivroAutor.Items.Clear();
             try
             {
@@ -153,153 +81,244 @@ namespace SeuProjeto
                     conn.Open();
                     string sql = "SELECT IdAutores, Nome_Aut FROM Autores ORDER BY Nome_Aut";
                     using (var cmd = new MySqlCommand(sql, conn))
-                    using (var reader = cmd.ExecuteReader())
+                    using (var r = cmd.ExecuteReader())
                     {
-                        while (reader.Read())
-                        {
-                            cmbLivroAutor.Items.Add(new ComboboxItem(reader.GetInt32("IdAutores"), reader.GetString("Nome_Aut")));
-                        }
+                        while (r.Read())
+                            cmbLivroAutor.Items.Add(new ComboItem(r.GetInt32("IdAutores"), r.GetString("Nome_Aut")));
                     }
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Erro ao carregar autores: " + ex.Message); }
         }
 
-        private void BtnLivroAdicionar_Click(object sender, EventArgs e)
+        private void LoadLivrosToCombos()
         {
-            string titulo = txtLivroTitulo.Text.Trim();
-            string categoria = txtLivroCategoria.Text.Trim();
-            decimal preco = 0;
-            int estoque = 0;
-            int autorId = -1;
-
-            if (string.IsNullOrEmpty(titulo))
-            {
-                MessageBox.Show("Informe o título.");
-                return;
-            }
-
-            decimal.TryParse(txtLivroPreco.Text.Replace(',', '.'), out preco);
-            int.TryParse(txtLivroEstoque.Text, out estoque);
-            if (cmbLivroAutor.SelectedItem is ComboboxItem it) autorId = it.Id;
-
+            if (cmbEstoqueLivro == null || cmbVendaLivro == null) return;
+            cmbEstoqueLivro.Items.Clear();
+            cmbVendaLivro.Items.Clear();
             try
             {
                 using (var conn = Conexao.Conectar())
                 {
                     conn.Open();
-                    string sql = "INSERT INTO Livros (Titulo_Liv, Preco_Liv, Categoria_Liv, Formato, Estoque_Liv) VALUES (@t,@p,@c,'fisico',@e)";
+                    string sql = "SELECT IdLivros, Titulo_Liv, Estoque_Liv, Preco_Liv FROM Livros ORDER BY Titulo_Liv";
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    using (var r = cmd.ExecuteReader())
+                    {
+                        while (r.Read())
+                        {
+                            int id = r.GetInt32("IdLivros");
+                            string title = r.GetString("Titulo_Liv");
+                            int est = r.IsDBNull(r.GetOrdinal("Estoque_Liv")) ? 0 : r.GetInt32("Estoque_Liv");
+                            decimal preco = r.IsDBNull(r.GetOrdinal("Preco_Liv")) ? 0 : r.GetDecimal("Preco_Liv");
+
+                            cmbEstoqueLivro.Items.Add(new ComboItem(id, $"{id} - {title} (Est: {est})"));
+                            cmbVendaLivro.Items.Add(new ComboItem(id, $"{id} - {title} | R$ {preco}"));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show("Erro ao carregar livros: " + ex.Message); }
+        }
+
+        // ------------------- Livros CRUD -------------------
+        private void AddLivro()
+        {
+            string titulo = GetTextIfNotPlaceholder(txtLivroTitulo);
+            string categoria = GetTextIfNotPlaceholder(txtLivroCategoria);
+            string precoText = GetTextIfNotPlaceholder(txtLivroPreco);
+            string formato = cmbLivroFormato?.SelectedItem?.ToString() ?? "fisico";
+            int estoque = nudLivroEstoque != null ? (int)nudLivroEstoque.Value : 0;
+
+            if (string.IsNullOrWhiteSpace(titulo)) { MessageBox.Show("Informe o título."); return; }
+            decimal preco = decimal.TryParse(precoText.Replace(',', '.'), out var p) ? p : 0;
+            try
+            {
+                using (var conn = Conexao.Conectar())
+                {
+                    conn.Open();
+                    string sql = "INSERT INTO Livros (Titulo_Liv, Preco_Liv, Categoria_Liv, Formato, Estoque_Liv) VALUES (@t,@p,@c,@f,@e)";
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
                         cmd.Parameters.AddWithValue("@t", titulo);
                         cmd.Parameters.AddWithValue("@p", preco);
                         cmd.Parameters.AddWithValue("@c", categoria);
+                        cmd.Parameters.AddWithValue("@f", formato);
                         cmd.Parameters.AddWithValue("@e", estoque);
                         cmd.ExecuteNonQuery();
                     }
-
-                    long idLivro = CmdLastInsertId(conn);
-
-                    if (autorId > 0)
-                    {
-                        string rel = "INSERT INTO Autores_Has_Livros (IdAutores, IdLivros) VALUES (@a,@l)";
-                        using (var cmd2 = new MySqlCommand(rel, conn))
-                        {
-                            cmd2.Parameters.AddWithValue("@a", autorId);
-                            cmd2.Parameters.AddWithValue("@l", idLivro);
-                            cmd2.ExecuteNonQuery();
-                        }
-                    }
                 }
-
-                MessageBox.Show("Livro adicionado com sucesso.");
-                ClearLivroInputs();
-                LoadLivros();
-                LoadLivrosIntoCombos();
+                MessageBox.Show("Livro adicionado.");
+                RefreshLivrosGrid();
+                LoadLivrosToCombos();
             }
             catch (Exception ex) { MessageBox.Show("Erro ao adicionar livro: " + ex.Message); }
         }
 
-        private void BtnLivroExcluir_Click(object sender, EventArgs e)
+        private void EditLivro()
         {
-            if (dgvLivros.SelectedRows.Count == 0) { MessageBox.Show("Selecione um livro."); return; }
+            if (dgvLivros == null || dgvLivros.SelectedRows.Count == 0) { MessageBox.Show("Selecione um livro."); return; }
             int id = Convert.ToInt32(dgvLivros.SelectedRows[0].Cells["IdLivros"].Value);
-            if (MessageBox.Show("Excluir livro selecionado?", "Confirma", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
-
+            string titulo = GetTextIfNotPlaceholder(txtLivroTitulo);
+            string categoria = GetTextIfNotPlaceholder(txtLivroCategoria);
+            string precoText = GetTextIfNotPlaceholder(txtLivroPreco);
+            string formato = cmbLivroFormato?.SelectedItem?.ToString() ?? "fisico";
+            int estoque = nudLivroEstoque != null ? (int)nudLivroEstoque.Value : 0;
+            decimal preco = decimal.TryParse(precoText.Replace(',', '.'), out var p) ? p : 0;
             try
             {
                 using (var conn = Conexao.Conectar())
                 {
                     conn.Open();
-                    string delRel = "DELETE FROM Autores_Has_Livros WHERE IdLivros=@l";
-                    using (var cmd = new MySqlCommand(delRel, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@l", id);
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    string del = "DELETE FROM Livros WHERE IdLivros=@id";
-                    using (var cmd2 = new MySqlCommand(del, conn))
-                    {
-                        cmd2.Parameters.AddWithValue("@id", id);
-                        cmd2.ExecuteNonQuery();
-                    }
-                }
-
-                MessageBox.Show("Livro excluído.");
-                LoadLivros();
-                LoadLivrosIntoCombos();
-            }
-            catch (Exception ex) { MessageBox.Show("Erro ao excluir: " + ex.Message); }
-        }
-
-        private void BtnLivroEditar_Click(object sender, EventArgs e)
-        {
-            if (dgvLivros.SelectedRows.Count == 0) { MessageBox.Show("Selecione um livro."); return; }
-            int id = Convert.ToInt32(dgvLivros.SelectedRows[0].Cells["IdLivros"].Value);
-
-            try
-            {
-                using (var conn = Conexao.Conectar())
-                {
-                    conn.Open();
-                    string sql = "SELECT * FROM Livros WHERE IdLivros=@id";
+                    string sql = "UPDATE Livros SET Titulo_Liv=@t, Preco_Liv=@p, Categoria_Liv=@c, Formato=@f, Estoque_Liv=@e WHERE IdLivros=@id";
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
+                        cmd.Parameters.AddWithValue("@t", titulo);
+                        cmd.Parameters.AddWithValue("@p", preco);
+                        cmd.Parameters.AddWithValue("@c", categoria);
+                        cmd.Parameters.AddWithValue("@f", formato);
+                        cmd.Parameters.AddWithValue("@e", estoque);
                         cmd.Parameters.AddWithValue("@id", id);
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                txtLivroTitulo.Text = reader["Titulo_Liv"]?.ToString();
-                                txtLivroCategoria.Text = reader["Categoria_Liv"]?.ToString();
-                                txtLivroPreco.Text = reader["Preco_Liv"]?.ToString();
-                                txtLivroEstoque.Text = reader["Estoque_Liv"]?.ToString();
-                            }
-                        }
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Livro atualizado.");
+                RefreshLivrosGrid();
+                LoadLivrosToCombos();
+            }
+            catch (Exception ex) { MessageBox.Show("Erro ao editar livro: " + ex.Message); }
+        }
+
+        private void DeleteLivro()
+        {
+            if (dgvLivros == null || dgvLivros.SelectedRows.Count == 0) { MessageBox.Show("Selecione um livro."); return; }
+            int id = Convert.ToInt32(dgvLivros.SelectedRows[0].Cells["IdLivros"].Value);
+            if (MessageBox.Show("Confirma exclusão?", "Excluir", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+            try
+            {
+                using (var conn = Conexao.Conectar())
+                {
+                    conn.Open();
+                    using (var cmd = new MySqlCommand("DELETE FROM Autores_Has_Livros WHERE IdLivros=@id", conn))
+                    { cmd.Parameters.AddWithValue("@id", id); cmd.ExecuteNonQuery(); }
+                    using (var cmd2 = new MySqlCommand("DELETE FROM Livros WHERE IdLivros=@id", conn))
+                    { cmd2.Parameters.AddWithValue("@id", id); cmd2.ExecuteNonQuery(); }
+                }
+                MessageBox.Show("Livro excluído.");
+                RefreshLivrosGrid();
+                LoadLivrosToCombos();
+            }
+            catch (Exception ex) { MessageBox.Show("Erro ao excluir livro: " + ex.Message); }
+        }
+
+        private void RefreshLivrosGrid()
+        {
+            if (dgvLivros == null) return;
+            try
+            {
+                using (var conn = Conexao.Conectar())
+                {
+                    conn.Open();
+                    string sql = @"
+                        SELECT l.IdLivros, l.Titulo_Liv, l.Preco_Liv, l.Categoria_Liv, l.Formato, l.Estoque_Liv,
+                        (SELECT GROUP_CONCAT(a.Nome_Aut SEPARATOR ', ') 
+                         FROM Autores_Has_Livros ah 
+                         JOIN Autores a ON ah.IdAutores = a.IdAutores 
+                         WHERE ah.IdLivros = l.IdLivros) AS Autores
+                        FROM Livros l ORDER BY l.Titulo_Liv";
+                    using (var da = new MySqlDataAdapter(sql, conn))
+                    {
+                        var dt = new DataTable();
+                        da.Fill(dt);
+                        dgvLivros.DataSource = dt;
                     }
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Erro ao carregar livro: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Erro ao carregar livros: " + ex.Message); }
         }
 
-        private void DgvLivros_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        // ------------------- Autores CRUD -------------------
+        private void AddAutor()
         {
-            BtnLivroEditar_Click(sender, e);
+            string nome = GetTextIfNotPlaceholder(txtAutorNome);
+            string nacional = GetTextIfNotPlaceholder(txtAutorNacionalidade);
+            string email = GetTextIfNotPlaceholder(txtAutorEmail);
+            if (string.IsNullOrWhiteSpace(nome)) { MessageBox.Show("Informe o nome."); return; }
+            try
+            {
+                using (var conn = Conexao.Conectar())
+                {
+                    conn.Open();
+                    string sql = "INSERT INTO Autores (Nome_Aut, Nacionalidade_Aut, Email_Aut) VALUES (@n,@na,@e)";
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@n", nome);
+                        cmd.Parameters.AddWithValue("@na", nacional);
+                        cmd.Parameters.AddWithValue("@e", email);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Autor adicionado.");
+                RefreshAutoresGrid();
+                LoadAutoresToCombo();
+            }
+            catch (Exception ex) { MessageBox.Show("Erro ao adicionar autor: " + ex.Message); }
         }
 
-        private void ClearLivroInputs()
+        private void EditAutor()
         {
-            txtLivroTitulo.Text = "";
-            txtLivroCategoria.Text = "";
-            txtLivroPreco.Text = "";
-            txtLivroEstoque.Text = "";
-            cmbLivroAutor.SelectedIndex = -1;
+            if (dgvAutores == null || dgvAutores.SelectedRows.Count == 0) { MessageBox.Show("Selecione um autor."); return; }
+            int id = Convert.ToInt32(dgvAutores.SelectedRows[0].Cells["IdAutores"].Value);
+            string nome = GetTextIfNotPlaceholder(txtAutorNome);
+            string nacional = GetTextIfNotPlaceholder(txtAutorNacionalidade);
+            string email = GetTextIfNotPlaceholder(txtAutorEmail);
+            try
+            {
+                using (var conn = Conexao.Conectar())
+                {
+                    conn.Open();
+                    string sql = "UPDATE Autores SET Nome_Aut=@n, Nacionalidade_Aut=@na, Email_Aut=@e WHERE IdAutores=@id";
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@n", nome);
+                        cmd.Parameters.AddWithValue("@na", nacional);
+                        cmd.Parameters.AddWithValue("@e", email);
+                        cmd.Parameters.AddWithValue("@id", id);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Autor atualizado.");
+                RefreshAutoresGrid();
+                LoadAutoresToCombo();
+            }
+            catch (Exception ex) { MessageBox.Show("Erro ao editar autor: " + ex.Message); }
         }
 
-        // --------------- autores ----------------
-        private void LoadAutores()
+        private void DeleteAutor()
         {
+            if (dgvAutores == null || dgvAutores.SelectedRows.Count == 0) { MessageBox.Show("Selecione um autor."); return; }
+            int id = Convert.ToInt32(dgvAutores.SelectedRows[0].Cells["IdAutores"].Value);
+            if (MessageBox.Show("Confirmar exclusão?", "Excluir", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+            try
+            {
+                using (var conn = Conexao.Conectar())
+                {
+                    conn.Open();
+                    using (var cmd = new MySqlCommand("DELETE FROM Autores_Has_Livros WHERE IdAutores=@id", conn))
+                    { cmd.Parameters.AddWithValue("@id", id); cmd.ExecuteNonQuery(); }
+                    using (var cmd2 = new MySqlCommand("DELETE FROM Autores WHERE IdAutores=@id", conn))
+                    { cmd2.Parameters.AddWithValue("@id", id); cmd2.ExecuteNonQuery(); }
+                }
+                MessageBox.Show("Autor excluído.");
+                RefreshAutoresGrid();
+                LoadAutoresToCombo();
+            }
+            catch (Exception ex) { MessageBox.Show("Erro ao excluir autor: " + ex.Message); }
+        }
+
+        private void RefreshAutoresGrid()
+        {
+            if (dgvAutores == null) return;
             try
             {
                 using (var conn = Conexao.Conectar())
@@ -308,7 +327,7 @@ namespace SeuProjeto
                     string sql = "SELECT IdAutores, Nome_Aut, Nacionalidade_Aut, Email_Aut FROM Autores ORDER BY Nome_Aut";
                     using (var da = new MySqlDataAdapter(sql, conn))
                     {
-                        DataTable dt = new DataTable();
+                        var dt = new DataTable();
                         da.Fill(dt);
                         dgvAutores.DataSource = dt;
                     }
@@ -317,98 +336,11 @@ namespace SeuProjeto
             catch (Exception ex) { MessageBox.Show("Erro ao carregar autores: " + ex.Message); }
         }
 
-        private void BtnAutorAdicionar_Click(object sender, EventArgs e)
-        {
-            string nome = txtAutorNome.Text.Trim();
-            if (string.IsNullOrEmpty(nome)) { MessageBox.Show("Informe o nome do autor."); return; }
-
-            try
-            {
-                using (var conn = Conexao.Conectar())
-                {
-                    conn.Open();
-                    string sql = "INSERT INTO Autores (Nome_Aut) VALUES (@n)";
-                    using (var cmd = new MySqlCommand(sql, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@n", nome);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                MessageBox.Show("Autor adicionado.");
-                txtAutorNome.Text = "";
-                LoadAutores();
-                LoadAutoresInLivroCombo();
-            }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
-        }
-
-        private void BtnAutorExcluir_Click(object sender, EventArgs e)
-        {
-            if (dgvAutores.SelectedRows.Count == 0) { MessageBox.Show("Selecione um autor."); return; }
-            int id = Convert.ToInt32(dgvAutores.SelectedRows[0].Cells["IdAutores"].Value);
-            if (MessageBox.Show("Excluir autor?", "Confirma", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
-
-            try
-            {
-                using (var conn = Conexao.Conectar())
-                {
-                    conn.Open();
-                    string delRel = "DELETE FROM Autores_Has_Livros WHERE IdAutores=@a";
-                    using (var cmd = new MySqlCommand(delRel, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@a", id);
-                        cmd.ExecuteNonQuery();
-                    }
-                    string del = "DELETE FROM Autores WHERE IdAutores=@id";
-                    using (var cmd2 = new MySqlCommand(del, conn))
-                    {
-                        cmd2.Parameters.AddWithValue("@id", id);
-                        cmd2.ExecuteNonQuery();
-                    }
-                }
-                MessageBox.Show("Autor excluído.");
-                LoadAutores();
-                LoadAutoresInLivroCombo();
-            }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
-        }
-
-        private void DgvAutores_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dgvAutores.SelectedRows.Count == 0) return;
-            txtAutorNome.Text = dgvAutores.SelectedRows[0].Cells["Nome_Aut"].Value.ToString();
-        }
-
-        // --------------- estoque ----------------
-        private void LoadLivrosInEstoqueCombo()
-        {
-            cmbEstoqueLivro.Items.Clear();
-            try
-            {
-                using (var conn = Conexao.Conectar())
-                {
-                    conn.Open();
-                    string sql = "SELECT IdLivros, Titulo_Liv, Estoque_Liv FROM Livros ORDER BY Titulo_Liv";
-                    using (var cmd = new MySqlCommand(sql, conn))
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            cmbEstoqueLivro.Items.Add(new ComboboxItem(reader.GetInt32("IdLivros"), $"{reader.GetString("Titulo_Liv")} (Est: {reader.GetInt32("Estoque_Liv")})"));
-                        }
-                    }
-                }
-            }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
-        }
-
-        private void BtnEstoqueEntrada_Click(object sender, EventArgs e) => AjustarEstoque(true);
-        private void BtnEstoqueSaida_Click(object sender, EventArgs e) => AjustarEstoque(false);
-
+        // ------------------- Estoque -------------------
         private void AjustarEstoque(bool entrada)
         {
-            if (!(cmbEstoqueLivro.SelectedItem is ComboboxItem item)) { MessageBox.Show("Selecione um livro."); return; }
-            int id = item.Id;
+            if (cmbEstoqueLivro == null || cmbEstoqueLivro.SelectedItem == null) { MessageBox.Show("Selecione um livro."); return; }
+            int id = ((ComboItem)cmbEstoqueLivro.SelectedItem).Id;
             int qtd = (int)nudEstoqueQtd.Value;
             if (qtd <= 0) { MessageBox.Show("Quantidade inválida."); return; }
 
@@ -426,41 +358,87 @@ namespace SeuProjeto
                         cmd.ExecuteNonQuery();
                     }
                 }
-                MessageBox.Show("Estoque atualizado.");
-                LoadLivros();
-                LoadLivrosInEstoqueCombo();
-                LoadLivrosInVendaCombo();
+                MessageBox.Show("Estoque ajustado.");
+                RefreshLivrosGrid();
+                LoadLivrosToCombos();
             }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Erro ao ajustar estoque: " + ex.Message); }
         }
 
-        // --------------- vendas ----------------
-        private void LoadLivrosInVendaCombo()
+        // ------------------- Cupons -------------------
+        private void AddCupom()
         {
-            cmbVendaLivro.Items.Clear();
+            string codigo = GetTextIfNotPlaceholder(txtCupomCodigo);
+            decimal desconto = nudCupomDesconto != null ? nudCupomDesconto.Value : 0;
+            DateTime validade = dtpCupomValidade != null ? dtpCupomValidade.Value.Date : DateTime.Now.Date;
+            int usoMax = nudCupomUsoMax != null ? (int)nudCupomUsoMax.Value : 1;
+
+            if (string.IsNullOrWhiteSpace(codigo)) { MessageBox.Show("Informe o código."); return; }
             try
             {
                 using (var conn = Conexao.Conectar())
                 {
                     conn.Open();
-                    string sql = "SELECT IdLivros, Titulo_Liv, Estoque_Liv, Preco_Liv FROM Livros WHERE Estoque_Liv > 0 ORDER BY Titulo_Liv";
+                    string sql = "INSERT INTO Cupons (Codigo, DescontoPercentual, DataValidade, UsoMaximo) VALUES (@c,@d,@v,@u)";
                     using (var cmd = new MySqlCommand(sql, conn))
-                    using (var reader = cmd.ExecuteReader())
                     {
-                        while (reader.Read())
-                        {
-                            cmbVendaLivro.Items.Add(new ComboboxItem(reader.GetInt32("IdLivros"), $"{reader.GetString("Titulo_Liv")} (Est: {reader.GetInt32("Estoque_Liv")}) | R$ {reader.GetDecimal("Preco_Liv")}"));
-                        }
+                        cmd.Parameters.AddWithValue("@c", codigo);
+                        cmd.Parameters.AddWithValue("@d", desconto);
+                        cmd.Parameters.AddWithValue("@v", validade.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@u", usoMax);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Cupom adicionado.");
+                RefreshCuponsGrid();
+            }
+            catch (Exception ex) { MessageBox.Show("Erro ao adicionar cupom: " + ex.Message); }
+        }
+
+        private void DeleteCupom()
+        {
+            if (dgvCupons == null || dgvCupons.SelectedRows.Count == 0) { MessageBox.Show("Selecione um cupom."); return; }
+            int id = Convert.ToInt32(dgvCupons.SelectedRows[0].Cells["IdCupons"].Value);
+            if (MessageBox.Show("Excluir cupom?", "Excluir", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+            try
+            {
+                using (var conn = Conexao.Conectar())
+                {
+                    conn.Open();
+                    using (var cmd = new MySqlCommand("DELETE FROM Cupons WHERE IdCupons=@id", conn))
+                    { cmd.Parameters.AddWithValue("@id", id); cmd.ExecuteNonQuery(); }
+                }
+                MessageBox.Show("Cupom excluído.");
+                RefreshCuponsGrid();
+            }
+            catch (Exception ex) { MessageBox.Show("Erro ao excluir cupom: " + ex.Message); }
+        }
+
+        private void RefreshCuponsGrid()
+        {
+            if (dgvCupons == null) return;
+            try
+            {
+                using (var conn = Conexao.Conectar())
+                {
+                    conn.Open();
+                    string sql = "SELECT IdCupons, Codigo, DescontoPercentual, DataValidade, UsoMaximo FROM Cupons ORDER BY IdCupons DESC";
+                    using (var da = new MySqlDataAdapter(sql, conn))
+                    {
+                        var dt = new DataTable();
+                        da.Fill(dt);
+                        dgvCupons.DataSource = dt;
                     }
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Erro ao atualizar cupons: " + ex.Message); }
         }
 
-        private void BtnRegistrarVenda_Click(object sender, EventArgs e)
+        // ------------------- Vendas -------------------
+        private void AddItemToCart()
         {
-            if (!(cmbVendaLivro.SelectedItem is ComboboxItem it)) { MessageBox.Show("Selecione um livro."); return; }
-            int idLivro = it.Id;
+            if (cmbVendaLivro == null || cmbVendaLivro.SelectedItem == null) { MessageBox.Show("Selecione um livro."); return; }
+            int idLivro = ((ComboItem)cmbVendaLivro.SelectedItem).Id;
             int qtd = (int)nudVendaQtd.Value;
             if (qtd <= 0) { MessageBox.Show("Quantidade inválida."); return; }
 
@@ -469,64 +447,85 @@ namespace SeuProjeto
                 using (var conn = Conexao.Conectar())
                 {
                     conn.Open();
-                    decimal preco = 0;
-                    int estoque = 0;
-                    using (var cmdp = new MySqlCommand("SELECT Preco_Liv, Estoque_Liv FROM Livros WHERE IdLivros=@id", conn))
+                    using (var cmd = new MySqlCommand("SELECT Titulo_Liv, Preco_Liv, Estoque_Liv FROM Livros WHERE IdLivros=@id", conn))
                     {
-                        cmdp.Parameters.AddWithValue("@id", idLivro);
-                        using (var r = cmdp.ExecuteReader())
+                        cmd.Parameters.AddWithValue("@id", idLivro);
+                        using (var r = cmd.ExecuteReader())
                         {
                             if (r.Read())
                             {
-                                preco = r.GetDecimal("Preco_Liv");
-                                estoque = r.GetInt32("Estoque_Liv");
+                                string titulo = r.GetString("Titulo_Liv");
+                                decimal preco = r.GetDecimal("Preco_Liv");
+                                int estoque = r.GetInt32("Estoque_Liv");
                                 if (estoque < qtd) { MessageBox.Show("Estoque insuficiente."); return; }
+                                decimal subtotal = preco * qtd;
+                                vendaCarrinho.Rows.Add(idLivro, titulo, qtd, preco, subtotal);
+                                if (dgvVendaCarrinho != null) dgvVendaCarrinho.DataSource = vendaCarrinho;
                             }
                         }
                     }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show("Erro ao adicionar item: " + ex.Message); }
+        }
 
-                    decimal total = preco * qtd;
+        private void ConcluirVenda()
+        {
+            if (vendaCarrinho.Rows.Count == 0) { MessageBox.Show("Carrinho vazio."); return; }
+            try
+            {
+                using (var conn = Conexao.Conectar())
+                {
+                    conn.Open();
+                    int totalQtd = vendaCarrinho.AsEnumerable().Sum(r => r.Field<int>("Quantidade"));
+                    decimal total = vendaCarrinho.AsEnumerable().Sum(r => r.Field<decimal>("Subtotal"));
 
                     string insertVenda = "INSERT INTO Vendas (IdCliente, IdFuncionarios, IdFretes, Data_Ven, Quantidade_Ven, Valor_Total_Ven, Status_Ven) VALUES (NULL,NULL,NULL,@d,@q,@v,'Pago')";
-                    using (var cmdv = new MySqlCommand(insertVenda, conn))
+                    using (var cmd = new MySqlCommand(insertVenda, conn))
                     {
-                        cmdv.Parameters.AddWithValue("@d", DateTime.Now.ToString("yyyy-MM-dd"));
-                        cmdv.Parameters.AddWithValue("@q", qtd);
-                        cmdv.Parameters.AddWithValue("@v", total);
-                        cmdv.ExecuteNonQuery();
+                        cmd.Parameters.AddWithValue("@d", DateTime.Now.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@q", totalQtd);
+                        cmd.Parameters.AddWithValue("@v", total);
+                        cmd.ExecuteNonQuery();
                     }
 
-                    long idVenda = CmdLastInsertId(conn);
-
-                    string insRel = "INSERT INTO Livros_Has_Vendas (IdLivros, IdVendas, Quantidade, Subtotal) VALUES (@l,@v,@q,@s)";
-                    using (var cmdrel = new MySqlCommand(insRel, conn))
+                    long idVenda = GetLastInsertId(conn);
+                    foreach (DataRow row in vendaCarrinho.Rows)
                     {
-                        cmdrel.Parameters.AddWithValue("@l", idLivro);
-                        cmdrel.Parameters.AddWithValue("@v", idVenda);
-                        cmdrel.Parameters.AddWithValue("@q", qtd);
-                        cmdrel.Parameters.AddWithValue("@s", total);
-                        cmdrel.ExecuteNonQuery();
-                    }
+                        int idLivro = Convert.ToInt32(row["IdLivro"]);
+                        int qtd = Convert.ToInt32(row["Quantidade"]);
+                        decimal subtotal = Convert.ToDecimal(row["Subtotal"]);
 
-                    string upEst = "UPDATE Livros SET Estoque_Liv = Estoque_Liv - @q WHERE IdLivros=@l";
-                    using (var cmdup = new MySqlCommand(upEst, conn))
-                    {
-                        cmdup.Parameters.AddWithValue("@q", qtd);
-                        cmdup.Parameters.AddWithValue("@l", idLivro);
-                        cmdup.ExecuteNonQuery();
+                        using (var cmd2 = new MySqlCommand("INSERT INTO Livros_Has_Vendas (IdLivros, IdVendas, Quantidade, Subtotal) VALUES (@l,@v,@q,@s)", conn))
+                        {
+                            cmd2.Parameters.AddWithValue("@l", idLivro);
+                            cmd2.Parameters.AddWithValue("@v", idVenda);
+                            cmd2.Parameters.AddWithValue("@q", qtd);
+                            cmd2.Parameters.AddWithValue("@s", subtotal);
+                            cmd2.ExecuteNonQuery();
+                        }
+                        using (var cmd3 = new MySqlCommand("UPDATE Livros SET Estoque_Liv = Estoque_Liv - @q WHERE IdLivros=@l", conn))
+                        {
+                            cmd3.Parameters.AddWithValue("@q", qtd);
+                            cmd3.Parameters.AddWithValue("@l", idLivro);
+                            cmd3.ExecuteNonQuery();
+                        }
                     }
                 }
 
-                MessageBox.Show("Venda registrada.");
-                LoadLivros();
-                LoadLivrosInVendaCombo();
-                LoadVendas();
+                MessageBox.Show("Venda concluída!");
+                vendaCarrinho.Clear();
+                if (dgvVendaCarrinho != null) dgvVendaCarrinho.DataSource = null;
+                RefreshLivrosGrid();
+                LoadLivrosToCombos();
+                RefreshVendasHistorico();
             }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Erro ao concluir venda: " + ex.Message); }
         }
 
-        private void LoadVendas()
+        private void RefreshVendasHistorico()
         {
+            if (dgvVendasHistorico == null) return;
             try
             {
                 using (var conn = Conexao.Conectar())
@@ -535,18 +534,19 @@ namespace SeuProjeto
                     string sql = "SELECT IdVendas, Data_Ven, Quantidade_Ven, Valor_Total_Ven, Status_Ven FROM Vendas ORDER BY Data_Ven DESC LIMIT 200";
                     using (var da = new MySqlDataAdapter(sql, conn))
                     {
-                        DataTable dt = new DataTable();
+                        var dt = new DataTable();
                         da.Fill(dt);
-                        dgvVendas.DataSource = dt;
+                        dgvVendasHistorico.DataSource = dt;
                     }
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Erro ao carregar vendas: " + ex.Message); }
+            catch { /* silent */ }
         }
 
-        // --------------- relatórios ----------------
-        private void BtnRelTop_Click(object sender, EventArgs e)
+        // ------------------- Relatórios -------------------
+        private void RelTopVendidos()
         {
+            if (dgvRelatorios == null) return;
             try
             {
                 using (var conn = Conexao.Conectar())
@@ -561,17 +561,19 @@ namespace SeuProjeto
                         LIMIT 50";
                     using (var da = new MySqlDataAdapter(sql, conn))
                     {
-                        DataTable dt = new DataTable();
+                        var dt = new DataTable();
                         da.Fill(dt);
                         dgvRelatorios.DataSource = dt;
+                        tabControlMain.SelectedTab = tabRelatorios;
                     }
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Erro no relatório: " + ex.Message); }
         }
 
-        private void BtnRelEstoqueBaixo_Click(object sender, EventArgs e)
+        private void RelEstoqueBaixo()
         {
+            if (dgvRelatorios == null) return;
             try
             {
                 using (var conn = Conexao.Conectar())
@@ -580,38 +582,39 @@ namespace SeuProjeto
                     string sql = "SELECT IdLivros, Titulo_Liv, Estoque_Liv FROM Livros WHERE Estoque_Liv <= 5 ORDER BY Estoque_Liv ASC";
                     using (var da = new MySqlDataAdapter(sql, conn))
                     {
-                        DataTable dt = new DataTable();
+                        var dt = new DataTable();
                         da.Fill(dt);
                         dgvRelatorios.DataSource = dt;
+                        tabControlMain.SelectedTab = tabRelatorios;
                     }
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Erro no relatório: " + ex.Message); }
         }
 
-        // --------------- HELPERS ---------------
-        private long CmdLastInsertId(MySqlConnection conn)
+        // ------------------- Helpers -------------------
+        private string GetTextIfNotPlaceholder(TextBox tb)
+        {
+            if (tb == null) return "";
+            return tb.ForeColor == System.Drawing.Color.Gray ? "" : tb.Text.Trim();
+        }
+
+        private long GetLastInsertId(MySqlConnection conn)
         {
             using (var cmd = new MySqlCommand("SELECT LAST_INSERT_ID()", conn))
             {
-                object o = cmd.ExecuteScalar();
+                var o = cmd.ExecuteScalar();
                 if (o != null && long.TryParse(o.ToString(), out long id)) return id;
                 return -1;
             }
         }
 
-        private void LoadLivrosIntoCombos()
-        {
-            LoadLivrosInEstoqueCombo();
-            LoadLivrosInVendaCombo();
-        }
-
-        // helper combobox item class
-        private class ComboboxItem
+        // Typed combo item
+        private class ComboItem
         {
             public int Id { get; set; }
             public string Text { get; set; }
-            public ComboboxItem(int id, string text) { Id = id; Text = text; }
+            public ComboItem(int id, string text) { Id = id; Text = text; }
             public override string ToString() => Text;
         }
     }
