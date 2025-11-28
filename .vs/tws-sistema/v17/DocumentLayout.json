@@ -1,18 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\lab3133\\Desktop\\pcd\\tws-editora-sistema\\",
+  "WorkspaceRootPath": "C:\\Users\\batis\\Downloads\\tws\\tws-editora-sistema\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|c:\\users\\lab3133\\desktop\\pcd\\tws-editora-sistema\\formsistema.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|solutionrelative:formsistema.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\conexao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|solutionrelative:conexao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|c:\\users\\lab3133\\desktop\\pcd\\tws-editora-sistema\\formsistema.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|solutionrelative:formsistema.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|c:\\users\\lab3133\\desktop\\pcd\\tws-editora-sistema\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|C:\\Users\\batis\\Downloads\\tws\\tws-editora-sistema\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\formsistema.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|solutionrelative:formsistema.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|solutionrelative:login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\login.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|solutionrelative:login.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{43E4C4B1-66F6-428E-8DCF-EFDBE184D330}|tws-sistema.csproj|solutionrelative:login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,46 +34,83 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FormSistema.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\lab3133\\Desktop\\pcd\\tws-editora-sistema\\FormSistema.Designer.cs",
-              "RelativeDocumentMoniker": "FormSistema.Designer.cs",
-              "ToolTip": "C:\\Users\\lab3133\\Desktop\\pcd\\tws-editora-sistema\\FormSistema.Designer.cs",
-              "RelativeToolTip": "FormSistema.Designer.cs",
-              "ViewState": "AgIAADMBAAAAAAAAAAAAADYBAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "Login.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\tws\\tws-editora-sistema\\Login.cs",
+              "RelativeDocumentMoniker": "Login.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\tws\\tws-editora-sistema\\Login.cs",
+              "RelativeToolTip": "Login.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-26T17:41:47.909Z",
+              "WhenOpened": "2025-11-28T01:04:08.234Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FormSistema.cs",
-              "DocumentMoniker": "C:\\Users\\lab3133\\Desktop\\pcd\\tws-editora-sistema\\FormSistema.cs",
-              "RelativeDocumentMoniker": "FormSistema.cs",
-              "ToolTip": "C:\\Users\\lab3133\\Desktop\\pcd\\tws-editora-sistema\\FormSistema.cs",
-              "RelativeToolTip": "FormSistema.cs",
-              "ViewState": "AgIAAFYCAAAAAAAAAAAIwG0CAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Conexao.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\tws\\tws-editora-sistema\\Conexao.cs",
+              "RelativeDocumentMoniker": "Conexao.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\tws\\tws-editora-sistema\\Conexao.cs",
+              "RelativeToolTip": "Conexao.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-26T17:39:39.282Z",
+              "WhenOpened": "2025-11-28T01:03:51.949Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "FormSistema.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\tws\\tws-editora-sistema\\FormSistema.cs",
+              "RelativeDocumentMoniker": "FormSistema.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\tws\\tws-editora-sistema\\FormSistema.cs [Design]",
+              "RelativeToolTip": "FormSistema.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T01:03:51.685Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\lab3133\\Desktop\\pcd\\tws-editora-sistema\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\tws\\tws-editora-sistema\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\lab3133\\Desktop\\pcd\\tws-editora-sistema\\Program.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\tws\\tws-editora-sistema\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAqwA0AAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAqwA0AAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-26T16:53:20.472Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Login.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\tws\\tws-editora-sistema\\Login.Designer.cs",
+              "RelativeDocumentMoniker": "Login.Designer.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\tws\\tws-editora-sistema\\Login.Designer.cs",
+              "RelativeToolTip": "Login.Designer.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAUwGcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T01:04:22.772Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Login.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\tws\\tws-editora-sistema\\Login.cs",
+              "RelativeDocumentMoniker": "Login.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\tws\\tws-editora-sistema\\Login.cs [Design]",
+              "RelativeToolTip": "Login.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T01:03:47.759Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }
