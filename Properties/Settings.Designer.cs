@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace tws_sistema.Properties
+namespace Sistema_TWS.Properties
 {
 
 

@@ -1,5 +1,4 @@
 ﻿using MySql.Data.MySqlClient;
-using System.Data.SqlClient;
 
 namespace SeuProjeto
 {
@@ -11,7 +10,7 @@ namespace SeuProjeto
         private static string senha = "root";
 
         private static string stringConexao =
-            $"SERVER={servidor};DATABASE={bancoDados};UID={usuario};PWD={senha};SslMode=none;";
+            $"SERVER={servidor};DATABASE={bancoDados};UID={usuario};PWD={senha};SslMode=Preferred;";
 
         public static MySqlConnection Conectar()
         {

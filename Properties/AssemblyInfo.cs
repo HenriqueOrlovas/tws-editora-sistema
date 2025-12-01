@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // As informações gerais sobre um assembly são controladas por
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
 // associadas a um assembly.
-[assembly: AssemblyTitle("tws-sistema")]
+[assembly: AssemblyTitle("Sistema-TWS")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("tws-sistema")]
+[assembly: AssemblyProduct("Sistema-TWS")]
 [assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // O GUID a seguir será destinado à ID de typelib se este projeto for exposto para COM
-[assembly: Guid("43e4c4b1-66f6-428e-8dcf-efdbe184d330")]
+[assembly: Guid("9cc70f5d-3833-4ec1-aa63-9c658861e02b")]
 
 // As informações da versão de um assembly consistem nos quatro valores a seguir:
 //

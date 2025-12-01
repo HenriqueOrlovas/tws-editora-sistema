@@ -1,0 +1,16 @@
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\bin\Debug\Sistema-TWS.exe.config
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\bin\Debug\Sistema-TWS.exe
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\bin\Debug\Sistema-TWS.pdb
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\bin\Debug\MySql.Data.dll
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\bin\Debug\System.Memory.dll
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\bin\Debug\MySql.Data.xml
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\obj\Debug\Sistema-TWS.csproj.AssemblyReference.cache
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\obj\Debug\Sistema_TWS.Properties.Resources.resources
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\obj\Debug\Sistema-TWS.csproj.GenerateResource.cache
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\obj\Debug\Sistema-TWS.csproj.CoreCompileInputs.cache
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\obj\Debug\Sistema-.3A23BD37.Up2Date
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\obj\Debug\Sistema-TWS.exe
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\obj\Debug\Sistema-TWS.pdb
+C:\Users\lab1064\Desktop\Sistema-tws\Sistema-TWS\obj\Debug\Sistema-TWS.exe.config

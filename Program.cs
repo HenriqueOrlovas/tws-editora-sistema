@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using Sistema_tws;
 
-namespace SeuProjeto
+namespace Sistema_tws
 {
     internal static class Program
     {
@@ -11,7 +10,7 @@ namespace SeuProjeto
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            Application.Run(new FormLogin());
         }
     }
 }

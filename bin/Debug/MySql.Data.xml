@@ -26,24 +26,6 @@
             Allows connections to a user account set with the mysql_clear_password authentication plugin.
             </summary>
         </member>
-        <member name="M:MySql.Data.MySqlClient.Authentication.FidoAuthenticationPlugin.ParseChallenge(System.Byte[])">
-            <summary>
-            Method that parse the challenge received from server during authentication process.
-            This method extracts salt, relying party name and set it in the <see cref="T:MySql.Data.Authentication.FIDO.FidoAssertion"/> object.
-            </summary>
-            <param name="challenge">Buffer holding the server challenge.</param>
-            <exception cref="T:MySql.Data.MySqlClient.MySqlException">Thrown if an error occurs while parsing the challenge.</exception>
-        </member>
-        <member name="M:MySql.Data.MySqlClient.Authentication.FidoAuthenticationPlugin.SignChallengeAsync(System.Tuple{System.Int32,System.Int32,System.Byte[],System.Int32,System.Byte[]},System.Boolean)">
-            <summary>
-            Signs the challenge obtained from the FIDO device and returns it to the server.
-            </summary>
-        </member>
-        <member name="M:MySql.Data.MySqlClient.Authentication.FidoAuthenticationPlugin.BuildFidoAssertionStatement">
-            <summary>
-            Method to obtain an assertion from a FIDO device.
-            </summary>
-        </member>
         <member name="T:MySql.Data.MySqlClient.Authentication.KerberosAuthenticationPlugin">
             <summary>
             Enables connections to a user account set with the authentication_kerberos authentication plugin.
@@ -392,6 +374,26 @@
             Applies XOR to the byte arrays provided as input.
             </summary>
             <returns>A byte array that contains the results of the XOR operation.</returns>
+        </member>
+        <member name="M:MySql.Data.MySqlClient.Authentication.WebAuthnAuthenticationPlugin.ParseChallenge(System.Byte[])">
+            <summary>
+            Method that parse the challenge received from server during authentication process.
+            This method extracts salt and relying party name.
+            </summary>
+            <param name="data">Buffer holding the server challenge.</param>
+            <exception cref="T:MySql.Data.MySqlClient.MySqlException">Thrown if an error occurs while parsing the challenge.</exception>
+        </member>
+        <member name="M:MySql.Data.MySqlClient.Authentication.WebAuthnAuthenticationPlugin.SetClientData">
+            <summary>
+            Sets the ClientDataHash for the assertion
+            </summary>
+        </member>
+        <member name="M:MySql.Data.MySqlClient.Authentication.WebAuthnAuthenticationPlugin.GetAssertion(MySql.Data.Authentication.FIDO.FidoDevice)">
+            <summary>
+            Method to obtains an assertion from a FIDO device.
+            </summary>
+            <returns>The assertion.</returns>
+            <exception cref="T:MySql.Data.MySqlClient.MySqlException">Thrown if an error occurs while getting the assertion.</exception>
         </member>
         <member name="T:MySql.Data.MySqlClient.Authentication.MySqlWindowsAuthenticationPlugin">
             <summary>
@@ -2354,16 +2356,6 @@
             schema, name, type, parameter name
             </summary>
         </member>
-        <member name="M:MySql.Data.MySqlClient.ISSchemaProvider.InitParameterRow(MySql.Data.MySqlClient.MySqlSchemaRow,MySql.Data.MySqlClient.MySqlSchemaRow)">
-            <summary>
-            Initializes a new row for the procedure parameters table.
-            </summary>
-        </member>
-        <member name="M:MySql.Data.MySqlClient.ISSchemaProvider.ParseDataTypeAsync(MySql.Data.MySqlClient.MySqlSchemaRow,MySql.Data.Common.MySqlTokenizer,System.Boolean,System.Threading.CancellationToken)">
-            <summary>
-             Parses out the elements of a procedure parameter data type.
-            </summary>
-        </member>
         <member name="T:MySql.Data.MySqlClient.MySqlAttribute">
             <summary>
             Represents a query attribute to a <see cref="T:MySql.Data.MySqlClient.MySqlCommand"/>.
@@ -2463,11 +2455,6 @@
         <member name="F:MySql.Data.MySqlClient.MySqlBaseConnectionStringBuilder.Options">
             <summary>
             Readonly field containing a collection of protocol shared connection options.
-            </summary>
-        </member>
-        <member name="P:MySql.Data.MySqlClient.MySqlBaseConnectionStringBuilder.HasProcAccess">
-            <summary>
-            Gets or sets a flag indicating if the object has access to procedures.
             </summary>
         </member>
         <member name="P:MySql.Data.MySqlClient.MySqlBaseConnectionStringBuilder.values">
@@ -3101,9 +3088,9 @@
              </para>
             </remarks>
         </member>
-        <member name="E:MySql.Data.MySqlClient.MySqlConnection.FidoActionRequested">
+        <member name="E:MySql.Data.MySqlClient.MySqlConnection.WebAuthnActionRequested">
             <summary>
-            Occurs when FIDO authentication requests to perform gesture action on a device.
+            Occurs when WebAuthn authentication makes a request to perform the gesture action on a device.
             </summary>
         </member>
         <member name="E:MySql.Data.MySqlClient.MySqlConnection.InfoMessage">
@@ -3516,10 +3503,10 @@
             </summary>
             <param name="cancellationToken">The cancellation token.</param>
         </member>
-        <member name="T:MySql.Data.MySqlClient.FidoActionCallback">
+        <member name="T:MySql.Data.MySqlClient.WebAuthnActionCallback">
             <summary>
-            Represents the method to handle the <see cref="E:MySql.Data.MySqlClient.MySqlConnection.FidoActionRequested"/> event of a 
-            <see cref="T:MySql.Data.MySqlClient.MySqlConnection"/>
+            Represents the method to handle the <see cref="E:MySql.Data.MySqlClient.MySqlConnection.WebAuthnActionRequested"/> event of a 
+            <see cref="T:MySql.Data.MySqlClient.MySqlConnection"/>.
             </summary>
         </member>
         <member name="T:MySql.Data.MySqlClient.MySqlInfoMessageEventHandler">
@@ -3675,6 +3662,14 @@
             and then fallback to <see cref="F:MySql.Data.MySqlClient.KerberosAuthMode.GSSAPI"/> mode value in case of error.
             </remarks>
         </member>
+        <member name="P:MySql.Data.MySqlClient.MySqlConnectionStringBuilder.OpenIdIdentityToken">
+            <summary>
+            Gets or sets the Identity Token to be used in OpenID Connect authentication.
+            </summary>
+            <remarks>
+            If <see cref="P:MySql.Data.MySqlClient.MySqlConnectionStringBuilder.OpenIdIdentityToken"/> is set the value will be used to try to log in using OpenID Connect authentication.
+            </remarks>
+        </member>
         <member name="P:MySql.Data.MySqlClient.MySqlConnectionStringBuilder.AllowZeroDateTime">
             <summary>
             Gets or sets a boolean value that indicates if zero date time values are supported.
@@ -3803,9 +3798,14 @@
             Gets or sets the list of interceptors that can intercept command operations.
             </summary>
         </member>
-        <member name="P:MySql.Data.MySqlClient.MySqlConnectionStringBuilder.FidoActionRequested">
+        <member name="P:MySql.Data.MySqlClient.MySqlConnectionStringBuilder.RewriteBatchedStatements">
             <summary>
-            Gets or sets the event for the callback.
+            Gets or sets a boolean indicating if this connection should rewrite batched statements as one block.
+            </summary>
+        </member>
+        <member name="P:MySql.Data.MySqlClient.MySqlConnectionStringBuilder.WebAuthnActionRequested">
+            <summary>
+            Gets or sets the event for the WebauthN callback.
             </summary>
         </member>
         <member name="P:MySql.Data.MySqlClient.MySqlConnectionStringBuilder.ConnectionLifeTime">
@@ -4592,6 +4592,11 @@
             Bit-field data type
             </summary>
         </member>
+        <member name="F:MySql.Data.MySqlClient.MySqlDbType.Vector">
+            <summary>
+            Vector type
+            </summary>
+        </member>
         <member name="F:MySql.Data.MySqlClient.MySqlDbType.JSON">
             <summary>
             JSON
@@ -4771,22 +4776,12 @@
             SSL options for connection.
             </summary>
         </member>
-        <member name="F:MySql.Data.MySqlClient.MySqlSslMode.None">
-            <summary>
-            Do not use SSL.
-            </summary>
-        </member>
         <member name="F:MySql.Data.MySqlClient.MySqlSslMode.Disabled">
             <summary>
             Do not use SSL.
             </summary>
         </member>
         <member name="F:MySql.Data.MySqlClient.MySqlSslMode.Preferred">
-            <summary>
-            Use SSL, if server supports it. This option is only available for the classic protocol.
-            </summary>
-        </member>
-        <member name="F:MySql.Data.MySqlClient.MySqlSslMode.Prefered">
             <summary>
             Use SSL, if server supports it. This option is only available for the classic protocol.
             </summary>
@@ -9005,6 +9000,13 @@
             <param name="quotedString">The string to unquote.</param>
             <returns></returns>
         </member>
+        <member name="M:MySql.Data.MySqlClient.Utils.GetLengthSize(System.UInt64)">
+            <summary>
+            Gets the length size (in bytes) of a string.
+            </summary>
+            <param name="length">length of string.</param>
+            <returns>Number of bytes needed.</returns>
+        </member>
         <member name="T:MySql.Data.MySqlClient.X.XDevAPI.Common.ColumnType">
             <summary>
             Defines the type of the column.
@@ -9085,12 +9087,19 @@
             </summary>
             <param name="assert">The object to use</param>
         </member>
-        <member name="M:MySql.Data.Authentication.FIDO.FidoAssertion.GetFidoAssertionStatement">
+        <member name="M:MySql.Data.Authentication.FIDO.FidoAssertion.GetFidoAssertionStatement(System.Int32)">
             <summary>
-            Gets the assertion statement. Since we're getting only one assertion, the index will always be zero.
+            Gets the assertion statement at the index provided.
             </summary>
+            <param name="idx">The index of the assertion statement to retrieve</param>
             <returns>The assertion statement object</returns>
             <exception cref="T:System.IndexOutOfRangeException">The index is not in the range [0, count)</exception>
+        </member>
+        <member name="M:MySql.Data.Authentication.FIDO.FidoAssertion.GetAssertCount">
+            <summary>
+            Gets the number of assertions contained in the authentication device.
+            </summary>
+            <returns>The number of assertions contained in the authentication device.</returns>
         </member>
         <member name="M:MySql.Data.Authentication.FIDO.FidoDevice.#ctor">
             <summary>
@@ -9115,6 +9124,11 @@
             Closes the device, preventing further use
             </summary>
             <exception cref="T:MySql.Data.Authentication.FIDO.Utility.CtapException">Thrown if an error occurs while closing</exception>
+        </member>
+        <member name="P:MySql.Data.Authentication.FIDO.FidoDevice.SupportsCredman">
+            <summary>
+            Determines whether this device supports CTAP 2.1 Credential Management.
+            </summary>
         </member>
         <member name="M:MySql.Data.Authentication.FIDO.FidoDevice.GetAssert(MySql.Data.Authentication.FIDO.FidoAssertion)">
             <summary>
@@ -9217,6 +9231,13 @@
             <param name="assert">The assert to use for generation</param>
             <param name="pin">The pin of the device</param>
             <returns><see cref="F:MySql.Data.Authentication.FIDO.Utility.CtapStatus.Ok"/> on success, anything else on failure</returns>
+        </member>
+        <member name="M:MySql.Data.Authentication.FIDO.Native.NativeMethods.fido_dev_supports_credman(MySql.Data.Authentication.FIDO.Native.fido_dev_t*)">
+            <summary>
+            Returns <see langword="true"/> if <paramref name="dev"/> supports CTAP 2.1 Credential Management.
+            </summary>
+            <param name="dev">The device to check.</param>
+            <returns><see langword="true"/> if <paramref name="dev"/> supports CTAP 2.1 Credential Management; otherwise, <see langword="false"/>.</returns>
         </member>
         <member name="M:MySql.Data.Authentication.FIDO.Native.NativeMethods.fido_dev_info_new(System.IntPtr)">
             <summary>
@@ -9371,11 +9392,32 @@
         </member>
         <member name="M:MySql.Data.Authentication.FIDO.Native.NativeMethods.fido_assert_id_ptr(MySql.Data.Authentication.FIDO.Native.fido_assert_t*,System.IntPtr)">
             <summary>
-            Returns a pointer to the ID of statement idx in assert
+            Returns a pointer to the ID of statement idx in assert.
             </summary>
-            <param name="assert">The assertion object to act on</param>
-            <param name="idx">The index to retrieve</param>
-            <returns>A pointer to the ID of statement idx in assert</returns>
+            <param name="assert">The assertion object to act on.</param>
+            <param name="idx">The index to retrieve.</param>
+            <returns>A pointer to the ID of statement idx in assert.</returns>
+        </member>
+        <member name="M:MySql.Data.Authentication.FIDO.Native.NativeMethods.fido_assert_clientdata_hash_len(MySql.Data.Authentication.FIDO.Native.fido_assert_t*)">
+            <summary>
+            Returns the length of the client data hash of an assertion.
+            </summary>
+            <param name="assert">The assertion object to act on.</param>
+            <returns>The length of the client data hash of statement idx of the assertion.</returns>
+        </member>
+        <member name="M:MySql.Data.Authentication.FIDO.Native.NativeMethods.fido_assert_clientdata_hash_ptr(MySql.Data.Authentication.FIDO.Native.fido_assert_t*)">
+            <summary>
+            Returns a pointer to the client data hash of an assertion.
+            </summary>
+            <param name="assert">The assertion object to act on.</param>
+            <returns>A pointer to the client data hash of the assertion.</returns>
+        </member>
+        <member name="M:MySql.Data.Authentication.FIDO.Native.NativeMethods.fido_assert_count(MySql.Data.Authentication.FIDO.Native.fido_assert_t*)">
+            <summary>
+            Returns the number of statements in assertion.
+            </summary>
+            <param name="assert">The assertion object to act on.</param>
+            <returns>The number of statements in assertion.</returns>
         </member>
         <member name="T:MySql.Data.Authentication.FIDO.Native.fido_assert_t">
             <summary>
@@ -10952,6 +10994,11 @@
             Defines the supported TLS protocols.
             </summary>
         </member>
+        <member name="M:MySql.Data.Common.Ssl.GetCertificateFromPEM(System.String,System.String)">
+            <summary>
+            Retrieves a certificate from PEM file.
+            </summary>
+        </member>
         <member name="M:MySql.Data.Common.Ssl.GetPFXClientCertificates">
             <summary>
             Retrieves a collection containing the client SSL PFX certificates.
@@ -11318,12 +11365,12 @@
         </member>
         <member name="P:MySql.Data.Resources.AuthenticationMethodNotSupported">
             <summary>
-              Looks up a localized string similar to Authentication method &apos;{0}&apos; not supported by any of the available plugins..
+              Looks up a localized string similar to Authentication method &apos;{0}&apos; not supported by any of the available plugins.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.AuthenticationPluginNotSupported">
             <summary>
-              Looks up a localized string similar to Authentication plugin &apos;{0}&apos; is currently not supported..
+              Looks up a localized string similar to Authentication plugin &apos;{0}&apos; is currently not supported.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.BadVersionFormat">
@@ -11343,17 +11390,17 @@
         </member>
         <member name="P:MySql.Data.Resources.CancelNeeds50">
             <summary>
-              Looks up a localized string similar to Canceling an executing query requires MySQL 5.0 or higher..
+              Looks up a localized string similar to Canceling an executing query requires MySQL 5.0 or higher.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.CancelNotSupported">
             <summary>
-              Looks up a localized string similar to Canceling an active query is only supported on MySQL 5.0.0 and above. .
+              Looks up a localized string similar to Canceling an active query is only supported on MySQL 5.0.0 and above.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.CanNotDeriveParametersForTextCommands">
             <summary>
-              Looks up a localized string similar to Parameters can only be derived for commands using the StoredProcedure command type..
+              Looks up a localized string similar to Parameters can only be derived for commands using the StoredProcedure command type.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.CBMultiTableNotSupported">
@@ -11373,27 +11420,27 @@
         </member>
         <member name="P:MySql.Data.Resources.ClearPasswordNotSupported">
             <summary>
-              Looks up a localized string similar to Clear-password authentication is not supported over insecure channels..
+              Looks up a localized string similar to Clear-password authentication is not supported over insecure channels.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.CommandTextNotInitialized">
             <summary>
-              Looks up a localized string similar to The CommandText property has not been properly initialized..
+              Looks up a localized string similar to The CommandText property has not been properly initialized.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.CompressionNotSupported">
             <summary>
-              Looks up a localized string similar to Compression is not supported..
+              Looks up a localized string similar to Compression is not supported.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ConnectionAlreadyOpen">
             <summary>
-              Looks up a localized string similar to The connection is already open..
+              Looks up a localized string similar to The connection is already open.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ConnectionBroken">
             <summary>
-              Looks up a localized string similar to Connection unexpectedly terminated..
+              Looks up a localized string similar to Connection unexpectedly terminated.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ConnectionMustBeOpen">
@@ -11403,12 +11450,12 @@
         </member>
         <member name="P:MySql.Data.Resources.ConnectionNotOpen">
             <summary>
-              Looks up a localized string similar to The connection is not open..
+              Looks up a localized string similar to The connection is not open.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ConnectionNotSet">
             <summary>
-              Looks up a localized string similar to The connection property has not been set or is null..
+              Looks up a localized string similar to The connection property has not been set or is null.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.CouldNotFindColumnName">
@@ -11428,47 +11475,47 @@
         </member>
         <member name="P:MySql.Data.Resources.DataNotInSupportedFormat">
             <summary>
-              Looks up a localized string similar to The given value was not in a supported format..
+              Looks up a localized string similar to The given value was not in a supported format.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.DataReaderOpen">
             <summary>
-              Looks up a localized string similar to There is already an open DataReader associated with this Connection which must be closed first..
+              Looks up a localized string similar to There is already an open DataReader associated with this Connection which must be closed first.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.DefaultEncodingNotFound">
             <summary>
-              Looks up a localized string similar to The default connection encoding was not found. Please report this as a bug along with your connection string and system details..
+              Looks up a localized string similar to The default connection encoding was not found. Please report this as a bug along with your connection string and system details.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.DistributedTxnNotSupported">
             <summary>
-              Looks up a localized string similar to MySQL Connector/NET does not currently support distributed transactions..
+              Looks up a localized string similar to MySQL Connector/NET does not currently support distributed transactions.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.DnsSrvInvalidConnOptionMultihost">
             <summary>
-              Looks up a localized string similar to Specifying multiple host names with DNS SRV lookup is not permitted..
+              Looks up a localized string similar to Specifying multiple host names with DNS SRV lookup is not permitted.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.DnsSrvInvalidConnOptionPort">
             <summary>
-              Looks up a localized string similar to Specifying a port number with DNS SRV lookup is not permitted..
+              Looks up a localized string similar to Specifying a port number with DNS SRV lookup is not permitted.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.DnsSrvInvalidConnOptionUnixSocket">
             <summary>
-              Looks up a localized string similar to Using Unix domain sockets with DNS SRV lookup is not permitted..
+              Looks up a localized string similar to Using Unix domain sockets with DNS SRV lookup is not permitted.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.DnsSrvNoHostsAvailable">
             <summary>
-              Looks up a localized string similar to Unable to locate any hosts for {0}..
+              Looks up a localized string similar to Unable to locate any hosts for {0}.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.EncodingError">
             <summary>
-              Looks up a localized string similar to Encoding error during validation..
+              Looks up a localized string similar to Encoding error during validation.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ErrorCreatingSocket">
@@ -11478,47 +11525,57 @@
         </member>
         <member name="P:MySql.Data.Resources.ExecuteProcedureUnauthorized">
             <summary>
-              Looks up a localized string similar to Verify that user &apos;{0}&apos;@&apos;{1}&apos; has enough privileges to execute..
+              Looks up a localized string similar to Verify that user &apos;{0}&apos;@&apos;{1}&apos; has enough privileges to execute.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.FatalErrorDuringExecute">
             <summary>
-              Looks up a localized string similar to Fatal error encountered during command execution..
+              Looks up a localized string similar to Fatal error encountered during command execution.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.FatalErrorDuringRead">
             <summary>
-              Looks up a localized string similar to Fatal error encountered during data read..
+              Looks up a localized string similar to Fatal error encountered during data read.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.FatalErrorReadingResult">
             <summary>
-              Looks up a localized string similar to Fatal error encountered attempting to read the resultset..
+              Looks up a localized string similar to Fatal error encountered attempting to read the resultset.
+            </summary>
+        </member>
+        <member name="P:MySql.Data.Resources.FidoChallengeCorrupt">
+            <summary>
+              Looks up a localized string similar to Challenge received is corrupt.
+            </summary>
+        </member>
+        <member name="P:MySql.Data.Resources.FidoRegistrationMissing">
+            <summary>
+              Looks up a localized string similar to FIDO registration is missing.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.FileBasedCertificateNotSupported">
             <summary>
-              Looks up a localized string similar to File based certificates are only supported when connecting to MySQL Server 5.1 or greater..
+              Looks up a localized string similar to File based certificates are only supported when connecting to MySQL Server 5.1 or greater.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.FileIsNotACertificate">
             <summary>
-              Looks up a localized string similar to The specified file cannot be converted to a certificate..
+              Looks up a localized string similar to The specified file cannot be converted to a certificate.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.FileIsNotAKey">
             <summary>
-              Looks up a localized string similar to The specified file cannot be converted to a key..
+              Looks up a localized string similar to The specified file cannot be converted to a key.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.FileNotFound">
             <summary>
-              Looks up a localized string similar to Failed to read file at the specified location..
+              Looks up a localized string similar to Failed to read file at the specified location.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.FilePathNotSet">
             <summary>
-              Looks up a localized string similar to No file path has been provided for the connection option {0}..
+              Looks up a localized string similar to No file path has been provided for the connection option {0}.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.FromAndLengthTooBig">
@@ -11533,22 +11590,22 @@
         </member>
         <member name="P:MySql.Data.Resources.GetHostEntryFailed">
             <summary>
-              Looks up a localized string similar to Call to GetHostEntry failed after {0} while querying for hostname &apos;{1}&apos;: SocketErrorCode={2}, ErrorCode={3}, NativeErrorCode={4}..
+              Looks up a localized string similar to Call to GetHostEntry failed after {0} while querying for hostname &apos;{1}&apos;: SocketErrorCode={2}, ErrorCode={3}, NativeErrorCode={4}.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.HardProcQuery">
             <summary>
-              Looks up a localized string similar to Retrieving procedure metadata for {0} from server..
+              Looks up a localized string similar to Retrieving procedure metadata for {0} from server.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ImproperValueFormat">
             <summary>
-              Looks up a localized string similar to Value has an unsupported format..
+              Looks up a localized string similar to Value has an unsupported format.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.IncorrectTransmission">
             <summary>
-              Looks up a localized string similar to An incorrect response was received from the server..
+              Looks up a localized string similar to An incorrect response was received from the server.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.IndexAndLengthTooBig">
@@ -11563,102 +11620,102 @@
         </member>
         <member name="P:MySql.Data.Resources.InvalidCertificateKey">
             <summary>
-              Looks up a localized string similar to The provided key is invalid..
+              Looks up a localized string similar to The provided key is invalid.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.InvalidCertificateThumbprint">
             <summary>
-              Looks up a localized string similar to Certificate with Thumbprint &apos;{0}&apos; not found..
+              Looks up a localized string similar to Certificate with Thumbprint &apos;{0}&apos; not found.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.InvalidColumnOrdinal">
             <summary>
-              Looks up a localized string similar to You have specified an invalid column ordinal..
+              Looks up a localized string similar to You have specified an invalid column ordinal.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.InvalidConnectionStringValue">
             <summary>
-              Looks up a localized string similar to The requested value &apos;{0}&apos; is invalid for the given keyword &apos;{1}&apos;..
+              Looks up a localized string similar to The requested value &apos;{0}&apos; is invalid for the given keyword &apos;{1}&apos;.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.InvalidHostNameOrAddress">
             <summary>
-              Looks up a localized string similar to The host name or IP address is invalid..
+              Looks up a localized string similar to The host name or IP address is invalid.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.InvalidMicrosecondValue">
             <summary>
-              Looks up a localized string similar to Microsecond must be a value between 0 and 999999..
+              Looks up a localized string similar to Microsecond must be a value between 0 and 999999.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.InvalidMillisecondValue">
             <summary>
-              Looks up a localized string similar to Millisecond must be a value between 0 and 999. For more precision use Microsecond..
+              Looks up a localized string similar to Millisecond must be a value between 0 and 999. For more precision use Microsecond.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.InvalidPathForLoadLocalInfile">
             <summary>
-              Looks up a localized string similar to Either provide a valid path for &apos;allowloadlocalinfileinpath&apos; or enable &apos;allowloadlocalinfile&apos;..
+              Looks up a localized string similar to Either provide a valid path for &apos;allowloadlocalinfileinpath&apos; or enable &apos;allowloadlocalinfile&apos;.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.InvalidProcName">
             <summary>
-              Looks up a localized string similar to Procedure or function &apos;{0}&apos; cannot be found in database &apos;{1}&apos;..
+              Looks up a localized string similar to Procedure or function &apos;{0}&apos; cannot be found in database &apos;{1}&apos;.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.InvalidSslCertificate">
             <summary>
-              Looks up a localized string similar to The certificate is invalid..
+              Looks up a localized string similar to The certificate is invalid.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.InvalidSslCertificateSignature">
             <summary>
-              Looks up a localized string similar to Unable to validate the signature..
+              Looks up a localized string similar to Unable to validate the signature.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.InvalidSslCertificateSignatureGeneral">
             <summary>
-              Looks up a localized string similar to Unable to verify the signature..
+              Looks up a localized string similar to Unable to verify the signature.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.InvalidSslMode">
             <summary>
-              Looks up a localized string similar to Value &apos;{0}&apos; is not of the correct type..
+              Looks up a localized string similar to Value &apos;{0}&apos; is not of the correct type.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.InvalidValueForBoolean">
             <summary>
-              Looks up a localized string similar to &apos;{0}&apos; is an illegal value for a boolean option..
+              Looks up a localized string similar to &apos;{0}&apos; is an illegal value for a boolean option.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.KeywordNoNull">
             <summary>
-              Looks up a localized string similar to Keyword does not allow null values..
+              Looks up a localized string similar to Keyword does not allow null values.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.KeywordNotSupported">
             <summary>
-              Looks up a localized string similar to Option not supported..
+              Looks up a localized string similar to Option not supported.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.LocalInfileDisabled">
             <summary>
-              Looks up a localized string similar to Server asked for stream in response to LOAD DATA LOCAL INFILE, but the functionality is disabled by the client setting &apos;allowlocalinfile&apos; to &apos;false&apos;..
+              Looks up a localized string similar to Server asked for stream in response to LOAD DATA LOCAL INFILE, but the functionality is disabled by the client setting &apos;allowlocalinfile&apos; to &apos;false&apos;.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.MixedParameterNamingNotAllowed">
             <summary>
-              Looks up a localized string similar to Mixing named and unnamed parameters is not allowed..
+              Looks up a localized string similar to Mixing named and unnamed parameters is not allowed.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.MoreThanOneOPRow">
             <summary>
-              Looks up a localized string similar to INTERNAL ERROR:  More than one output parameter row detected..
+              Looks up a localized string similar to INTERNAL ERROR:  More than one output parameter row detected.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.MultipleConnectionsInTransactionNotSupported">
             <summary>
-              Looks up a localized string similar to Multiple simultaneous connections or connections with different connection strings inside the same transaction are not currently supported..
+              Looks up a localized string similar to Multiple simultaneous connections or connections with different connection strings inside the same transaction are not currently supported.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.NamedPipeNoSeek">
@@ -11673,82 +11730,82 @@
         </member>
         <member name="P:MySql.Data.Resources.NewValueShouldBeMySqlParameter">
             <summary>
-              Looks up a localized string similar to The new value must be a MySqlParameter object..
+              Looks up a localized string similar to The new value must be a MySqlParameter object.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.NextResultIsClosed">
             <summary>
-              Looks up a localized string similar to Invalid attempt to call NextResult when the reader is closed..
+              Looks up a localized string similar to Invalid attempt to call NextResult when the reader is closed.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.NoBodiesAndTypeNotSet">
             <summary>
-              Looks up a localized string similar to When calling stored procedures and &apos;Use Procedure Bodies&apos; is false, all parameters must have their type explicitly set..
+              Looks up a localized string similar to When calling stored procedures and &apos;Use Procedure Bodies&apos; is false, all parameters must have their type explicitly set.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.NoNestedTransactions">
             <summary>
-              Looks up a localized string similar to Nested transactions are not supported..
+              Looks up a localized string similar to Nested transactions are not supported.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.NoServerSSLSupport">
             <summary>
-              Looks up a localized string similar to The host {0} does not support SSL connections..
+              Looks up a localized string similar to The host {0} does not support SSL connections.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.NoUnixSocketsOnWindows">
             <summary>
-              Looks up a localized string similar to Unix sockets are not supported on Windows..
+              Looks up a localized string similar to Unix sockets are not supported on Windows.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.NoWindowsIdentity">
             <summary>
-              Looks up a localized string similar to Cannot retrieve Windows identity for current user. Connections that use  IntegratedSecurity cannot be  pooled. Use either &apos;ConnectionReset=true&apos; or  &apos;Pooling=false&apos; in the connection string to fix..
+              Looks up a localized string similar to Cannot retrieve Windows identity for current user. Connections that use  IntegratedSecurity cannot be  pooled. Use either &apos;ConnectionReset=true&apos; or  &apos;Pooling=false&apos; in the connection string to fix.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ObjectDisposed">
             <summary>
-              Looks up a localized string similar to The object is not open or has been disposed..
+              Looks up a localized string similar to The object is not open or has been disposed.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.OciConfigFileNotFound">
             <summary>
-              Looks up a localized string similar to OCI configuration file could not be read..
+              Looks up a localized string similar to OCI configuration file could not be read.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.OciConfigProfileNotFound">
             <summary>
-              Looks up a localized string similar to OCI configuration profile not found..
+              Looks up a localized string similar to OCI configuration profile not found.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.OciEntryNotFound">
             <summary>
-              Looks up a localized string similar to OCI configuration file does not contain a &apos;fingerprint&apos; or &apos;key_file&apos; entry..
+              Looks up a localized string similar to OCI configuration file does not contain a &apos;fingerprint&apos; or &apos;key_file&apos; entry.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.OciInvalidKeyFile">
             <summary>
-              Looks up a localized string similar to OCI configuration entry &apos;key_file&apos; does not reference a valid key file..
+              Looks up a localized string similar to OCI configuration entry &apos;key_file&apos; does not reference a valid key file.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.OciKeyFileDoesNotExists">
             <summary>
-              Looks up a localized string similar to Private key could not be found at location given by OCI configuration entry &apos;key_file&apos;..
+              Looks up a localized string similar to Private key could not be found at location given by OCI configuration entry &apos;key_file&apos;.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.OciSDKNotFound">
             <summary>
-              Looks up a localized string similar to The OCI SDK cannot be found or is not installed..
+              Looks up a localized string similar to The OCI SDK cannot be found or is not installed.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.OciSecurityTokenDoesNotExists">
             <summary>
-              Looks up a localized string similar to Security token file could not be found at location given by OCI configuration entry &apos;security_token_file&apos;..
+              Looks up a localized string similar to Secutiry token file could not be found at location given by OCI configuration entry &apos;security_token_file&apos;.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.OciSecurityTokenFileExceeds10KB">
             <summary>
-              Looks up a localized string similar to The size of the OCI security token file exceeds the maximum value of 10KB allowed..
+              Looks up a localized string similar to The size of the OCI security token file exceeds the maximum value of 10KB allowed.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.OffsetCannotBeNegative">
@@ -11763,7 +11820,17 @@
         </member>
         <member name="P:MySql.Data.Resources.OldPasswordsNotSupported">
             <summary>
-              Looks up a localized string similar to Authentication with old password no longer supported, use 4.1 style passwords..
+              Looks up a localized string similar to Authentication with old password no longer supported, use 4.1 style passwords.
+            </summary>
+        </member>
+        <member name="P:MySql.Data.Resources.OpenIdIdentityTokenIsEmpty">
+            <summary>
+              Looks up a localized string similar to The OpenID Connect Identity Token is empty.
+            </summary>
+        </member>
+        <member name="P:MySql.Data.Resources.OpenIdIdentityTokenTooBig">
+            <summary>
+              Looks up a localized string similar to The OpenID Connect Identity Token is invalid.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.OptionNotCurrentlySupported">
@@ -11773,7 +11840,7 @@
         </member>
         <member name="P:MySql.Data.Resources.ParameterAlreadyDefined">
             <summary>
-              Looks up a localized string similar to Parameter &apos;{0}&apos; has already been defined..
+              Looks up a localized string similar to Parameter &apos;{0}&apos; has already been defined.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ParameterCannotBeNegative">
@@ -11788,32 +11855,32 @@
         </member>
         <member name="P:MySql.Data.Resources.ParameterCannotBeNullOrEmpty">
             <summary>
-              Looks up a localized string similar to Parameter &apos;{0}&apos; can&apos;t be null or empty..
+              Looks up a localized string similar to Parameter &apos;{0}&apos; can&apos;t be null or empty.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ParameterIndexNotFound">
             <summary>
-              Looks up a localized string similar to Parameter index was not found in Parameter Collection..
+              Looks up a localized string similar to Parameter index was not found in Parameter Collection.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ParameterIsInvalid">
             <summary>
-              Looks up a localized string similar to Parameter is invalid..
+              Looks up a localized string similar to Parameter is invalid.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ParameterMustBeDefined">
             <summary>
-              Looks up a localized string similar to Parameter &apos;{0}&apos; must be defined..
+              Looks up a localized string similar to Parameter &apos;{0}&apos; must be defined.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ParameterNotFoundDuringPrepare">
             <summary>
-              Looks up a localized string similar to Parameter &apos;{0}&apos; was not found during prepare..
+              Looks up a localized string similar to Parameter &apos;{0}&apos; was not found during prepare.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ParameterNullOrEmpty">
             <summary>
-              Looks up a localized string similar to Parameter can&apos;t be null or empty..
+              Looks up a localized string similar to Parameter can&apos;t be null or empty.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.PasswordMustHaveLegalChars">
@@ -11833,7 +11900,7 @@
         </member>
         <member name="P:MySql.Data.Resources.PerfMonHardProcHelp">
             <summary>
-              Looks up a localized string similar to The number of times a procedures metadata had to be queried from the server..
+              Looks up a localized string similar to The number of times a procedures metadata had to be queried from the server.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.PerfMonHardProcName">
@@ -11843,7 +11910,7 @@
         </member>
         <member name="P:MySql.Data.Resources.PerfMonSoftProcHelp">
             <summary>
-              Looks up a localized string similar to The number of times a procedures metadata was retrieved from the client-side cache..
+              Looks up a localized string similar to The number of times a procedures metadata was retrieved from the client-side cache.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.PerfMonSoftProcName">
@@ -11853,27 +11920,27 @@
         </member>
         <member name="P:MySql.Data.Resources.ProcAndFuncSameName">
             <summary>
-              Looks up a localized string similar to same name are not supported..
+              Looks up a localized string similar to same name are not supported.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.QueryAttributesNotSupported">
             <summary>
-              Looks up a localized string similar to MySQL Server {0} dos not support query attributes..
+              Looks up a localized string similar to MySQL Server {0} dos not support query attributes.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.QueryAttributesNotSupportedByCnet">
             <summary>
-              Looks up a localized string similar to MySQL Connector/NET does not support query attributes with prepared statements for this version of MySQL Server..
+              Looks up a localized string similar to MySQL Connector/NET does not support query attributes with prepared statements for this version of MySQL Server.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.QueryTooLarge">
             <summary>
-              Looks up a localized string similar to Packets larger than max_allowed_packet are not allowed..
+              Looks up a localized string similar to Packets larger than max_allowed_packet are not allowed.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ReadFromStreamFailed">
             <summary>
-              Looks up a localized string similar to Reading from the stream has failed..
+              Looks up a localized string similar to Reading from the stream has failed.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ReadingPriorColumnUsingSeqAccess">
@@ -11883,22 +11950,22 @@
         </member>
         <member name="P:MySql.Data.Resources.ReplicatedConnectionsAllowOnlyReadonlyStatements">
             <summary>
-              Looks up a localized string similar to Replicated connections allow only readonly statements..
+              Looks up a localized string similar to Replicated connections allow only readonly statements.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.Replication_ConnectionAttemptFailed">
             <summary>
-              Looks up a localized string similar to Attempt to connect to &apos;{0}&apos; server failed..
+              Looks up a localized string similar to Attempt to connect to &apos;{0}&apos; server failed.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.Replication_NoAvailableServer">
             <summary>
-              Looks up a localized string similar to No available server found..
+              Looks up a localized string similar to No available server found.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ReplicationGroupNotFound">
             <summary>
-              Looks up a localized string similar to Replication group &apos;{0}&apos; not found..
+              Looks up a localized string similar to Replication group &apos;{0}&apos; not found.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ReplicationServerNotFound">
@@ -11908,7 +11975,7 @@
         </member>
         <member name="P:MySql.Data.Resources.RoutineNotFound">
             <summary>
-              Looks up a localized string similar to Routine &apos;{0}&apos; cannot be found. Either check the spelling or make sure you have sufficient rights to execute the routine..
+              Looks up a localized string similar to Routine &apos;{0}&apos; cannot be found. Either check the spelling or make sure you have sufficient rights to execute the routine.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.RoutineRequiresReturnParameter">
@@ -11918,7 +11985,7 @@
         </member>
         <member name="P:MySql.Data.Resources.RSAPublicKeyRetrievalNotEnabled">
             <summary>
-              Looks up a localized string similar to Retrieval of the RSA public key is not enabled for insecure connections..
+              Looks up a localized string similar to Retrieval of the RSA public key is not enabled for insecure connections.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ServerTooOld">
@@ -11928,7 +11995,7 @@
         </member>
         <member name="P:MySql.Data.Resources.SnapshotNotSupported">
             <summary>
-              Looks up a localized string similar to Snapshot isolation level is not supported..
+              Looks up a localized string similar to Snapshot isolation level is not supported.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.SocketNoSeek">
@@ -11938,7 +12005,7 @@
         </member>
         <member name="P:MySql.Data.Resources.SoftProcQuery">
             <summary>
-              Looks up a localized string similar to Retrieving procedure metadata for {0} from procedure cache..
+              Looks up a localized string similar to Retrieving procedure metadata for {0} from procedure cache.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.SPNotSupported">
@@ -11948,27 +12015,27 @@
         </member>
         <member name="P:MySql.Data.Resources.SslCertificateCAMismatch">
             <summary>
-              Looks up a localized string similar to The certificate authority (CA) does not match..
+              Looks up a localized string similar to The certificate authority (CA) does not match.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.SslCertificateHostNameMismatch">
             <summary>
-              Looks up a localized string similar to The host name does not match the name on the certificate..
+              Looks up a localized string similar to The host name does not match the name on the certificate.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.SslCertificateIsNotCA">
             <summary>
-              Looks up a localized string similar to The certificate is not a certificate authority (CA)..
+              Looks up a localized string similar to The certificate is not a certificate authority (CA).
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.SslConnectionError">
             <summary>
-              Looks up a localized string similar to SSL Connection error..
+              Looks up a localized string similar to SSL Connection error.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.SslNotAllowedForConnectionProtocol">
             <summary>
-              Looks up a localized string similar to Connection protocol &apos;{0}&apos; does not support SSL connections..
+              Looks up a localized string similar to Connection protocol &apos;{0}&apos; does not support SSL connections.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.StreamAlreadyClosed">
@@ -11988,22 +12055,22 @@
         </member>
         <member name="P:MySql.Data.Resources.StringEmpty">
             <summary>
-              Looks up a localized string similar to String can&apos;t be empty..
+              Looks up a localized string similar to String can&apos;t be empty.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.Timeout">
             <summary>
-              Looks up a localized string similar to Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding..
+              Looks up a localized string similar to Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.TimeoutGettingConnection">
             <summary>
-              Looks up a localized string similar to error connecting: Timeout expired.  The timeout period elapsed prior to obtaining a connection from the pool.  This may have occurred because all pooled connections were in use and max pool size was reached..
+              Looks up a localized string similar to error connecting: Timeout expired.  The timeout period elapsed prior to obtaining a connection from the pool.  This may have occurred because all pooled connections were in use and max pool size was reached.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.TimeOutMultipleHost">
             <summary>
-              Looks up a localized string similar to All server connection attempts were aborted. Timeout of {0} seconds was exceeded for each selected server..
+              Looks up a localized string similar to All server connection attempts were aborted. Timeout of {0} seconds was exceeded for each selected server.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.TlsNonValidProtocols">
@@ -12014,11 +12081,6 @@
         <member name="P:MySql.Data.Resources.TlsUnsupportedVersions">
             <summary>
               Looks up a localized string similar to TLS protocols TLSv1 and TLSv1.1 are no longer supported. Accepted values are TLSv1.2 and TLSv1.3.
-            </summary>
-        </member>
-        <member name="P:MySql.Data.Resources.Tlsv13NotSupported">
-            <summary>
-              Looks up a localized string similar to TLSv1.3 is not supported by this framework..
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.TlsVersionsEmpty">
@@ -12033,7 +12095,7 @@
         </member>
         <member name="P:MySql.Data.Resources.TraceErrorMoreThanMaxValueConnections">
             <summary>
-              Looks up a localized string similar to Unable to trace.  There are more than Int32.MaxValue connections in use..
+              Looks up a localized string similar to Unable to trace.  There are more than Int32.MaxValue connections in use.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.TraceFetchError">
@@ -12118,7 +12180,7 @@
         </member>
         <member name="P:MySql.Data.Resources.TraceUAWarningSkippedRows">
             <summary>
-              Looks up a localized string similar to {0}: Usage Advisor Warning: Skipped {2} rows. Consider a more focused query..
+              Looks up a localized string similar to {0}: Usage Advisor Warning: Skipped {2} rows. Consider a more focused query.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.TraceWarning">
@@ -12138,22 +12200,22 @@
         </member>
         <member name="P:MySql.Data.Resources.UnableToConnectToHost">
             <summary>
-              Looks up a localized string similar to Unable to connect to any of the specified MySQL hosts..
+              Looks up a localized string similar to Unable to connect to any of the specified MySQL hosts.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.UnableToCreateAuthPlugin">
             <summary>
-              Looks up a localized string similar to Unable to create plugin for authentication method &apos;{0}&apos;. Please see inner exception for details..
+              Looks up a localized string similar to Unable to create plugin for authentication method &apos;{0}&apos;. Please see inner exception for details.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.UnableToDeriveParameters">
             <summary>
-              Looks up a localized string similar to Unable to derive stored routine parameters.  The &apos;Parameters&apos; information schema table is not available and access to the stored procedure body has been disabled..
+              Looks up a localized string similar to Unable to derive stored routine parameters.  The &apos;Parameters&apos; information schema table is not available and access to the stored procedure body has been disabled.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.UnableToEnableQueryAnalysis">
             <summary>
-              Looks up a localized string similar to Unable to enable query analysis.  Be sure the MySql.Data.EMTrace assembly is properly located and registered..
+              Looks up a localized string similar to Unable to enable query analysis.  Be sure the MySql.Data.EMTrace assembly is properly located and registered.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.UnableToEnumerateUDF">
@@ -12163,27 +12225,27 @@
         </member>
         <member name="P:MySql.Data.Resources.UnableToExecuteSP">
             <summary>
-              Looks up a localized string similar to Unable to execute stored procedure &apos;{0}&apos;..
+              Looks up a localized string similar to Unable to execute stored procedure &apos;{0}&apos;.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.UnableToParseFK">
             <summary>
-              Looks up a localized string similar to There was an error parsing the foreign key definition..
+              Looks up a localized string similar to There was an error parsing the foreign key definition.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.UnableToReadRSAKey">
             <summary>
-              Looks up a localized string similar to Error encountered reading the RSA public key..
+              Looks up a localized string similar to Error encountered reading the RSA public key.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.UnableToRetrieveParameters">
             <summary>
-              Looks up a localized string similar to Unable to retrieve stored procedure metadata for routine &apos;{0}&apos;.  Either grant  SELECT privilege to mysql.proc for this user or use &quot;check parameters=false&quot; with  your connection string..
+              Looks up a localized string similar to Unable to retrieve stored procedure metadata for routine &apos;{0}&apos;.  Either grant  SELECT privilege to mysql.proc for this user or use &quot;check parameters=false&quot; with  your connection string.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.UnableToStartSecondAsyncOp">
             <summary>
-              Looks up a localized string similar to Unable to start a second async operation while one is running..
+              Looks up a localized string similar to Unable to start a second async operation while one is running.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.UnixSocketsNotSupported">
@@ -12193,7 +12255,7 @@
         </member>
         <member name="P:MySql.Data.Resources.UnknownAuthenticationMethod">
             <summary>
-              Looks up a localized string similar to Unknown authentication method &apos;{0}&apos; was requested..
+              Looks up a localized string similar to Unknown authentication method &apos;{0}&apos; was requested.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.UnknownConnectionProtocol">
@@ -12203,22 +12265,32 @@
         </member>
         <member name="P:MySql.Data.Resources.UnmatchedWinUserAndMySqlUser">
             <summary>
-              Looks up a localized string similar to MySQL user &apos;{0}&apos; does not equal the logged-in Windows user &apos;{1}&apos;..
+              Looks up a localized string similar to MySQL user &apos;{0}&apos; does not equal the logged-in Windows user &apos;{1}&apos;.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.UnsafePathForLoadLocalInfile">
             <summary>
-              Looks up a localized string similar to Trying to upload a file from outside the path set on &apos;allowloadlocalinfileinpath&apos; is invalid..
+              Looks up a localized string similar to Trying to upload a file from outside the path set on &apos;allowloadlocalinfileinpath&apos; is invalid.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ValueNotCorrectType">
             <summary>
-              Looks up a localized string similar to Value &apos;{0}&apos; is not of the correct type..
+              Looks up a localized string similar to Value &apos;{0}&apos; is not of the correct type.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.ValueNotSupportedForGuid">
             <summary>
-              Looks up a localized string similar to The requested column value could not be treated as or conveted to a Guid..
+              Looks up a localized string similar to The requested column value could not be treated as or conveted to a Guid.
+            </summary>
+        </member>
+        <member name="P:MySql.Data.Resources.WebAuthnMissingHandler">
+            <summary>
+              Looks up a localized string similar to An event handler for WebAuthnActionRequested was not specified.
+            </summary>
+        </member>
+        <member name="P:MySql.Data.Resources.WebAuthnTimeout">
+            <summary>
+              Looks up a localized string similar to The timeout of 15 seconds for user interaction with FIDO device has been exceeded.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.WinAuthNotSupportOnPlatform">
@@ -12228,12 +12300,12 @@
         </member>
         <member name="P:MySql.Data.Resources.WriteToStreamFailed">
             <summary>
-              Looks up a localized string similar to Writing to the stream failed..
+              Looks up a localized string similar to Writing to the stream failed.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.WrongParameterName">
             <summary>
-              Looks up a localized string similar to Parameter &apos;{0}&apos; is not found but a parameter with the name &apos;{1}&apos; is found. Parameter names must include the leading parameter marker..
+              Looks up a localized string similar to Parameter &apos;{0}&apos; is not found but a parameter with the name &apos;{1}&apos; is found. Parameter names must include the leading parameter marker.
             </summary>
         </member>
         <member name="T:MySql.Data.ResourcesX">
@@ -12254,157 +12326,157 @@
         </member>
         <member name="P:MySql.Data.ResourcesX.AppdataNotDefined">
             <summary>
-              Looks up a localized string similar to Appdata path is not defined..
+              Looks up a localized string similar to Appdata path is not defined.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.AuthenticationFailed">
             <summary>
-              Looks up a localized string similar to Authentication failed using MYSQL41 and SHA256_MEMORY. Check the user name and password or try using a secure connection..
+              Looks up a localized string similar to Authentication failed using MYSQL41 and SHA256_MEMORY. Check the user name and password or try using a secure connection.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.ClientIsClosed">
             <summary>
-              Looks up a localized string similar to You can&apos;t get more sessions because Client is closed..
+              Looks up a localized string similar to You can&apos;t get more sessions because Client is closed.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.ClientOptionInvalidValue">
             <summary>
-              Looks up a localized string similar to Client option &apos;{0}&apos; does not support value &apos;{1}&apos;..
+              Looks up a localized string similar to Client option &apos;{0}&apos; does not support value &apos;{1}&apos;.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.ClientOptionNotValid">
             <summary>
-              Looks up a localized string similar to Client option &apos;{0}&apos; is not recognized as valid..
+              Looks up a localized string similar to Client option &apos;{0}&apos; is not recognized as valid.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.CollectionTableDoesNotExist">
             <summary>
-              Looks up a localized string similar to {0} &apos;{1}&apos; does not exist in schema &apos;{2}&apos;..
+              Looks up a localized string similar to {0} &apos;{1}&apos; does not exist in schema &apos;{2}&apos;.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.CompressionAlgorithmNegotiationFailed">
             <summary>
-              Looks up a localized string similar to Compression requested but the compression algorithm negotiation failed..
+              Looks up a localized string similar to Compression requested but the compression algorithm negotiation failed.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.CompressionAlgorithmNotSupported">
             <summary>
-              Looks up a localized string similar to Compression using {0} is not supported..
+              Looks up a localized string similar to Compression using {0} is not supported.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.CompressionForSpecificAlgorithmNotSupportedInNetFramework">
             <summary>
-              Looks up a localized string similar to Compression using {0} is not supported in .NET Framework..
+              Looks up a localized string similar to Compression using {0} is not supported in .NET Framework.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.CompressionInvalidValue">
             <summary>
-              Looks up a localized string similar to The connection property &apos;compression&apos; acceptable values are: &apos;preferred&apos;, &apos;required&apos; or &apos;disabled&apos;. The value &apos;{0}&apos; is not acceptable..
+              Looks up a localized string similar to The connection property &apos;compression&apos; acceptable values are: &apos;preferred&apos;, &apos;required&apos; or &apos;disabled&apos;. The value &apos;{0}&apos; is not acceptable.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.CompressionNotEnabled">
             <summary>
-              Looks up a localized string similar to Compression is not enabled..
+              Looks up a localized string similar to Compression is not enabled.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.CompressionNotSupportedByServer">
             <summary>
-              Looks up a localized string similar to Compression requested but the server does not support it..
+              Looks up a localized string similar to Compression requested but the server does not support it.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.CompressionPendingMessagesToProcess">
             <summary>
-              Looks up a localized string similar to There are still decompressed messages pending to be processed..
+              Looks up a localized string similar to There are still decompressed messages pending to be processed.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.CustomTypeNotSupported">
             <summary>
-              Looks up a localized string similar to Custom type mapping is only supported from .NET Core 3.1 and later..
+              Looks up a localized string similar to Custom type mapping is only supported from .NET Core 3.1 and later.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.DnsSrvConflictingOptions">
             <summary>
-              Looks up a localized string similar to &apos;{0}&apos; cannot be set to false with DNS SRV lookup enabled..
+              Looks up a localized string similar to &apos;{0}&apos; cannot be set to false with DNS SRV lookup enabled.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.DnsSrvInvalidScheme">
             <summary>
-              Looks up a localized string similar to Scheme &apos;{0}&apos; is not valid..
+              Looks up a localized string similar to Scheme &apos;{0}&apos; is not valid.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.DocPathNullOrEmpty">
             <summary>
-              Looks up a localized string similar to The document path cannot be null or an empty string..
+              Looks up a localized string similar to The document path cannot be null or an empty string.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.DuplicateUserDefinedAttribute">
             <summary>
-              Looks up a localized string similar to Duplicate key &apos;{0}&apos; used in &quot;connection-attributes&quot;..
+              Looks up a localized string similar to Duplicate key &apos;{0}&apos; used in &quot;connection-attributes&quot;.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.EmptyKeyConnectionAttribute">
             <summary>
-              Looks up a localized string similar to Key name in connection attribute cannot be an empty string..
+              Looks up a localized string similar to Key name in connection attribute cannot be an empty string.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.EmptyOptions">
             <summary>
-              Looks up a localized string similar to At least one option must be specified..
+              Looks up a localized string similar to At least one option must be specified.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.FeatureNotSupported">
             <summary>
-              Looks up a localized string similar to This feature is currently not supported..
+              Looks up a localized string similar to This feature is currently not supported.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.FunctionalityNotSupported">
             <summary>
-              Looks up a localized string similar to This functionality is only supported in MySQL {0} and higher..
+              Looks up a localized string similar to This functionality is only supported in MySQL {0} and higher.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidCollationId">
             <summary>
-              Looks up a localized string similar to Collation with id &apos;{0}&apos; not found..
+              Looks up a localized string similar to Collation with id &apos;{0}&apos; not found.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidConnectionAttributes">
             <summary>
-              Looks up a localized string similar to The value of &quot;connection-attributes&quot; must be either a boolean or a list of key-value pairs..
+              Looks up a localized string similar to The value of &quot;connection-attributes&quot; must be either a boolean or a list of key-value pairs.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidConnectionData">
             <summary>
-              Looks up a localized string similar to Connection Data is incorrect..
+              Looks up a localized string similar to Connection Data is incorrect.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidConnectionString">
             <summary>
-              Looks up a localized string similar to The connection string is invalid..
+              Looks up a localized string similar to The connection string is invalid.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidConnectionStringAttribute">
             <summary>
-              Looks up a localized string similar to &apos;{0}&apos; is not a valid connection string attribute..
+              Looks up a localized string similar to &apos;{0}&apos; is not a valid connection string attribute.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidConnectionTimeoutValue">
             <summary>
-              Looks up a localized string similar to The connection timeout value must be a positive integer (including 0)..
+              Looks up a localized string similar to The connection timeout value must be a positive integer (including 0).
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidDecimalFormat">
             <summary>
-              Looks up a localized string similar to Decimal (BCD) format is invalid..
+              Looks up a localized string similar to Decimal (BCD) format is invalid.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidFieldType">
             <summary>
-              Looks up a localized string similar to Field type with name &apos;{0}&apos; not found..
+              Looks up a localized string similar to Field type with name &apos;{0}&apos; not found.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidIndexType">
             <summary>
-              Looks up a localized string similar to Index type with name &apos;{0}&apos; not found..
+              Looks up a localized string similar to Index type with name &apos;{0}&apos; not found.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidJsonDocument">
@@ -12414,17 +12486,17 @@
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidNameIndex">
             <summary>
-              Looks up a localized string similar to {0} is not a valid column name in the row..
+              Looks up a localized string similar to {0} is not a valid column name in the row.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidRowIndex">
             <summary>
-              Looks up a localized string similar to {0} is not a valid index for the row..
+              Looks up a localized string similar to {0} is not a valid index for the row.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidSession">
             <summary>
-              Looks up a localized string similar to Session state is not valid..
+              Looks up a localized string similar to Session state is not valid.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidUriData">
@@ -12439,37 +12511,37 @@
         </member>
         <member name="P:MySql.Data.ResourcesX.InvalidUserDefinedAttribute">
             <summary>
-              Looks up a localized string similar to Key names in &quot;connection-attributes&quot; cannot start with &quot;_&quot;..
+              Looks up a localized string similar to Key names in &quot;connection-attributes&quot; cannot start with &quot;_&quot;.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.JsonUriOrHost">
             <summary>
-              Looks up a localized string similar to Json configuration must contain &apos;uri&apos; or &apos;host&apos; but not both..
+              Looks up a localized string similar to Json configuration must contain &apos;uri&apos; or &apos;host&apos; but not both.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.KeywordNotFound">
             <summary>
-              Looks up a localized string similar to Keyword &apos;{0}&apos; not found..
+              Looks up a localized string similar to Keyword &apos;{0}&apos; not found.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.KeywordNotSupported">
             <summary>
-              Looks up a localized string similar to Keyword not supported..
+              Looks up a localized string similar to Keyword not supported.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.MandatoryFieldNotFound">
             <summary>
-              Looks up a localized string similar to Field &apos;{0}&apos; is mandatory..
+              Looks up a localized string similar to Field &apos;{0}&apos; is mandatory.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.MissingSchemaOption">
             <summary>
-              Looks up a localized string similar to Missed required schema option..
+              Looks up a localized string similar to Missed required schema option.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.MoreThanOneDocumentId">
             <summary>
-              Looks up a localized string similar to More than one document id was generated.  Please use the DocumentIds property instead..
+              Looks up a localized string similar to More than one document id was generated.  Please use the DocumentIds property instead.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.NoDataAtIndex">
@@ -12479,12 +12551,12 @@
         </member>
         <member name="P:MySql.Data.ResourcesX.NoHost">
             <summary>
-              Looks up a localized string similar to No &apos;host&apos; has been specified..
+              Looks up a localized string similar to No &apos;host&apos; has been specified.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.NoMoreData">
             <summary>
-              Looks up a localized string similar to No more data in resultset..
+              Looks up a localized string similar to No more data in resultset.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.NoObjectFound">
@@ -12494,7 +12566,7 @@
         </member>
         <member name="P:MySql.Data.ResourcesX.NoPlaceholders">
             <summary>
-              Looks up a localized string similar to No placeholders..
+              Looks up a localized string similar to No placeholders.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.NoticeIdleConnection">
@@ -12514,88 +12586,88 @@
         </member>
         <member name="P:MySql.Data.ResourcesX.NumberNotGreaterThanZero">
             <summary>
-              Looks up a localized string similar to {0} must be a value greater than 0..
+              Looks up a localized string similar to {0} must be a value greater than 0.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.PathNotFound">
             <summary>
-              Looks up a localized string similar to Path not found &apos;{0}&apos;..
+              Looks up a localized string similar to Path not found &apos;{0}&apos;.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.PoolingQueueTimeout">
             <summary>
-              Looks up a localized string similar to Queue timeout expired. The timeout period elapsed prior to getting a session from the pool..
+              Looks up a localized string similar to Queue timeout expired. The timeout period elapsed prior to getting a session from the pool.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.PortNotSupported">
             <summary>
-              Looks up a localized string similar to Providing a port number as part of the host address isn&apos;t supported when using connection strings in basic format or anonymous objects. Use URI format instead..
+              Looks up a localized string similar to Providing a port number as part of the host address isn&apos;t supported when using connection strings in basic format or anonymous objects. Use URI format instead.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.PriorityForAllOrNoHosts">
             <summary>
-              Looks up a localized string similar to You must either assign no priority to any of the hosts or give a priority for every host..
+              Looks up a localized string similar to You must either assign no priority to any of the hosts or give a priority for every host.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.PriorityOutOfLimits">
             <summary>
-              Looks up a localized string similar to The priority must be between 0 and 100..
+              Looks up a localized string similar to The priority must be between 0 and 100.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.ProgramDataNotDefined">
             <summary>
-              Looks up a localized string similar to ProgramData path is not defined..
+              Looks up a localized string similar to ProgramData path is not defined.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.ReplaceWithNoMatchingId">
              <summary>
                Looks up a localized string similar to Replacement document has an &apos;_id&apos; that is
-            different from the matched document..
+            different from the matched document.
              </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.SchemaCreateCollectionMsg">
             <summary>
-              Looks up a localized string similar to The server doesn&apos;t support the requested operation. Please update the MySQL Server, client library, or both..
+              Looks up a localized string similar to The server doesn&apos;t support the requested operation. Please update the MySQL Server, client library, or both.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.ThrowingAwayResults">
             <summary>
-              Looks up a localized string similar to The process of closing the resultset and resulted in results being lost..
+              Looks up a localized string similar to The process of closing the resultset and resulted in results being lost.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.TimeOutMultipleHost">
             <summary>
-              Looks up a localized string similar to All server connection attempts were aborted. Timeout of {0} milliseconds was exceeded for each selected server..
+              Looks up a localized string similar to All server connection attempts were aborted. Timeout of {0} milliseconds was exceeded for each selected server.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.TimeOutMultipleHost0ms">
             <summary>
-              Looks up a localized string similar to All server connection attempts were aborted. Timeout was exceeded for each selected server..
+              Looks up a localized string similar to All server connection attempts were aborted. Timeout was exceeded for each selected server.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.TimeOutSingleHost">
             <summary>
-              Looks up a localized string similar to Connection attempt to the server was aborted. Timeout of {0} milliseconds was exceeded..
+              Looks up a localized string similar to Connection attempt to the server was aborted. Timeout of {0} milliseconds was exceeded.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.TimeOutSingleHost0ms">
             <summary>
-              Looks up a localized string similar to Connection attempt to the server was aborted. Timeout was exceeded..
+              Looks up a localized string similar to Connection attempt to the server was aborted. Timeout was exceeded.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.UnableToConnect">
             <summary>
-              Looks up a localized string similar to Unable to connect to any specified host..
+              Looks up a localized string similar to Unable to connect to any specified host.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.UnableToDecodeDataValue">
             <summary>
-              Looks up a localized string similar to Unable to read or decode data value..
+              Looks up a localized string similar to Unable to read or decode data value.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.UnableToOpenSession">
             <summary>
-              Looks up a localized string similar to Unable to open a session..
+              Looks up a localized string similar to Unable to open a session.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.UnexpectedEndOfPacketFound">
@@ -12605,7 +12677,7 @@
         </member>
         <member name="P:MySql.Data.ResourcesX.UnexpectedField">
             <summary>
-              Looks up a localized string similar to Field name &apos;{0}&apos; is not allowed..
+              Looks up a localized string similar to Field name &apos;{0}&apos; is not allowed.
             </summary>
         </member>
         <member name="P:MySql.Data.ResourcesX.UnknownPlaceholder">
@@ -12615,7 +12687,7 @@
         </member>
         <member name="P:MySql.Data.ResourcesX.ValueNotCorrectType">
             <summary>
-              Looks up a localized string similar to Value &apos;{0}&apos; is not of the correct type..
+              Looks up a localized string similar to Value &apos;{0}&apos; is not of the correct type.
             </summary>
         </member>
         <member name="T:MySql.Data.Types.MySqlBit">
@@ -12967,16 +13039,6 @@
             Buffer used to store the data received from the server.
             </summary>
         </member>
-        <member name="F:MySqlX.Communication.XCompressionController._deflateCompressStream">
-            <summary>
-            Deflate stream used for compressing data.
-            </summary>
-        </member>
-        <member name="F:MySqlX.Communication.XCompressionController._deflateDecompressStream">
-            <summary>
-            Deflate stream used for decompressing data.
-            </summary>
-        </member>
         <member name="F:MySqlX.Communication.XCompressionController._initializeForCompression">
             <summary>
             Flag indicating if the initialization is for compression or decompression.
@@ -12990,6 +13052,11 @@
         <member name="F:MySqlX.Communication.XCompressionController._multipleMessagesStream">
             <summary>
             Stream used to store multiple X Protocol messages.
+            </summary>
+        </member>
+        <member name="F:MySqlX.Communication.XCompressionController._zstdDecompressStream">
+            <summary>
+            ZStandard stream used for decompressing data.
             </summary>
         </member>
         <member name="M:MySqlX.Communication.XCompressionController.#ctor(MySql.Data.MySqlClient.CompressionAlgorithms,System.Boolean)">
@@ -13041,6 +13108,13 @@
             <param name="input">The data to compress.</param>
             <returns>A compressed byte array.</returns>
         </member>
+        <member name="M:MySqlX.Communication.XCompressionController.CompressUsingZstdStream(System.Byte[])">
+            <summary>
+            Compresses data using the zstd_stream algorithm.
+            </summary>
+            <param name="input">The data to compress.</param>
+            <returns>A compressed byte array.</returns>
+        </member>
         <member name="M:MySqlX.Communication.XCompressionController.Decompress(System.Byte[],System.Int32)">
             <summary>
             General method used to decompress data using the compression algorithm defined in the constructor.
@@ -13049,17 +13123,17 @@
             <param name="length">The expected length of the decompressed data.</param>
             <returns>A decompressed byte array.</returns>
         </member>
-        <member name="M:MySqlX.Communication.XCompressionController.DecompressUsingDeflateStream(System.Byte[],System.Int32)">
+        <member name="M:MySqlX.Communication.XCompressionController.DecompressUsingLz4Message(System.Byte[],System.Int32)">
             <summary>
-            Decompresses data using the deflate_stream compression algorithm.
+            Decompresses data using the lz4_message compression algorithm.
             </summary>
             <param name="input">The data to decompress.</param>
             <param name="length">The expected length of the decompressed data.</param>
             <returns>A decompressed byte array.</returns>
         </member>
-        <member name="M:MySqlX.Communication.XCompressionController.DecompressUsingLz4Message(System.Byte[],System.Int32)">
+        <member name="M:MySqlX.Communication.XCompressionController.DecompressUsingZstdStream(System.Byte[],System.Int32)">
             <summary>
-            Decompresses data using the lz4_message compression algorithm.
+            Decompresses data using the zstd_stream compression algorithm.
             </summary>
             <param name="input">The data to decompress.</param>
             <param name="length">The expected length of the decompressed data.</param>
@@ -17086,7 +17160,30 @@
             * ** 
              </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Mysqlx.Expr.ColumnIdentifier" -->
+        <member name="T:Mysqlx.Expr.ColumnIdentifier">
+             <summary>
+            *
+            Column identifier
+            
+            for table: col\@doc_path, tbl.col\@doc_path col, tbl.col, schema.tbl.col
+            for document collection: doc_path
+            &#x2F;/
+            @par production list
+            @code{unparsed}
+            col_identifier: string "." string "." string |
+            : string "." string |
+            : string |
+            : string "." string "." string "@" document_path |
+            : string "." string "@" document_path |
+            : string "@" document_path |
+            : document_path
+            document_path: member | arrayLocation | doubleAsterisk
+            member = "." string | "." "*"
+            arrayLocation = "[" index "]" | "[" "*" "]"
+            doubleAsterisk = "**"
+            @endcode
+             </summary>
+        </member>
         <member name="F:Mysqlx.Expr.ColumnIdentifier.DocumentPathFieldNumber">
             <summary>Field number for the "document_path" field.</summary>
         </member>
