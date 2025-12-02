@@ -6,7 +6,10 @@ namespace Sistema_tws
 {
     public partial class FormMenu : Form
     {
-        // Referências dos UserControls
+        // BOTÕES DO MENU
+        private Button btnHome, btnLivros, btnAutores, btnEstoque, btnVendas, btnCupons, btnRelatorios;
+
+        // UserControls
         private HomeControl homeControl;
         private LivrosControl livrosControl;
         private AutoresControl autoresControl;
@@ -15,26 +18,73 @@ namespace Sistema_tws
         private CuponsControl cuponsControl;
         private RelatoriosControl relatoriosControl;
 
+        // Menu
         private bool menuAberto = true;
         private int larguraMenu = 200;
+
+        private Color colorPrimary = ColorTranslator.FromHtml("#072E6A");
 
         public FormMenu()
         {
             InitializeComponent();
+            CriarMenu();
             WireEvents();
             LoadHome();
         }
 
-        // BOTÃO QUE ESCONDE / MOSTRA O MENU
+        private void FormMenu_Load(object sender, EventArgs e)
+        {
+            btnToggleMenu.Left = this.ClientSize.Width - btnToggleMenu.Width - 10;
+            btnToggleMenu.BringToFront();
+        }
+
+        // -------------------------- CRIAR MENU --------------------------
+
+        private void CriarMenu()
+        {
+            btnHome = CreateButton("Home", 120);
+            btnLivros = CreateButton("Livros", 170);
+            btnAutores = CreateButton("Autores", 220);
+            btnEstoque = CreateButton("Estoque", 270);
+            btnVendas = CreateButton("Vendas", 320);
+            btnCupons = CreateButton("Cupons", 370);
+            btnRelatorios = CreateButton("Relatórios", 420);
+
+            pnlSidebar.Controls.AddRange(new Control[]
+            {
+                btnHome, btnLivros, btnAutores, btnEstoque,
+                btnVendas, btnCupons, btnRelatorios
+            });
+        }
+
+        private Button CreateButton(string text, int top)
+        {
+            return new Button()
+            {
+                Text = text,
+                Width = 170,
+                Height = 40,
+                Left = 15,
+                Top = top,
+                BackColor = colorPrimary,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                TabStop = false
+            };
+        }
+
+        // -------------------------- MENU ABRIR/FECHAR --------------------------
+
         private void btnToggleMenu_Click(object sender, EventArgs e)
         {
             if (menuAberto)
             {
-                // FECHAR MENU (lado direito)
                 pnlSidebar.Width = 50;
                 btnToggleMenu.Text = "☰";
                 menuAberto = false;
 
+                // EVITA ERRO DE PICTUREBOX
                 foreach (Control c in pnlSidebar.Controls)
                 {
                     if (c is Button b)
@@ -43,7 +93,6 @@ namespace Sistema_tws
             }
             else
             {
-                // ABRIR MENU
                 pnlSidebar.Width = larguraMenu;
                 btnToggleMenu.Text = "✖";
                 menuAberto = true;
@@ -57,11 +106,11 @@ namespace Sistema_tws
                 btnRelatorios.Text = "Relatórios";
             }
 
-            // **Reposicionar botão sempre à direita**
             btnToggleMenu.Left = this.ClientSize.Width - btnToggleMenu.Width - 10;
         }
 
-        // Conectar botões às telas
+        // -------------------------- EVENTOS DOS BOTÕES --------------------------
+
         private void WireEvents()
         {
             btnHome.Click += (s, e) => LoadHome();
@@ -73,7 +122,8 @@ namespace Sistema_tws
             btnRelatorios.Click += (s, e) => LoadRelatorios();
         }
 
-        // Trocar telas
+        // -------------------------- TROCA DE TELAS --------------------------
+
         private void LoadUserControl(UserControl uc)
         {
             pnlMain.Controls.Clear();
