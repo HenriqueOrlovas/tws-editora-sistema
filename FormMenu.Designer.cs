@@ -17,23 +17,19 @@ namespace Sistema_tws
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources =
-                new System.ComponentModel.ComponentResourceManager(typeof(FormMenu));
-
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMenu));
             this.pnlSidebar = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.btnToggleMenu = new System.Windows.Forms.Button();
-
             this.pnlSidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-
             // 
             // pnlSidebar
             // 
-            this.pnlSidebar.BackColor = System.Drawing.Color.FromArgb(7, 46, 106);
+            this.pnlSidebar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(46)))), ((int)(((byte)(106)))));
             this.pnlSidebar.Controls.Add(this.pictureBox1);
             this.pnlSidebar.Controls.Add(this.lblTitle);
             this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Right;
@@ -41,7 +37,16 @@ namespace Sistema_tws
             this.pnlSidebar.Name = "pnlSidebar";
             this.pnlSidebar.Size = new System.Drawing.Size(200, 760);
             this.pnlSidebar.TabIndex = 1;
-
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(40, 504);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(124, 115);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
             // 
             // lblTitle
             // 
@@ -52,18 +57,6 @@ namespace Sistema_tws
             this.lblTitle.Size = new System.Drawing.Size(160, 23);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Editora TWS";
-
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(38, 616);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(124, 115);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-
             // 
             // pnlMain
             // 
@@ -73,12 +66,11 @@ namespace Sistema_tws
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1000, 760);
             this.pnlMain.TabIndex = 0;
-
             // 
             // btnToggleMenu
             // 
-            this.btnToggleMenu.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
-            this.btnToggleMenu.BackColor = System.Drawing.Color.FromArgb(7, 46, 106);
+            this.btnToggleMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnToggleMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(46)))), ((int)(((byte)(106)))));
             this.btnToggleMenu.FlatAppearance.BorderSize = 0;
             this.btnToggleMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnToggleMenu.ForeColor = System.Drawing.Color.White;
@@ -89,7 +81,6 @@ namespace Sistema_tws
             this.btnToggleMenu.Text = "✖";
             this.btnToggleMenu.UseVisualStyleBackColor = false;
             this.btnToggleMenu.Click += new System.EventHandler(this.btnToggleMenu_Click);
-
             // 
             // FormMenu
             // 
@@ -102,10 +93,10 @@ namespace Sistema_tws
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema TWS";
             this.Load += new System.EventHandler(this.FormMenu_Load);
-
             this.pnlSidebar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         protected override void Dispose(bool disposing)

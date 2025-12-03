@@ -1,122 +1,86 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\",
+  "WorkspaceRootPath": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\formmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:formmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\lab1064\\desktop\\abobora\\tws-editora-sistema\\formmenu.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:formmenu.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\relatorioscontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:relatorioscontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\formmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\formmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:formmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\cuponscontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:cuponscontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\formmenu.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:formmenu.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\formlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:formlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\formmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:formmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\estoquecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:estoquecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\cuponscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:cuponscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\homecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:homecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\livroscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:livroscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\conexao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:conexao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\formlogin.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:formlogin.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\formlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:formlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\relatorioscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:relatorioscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\relatorioscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:relatorioscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\cuponscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:cuponscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\vendascontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:vendascontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\vendascontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:vendascontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\vendascontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:vendascontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\estoquecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:estoquecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\estoquecontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:estoquecontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\autorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:autorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\autorescontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:autorescontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\autorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:autorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\livroscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:livroscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\livroscontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:livroscontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\homecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\homecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:homecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\homecontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\homecontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:homecontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\homecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:homecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\livroscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:livroscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\conexao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:conexao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\vendascontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:vendascontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\relatorioscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:relatorioscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\cuponscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:cuponscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\estoquecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:estoquecontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\cuponscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:cuponscontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\autorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:autorescontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\formlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:formlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\vendascontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:vendascontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\relatorioscontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:relatorioscontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\estoquecontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:estoquecontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\cuponscontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:cuponscontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|c:\\users\\batis\\downloads\\tws\\tws-editora-sistema\\autorescontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CC70F5D-3833-4EC1-AA63-9C658861E02B}|Sistema-TWS.csproj|solutionrelative:autorescontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -126,7 +90,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -134,362 +98,260 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "HomeControl.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\HomeControl.Designer.cs",
+              "RelativeDocumentMoniker": "HomeControl.Designer.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\HomeControl.Designer.cs",
+              "RelativeToolTip": "HomeControl.Designer.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAIwGIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T23:57:52.982Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "FormMenu.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\FormMenu.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\FormMenu.Designer.cs",
               "RelativeDocumentMoniker": "FormMenu.Designer.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\FormMenu.Designer.cs*",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\FormMenu.Designer.cs*",
               "RelativeToolTip": "FormMenu.Designer.cs*",
-              "ViewState": "AgIAAFsAAAAAAAAAAADwv3cAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAQwB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:26:45.341Z",
+              "WhenOpened": "2025-12-03T00:35:11.632Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "FormMenu.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\FormMenu.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\FormMenu.cs",
               "RelativeDocumentMoniker": "FormMenu.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\FormMenu.cs*",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\FormMenu.cs*",
               "RelativeToolTip": "FormMenu.cs*",
-              "ViewState": "AgIAAJUAAAAAAAAAAADwv7EAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIAAAAAAAAAAAAAQwOUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:26:56.806Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:22:35.528Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "FormLogin.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\FormLogin.cs",
-              "RelativeDocumentMoniker": "FormLogin.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\FormLogin.cs [Design]",
-              "RelativeToolTip": "FormLogin.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:20:45.044Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "FormLogin.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\FormLogin.Designer.cs",
-              "RelativeDocumentMoniker": "FormLogin.Designer.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\FormLogin.Designer.cs",
-              "RelativeToolTip": "FormLogin.Designer.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAuwFMAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:24:18.596Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "LivrosControl.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\LivrosControl.cs",
-              "RelativeDocumentMoniker": "LivrosControl.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\LivrosControl.cs [Design]",
-              "RelativeToolTip": "LivrosControl.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:41:47.861Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "conexao.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\conexao.cs",
-              "RelativeDocumentMoniker": "conexao.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\conexao.cs",
-              "RelativeToolTip": "conexao.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:22:27.3Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "FormLogin.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\FormLogin.cs",
-              "RelativeDocumentMoniker": "FormLogin.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\FormLogin.cs",
-              "RelativeToolTip": "FormLogin.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAmwEAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:24:22.07Z",
+              "WhenOpened": "2025-12-03T00:16:27.489Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "FormMenu.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\FormMenu.cs",
-              "RelativeDocumentMoniker": "FormMenu.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\FormMenu.cs [Design]*",
-              "RelativeToolTip": "FormMenu.cs [Design]*",
+              "Title": "HomeControl.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\HomeControl.cs",
+              "RelativeDocumentMoniker": "HomeControl.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\HomeControl.cs",
+              "RelativeToolTip": "HomeControl.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:26:32.496Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RelatoriosControl.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\RelatoriosControl.Designer.cs",
-              "RelativeDocumentMoniker": "RelatoriosControl.Designer.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\RelatoriosControl.Designer.cs",
-              "RelativeToolTip": "RelatoriosControl.Designer.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAQwBsAAAB8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:46:30.342Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "RelatoriosControl.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\RelatoriosControl.cs",
-              "RelativeDocumentMoniker": "RelatoriosControl.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\RelatoriosControl.cs",
-              "RelativeToolTip": "RelatoriosControl.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAuwDgAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:46:37.344Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "RelatoriosControl.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\RelatoriosControl.cs",
-              "RelativeDocumentMoniker": "RelatoriosControl.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Sistema-tws\\Sistema-TWS\\RelatoriosControl.cs [Design]",
-              "RelativeToolTip": "..\\..\\Sistema-tws\\Sistema-TWS\\RelatoriosControl.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:46:11.772Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "CuponsControl.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\CuponsControl.cs",
-              "RelativeDocumentMoniker": "CuponsControl.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\CuponsControl.cs",
-              "RelativeToolTip": "CuponsControl.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAuwDUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:45:53.905Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CuponsControl.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\CuponsControl.Designer.cs",
-              "RelativeDocumentMoniker": "CuponsControl.Designer.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\CuponsControl.Designer.cs",
-              "RelativeToolTip": "CuponsControl.Designer.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAYwBIAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:45:44.349Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "CuponsControl.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\CuponsControl.cs",
-              "RelativeDocumentMoniker": "CuponsControl.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\CuponsControl.cs [Design]",
-              "RelativeToolTip": "CuponsControl.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:45:32.98Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "VendasControl.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\VendasControl.cs",
-              "RelativeDocumentMoniker": "VendasControl.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\VendasControl.cs",
-              "RelativeToolTip": "VendasControl.cs",
-              "ViewState": "AgIAAHMAAAAAAAAAAAAuwJMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:45:12.281Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "VendasControl.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\VendasControl.Designer.cs",
-              "RelativeDocumentMoniker": "VendasControl.Designer.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\VendasControl.Designer.cs",
-              "RelativeToolTip": "VendasControl.Designer.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAuwCcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:45:03.502Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "VendasControl.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\VendasControl.cs",
-              "RelativeDocumentMoniker": "VendasControl.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Sistema-tws\\Sistema-TWS\\VendasControl.cs [Design]",
-              "RelativeToolTip": "..\\..\\Sistema-tws\\Sistema-TWS\\VendasControl.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:44:56.343Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "EstoqueControl.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\EstoqueControl.cs",
-              "RelativeDocumentMoniker": "EstoqueControl.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\EstoqueControl.cs",
-              "RelativeToolTip": "EstoqueControl.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAuwEYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:44:06.553Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "EstoqueControl.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\EstoqueControl.Designer.cs",
-              "RelativeDocumentMoniker": "EstoqueControl.Designer.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\EstoqueControl.Designer.cs",
-              "RelativeToolTip": "EstoqueControl.Designer.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAuwCIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:43:57.589Z",
+              "WhenOpened": "2025-12-02T23:57:27.937Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "EstoqueControl.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\EstoqueControl.cs",
-              "RelativeDocumentMoniker": "EstoqueControl.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\EstoqueControl.cs [Design]",
-              "RelativeToolTip": "EstoqueControl.cs [Design]",
+              "Title": "LivrosControl.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\LivrosControl.cs",
+              "RelativeDocumentMoniker": "LivrosControl.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\LivrosControl.cs",
+              "RelativeToolTip": "LivrosControl.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:43:36.993Z",
+              "WhenOpened": "2025-12-02T23:58:34.963Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FormMenu.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\FormMenu.cs",
+              "RelativeDocumentMoniker": "FormMenu.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\FormMenu.cs [Design]*",
+              "RelativeToolTip": "FormMenu.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T00:36:43.598Z",
               "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "AutoresControl.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\AutoresControl.cs",
-              "RelativeDocumentMoniker": "AutoresControl.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\AutoresControl.cs",
-              "RelativeToolTip": "AutoresControl.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAuwFUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:43:08.752Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "AutoresControl.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\AutoresControl.Designer.cs",
-              "RelativeDocumentMoniker": "AutoresControl.Designer.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\AutoresControl.Designer.cs",
-              "RelativeToolTip": "AutoresControl.Designer.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAuwC0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:42:58.071Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "AutoresControl.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\AutoresControl.cs",
-              "RelativeDocumentMoniker": "AutoresControl.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Sistema-tws\\Sistema-TWS\\AutoresControl.cs [Design]",
-              "RelativeToolTip": "..\\..\\Sistema-tws\\Sistema-TWS\\AutoresControl.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:42:48.832Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "LivrosControl.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\LivrosControl.cs",
-              "RelativeDocumentMoniker": "LivrosControl.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\LivrosControl.cs",
-              "RelativeToolTip": "LivrosControl.cs",
-              "ViewState": "AgIAAGQAAAAAAAAAAAAuwIQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:42:09.153Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "LivrosControl.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\LivrosControl.Designer.cs",
-              "RelativeDocumentMoniker": "LivrosControl.Designer.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\LivrosControl.Designer.cs",
-              "RelativeToolTip": "LivrosControl.Designer.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAuwEgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:41:56.261Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "HomeControl.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\HomeControl.cs",
+              "DocumentIndex": 5,
+              "Title": "HomeControl.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\HomeControl.cs",
               "RelativeDocumentMoniker": "HomeControl.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\HomeControl.cs",
-              "RelativeToolTip": "HomeControl.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\HomeControl.cs [Design]",
+              "RelativeToolTip": "HomeControl.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:40:29.098Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-03T00:48:36.552Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "HomeControl.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\HomeControl.Designer.cs",
-              "RelativeDocumentMoniker": "HomeControl.Designer.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\HomeControl.Designer.cs",
-              "RelativeToolTip": "HomeControl.Designer.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAuwEEAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 12,
+              "Title": "CuponsControl.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\CuponsControl.cs",
+              "RelativeDocumentMoniker": "CuponsControl.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\CuponsControl.cs [Design]",
+              "RelativeToolTip": "CuponsControl.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:40:21.657Z",
+              "WhenOpened": "2025-12-03T00:24:06.304Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "conexao.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\Conexao.cs",
+              "RelativeDocumentMoniker": "Conexao.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\Conexao.cs",
+              "RelativeToolTip": "Conexao.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T00:17:12.748Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "HomeControl.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\HomeControl.cs",
-              "RelativeDocumentMoniker": "HomeControl.cs",
-              "ToolTip": "C:\\Users\\lab1064\\Desktop\\Abobora\\tws-editora-sistema\\HomeControl.cs [Design]",
-              "RelativeToolTip": "HomeControl.cs [Design]",
+              "Title": "VendasControl.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\VendasControl.cs",
+              "RelativeDocumentMoniker": "VendasControl.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\VendasControl.cs",
+              "RelativeToolTip": "VendasControl.cs",
+              "ViewState": "AgIAANkAAAAAAAAAAAAYwBgBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T19:40:17.034Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-12-03T00:00:13.01Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "RelatoriosControl.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\RelatoriosControl.cs",
+              "RelativeDocumentMoniker": "RelatoriosControl.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\RelatoriosControl.cs",
+              "RelativeToolTip": "RelatoriosControl.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAowFcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T23:59:23.739Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CuponsControl.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\CuponsControl.cs",
+              "RelativeDocumentMoniker": "CuponsControl.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\CuponsControl.cs",
+              "RelativeToolTip": "CuponsControl.cs",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAgwJQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T23:55:41.658Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "EstoqueControl.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\EstoqueControl.cs",
+              "RelativeDocumentMoniker": "EstoqueControl.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\EstoqueControl.cs",
+              "RelativeToolTip": "EstoqueControl.cs",
+              "ViewState": "AgIAAHcAAAAAAAAAAAAgwJ8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T23:56:39.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AutoresControl.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\AutoresControl.cs",
+              "RelativeDocumentMoniker": "AutoresControl.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\AutoresControl.cs",
+              "RelativeToolTip": "AutoresControl.cs",
+              "ViewState": "AgIAALkAAAAAAAAAAAAswKgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T23:54:41.085Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "FormLogin.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\FormLogin.cs",
+              "RelativeDocumentMoniker": "FormLogin.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\FormLogin.cs",
+              "RelativeToolTip": "FormLogin.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T00:15:41.826Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "VendasControl.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\VendasControl.Designer.cs",
+              "RelativeDocumentMoniker": "VendasControl.Designer.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\VendasControl.Designer.cs",
+              "RelativeToolTip": "VendasControl.Designer.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAkwCYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T00:00:46.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "RelatoriosControl.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\RelatoriosControl.Designer.cs",
+              "RelativeDocumentMoniker": "RelatoriosControl.Designer.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\RelatoriosControl.Designer.cs",
+              "RelativeToolTip": "RelatoriosControl.Designer.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAYwB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T23:59:45.001Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "EstoqueControl.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\EstoqueControl.Designer.cs",
+              "RelativeDocumentMoniker": "EstoqueControl.Designer.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\EstoqueControl.Designer.cs",
+              "RelativeToolTip": "EstoqueControl.Designer.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAA3wCIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T23:57:17.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "CuponsControl.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\CuponsControl.Designer.cs",
+              "RelativeDocumentMoniker": "CuponsControl.Designer.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\CuponsControl.Designer.cs",
+              "RelativeToolTip": "CuponsControl.Designer.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAYwCoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T23:56:15.035Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "AutoresControl.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\AutoresControl.Designer.cs",
+              "RelativeDocumentMoniker": "AutoresControl.Designer.cs",
+              "ToolTip": "C:\\Users\\batis\\Downloads\\TWS\\tws-editora-sistema\\AutoresControl.Designer.cs",
+              "RelativeToolTip": "AutoresControl.Designer.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAYwCgAAAChAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T23:55:02.04Z",
+              "EditorCaption": ""
             }
           ]
         }

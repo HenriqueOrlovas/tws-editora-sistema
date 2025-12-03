@@ -1,5 +1,4 @@
-﻿// AutoresControl.cs
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using SeuProjeto;
 using System;
 using System.Data;
@@ -12,74 +11,202 @@ namespace Sistema_tws
         public AutoresControl()
         {
             InitializeComponent();
-            Wire();
-            LoadData();
+
+            btnAutorAdd.Click += btnAutorAdd_Click;
+            btnAutorEdit.Click += btnAutorEdit_Click;
+            btnAutorDelete.Click += btnAutorDelete_Click;
+            btnAutorRefresh.Click += btnAutorRefresh_Click;
+            dgvAutores.SelectionChanged += dgvAutores_SelectionChanged;
+
+            CarregarAutores();
         }
 
-        private void Wire()
+        private string LerTexto(TextBox caixa)
         {
-            btnAutorAdd.Click += (s, e) => AddAutor();
-            btnAutorEdit.Click += (s, e) => EditAutor();
-            btnAutorDelete.Click += (s, e) => DeleteAutor();
-            btnAutorRefresh.Click += (s, e) => LoadData();
-            dgvAutores.SelectionChanged += (s, e) => FillSelected();
+            if (caixa.ForeColor == System.Drawing.Color.Gray)
+            {
+                return "";
+            }
+            return caixa.Text.Trim();
         }
 
-        private void LoadData()
+        private void CarregarAutores()
         {
             try
             {
-                using (var conn = Conexao.Conectar())
-                {
-                    conn.Open();
-                    using (var da = new MySqlDataAdapter("SELECT IdAutores, Nome_Aut, Nacionalidade_Aut, Email_Aut FROM Autores ORDER BY Nome_Aut", conn))
-                    {
-                        var dt = new DataTable(); da.Fill(dt); dgvAutores.DataSource = dt;
-                    }
-                }
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                MySqlDataAdapter adaptador = new MySqlDataAdapter(
+                    "SELECT IdAutores, Nome_Aut, Nacionalidade_Aut, Email_Aut FROM Autores ORDER BY Nome_Aut",
+                    conexao
+                );
+
+                DataTable tabela = new DataTable();
+                adaptador.Fill(tabela);
+
+                dgvAutores.DataSource = tabela;
+
+                conexao.Close();
             }
-            catch (Exception ex) { MessageBox.Show("Erro ao carregar autores: " + ex.Message); }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro ao carregar autores: " + erro.Message);
+            }
         }
 
-        private string GetText(TextBox tb) => tb == null ? "" : (tb.ForeColor == System.Drawing.Color.Gray ? "" : tb.Text.Trim());
-
-        private void AddAutor()
+        private void btnAutorAdd_Click(object sender, EventArgs e)
         {
-            string nome = GetText(txtAutorNome);
-            string nacional = GetText(txtAutorNacionalidade);
-            string email = GetText(txtAutorEmail);
-            if (string.IsNullOrWhiteSpace(nome)) { MessageBox.Show("Informe o nome."); return; }
-            try { using (var conn = Conexao.Conectar()) { conn.Open(); using (var cmd = new MySqlCommand("INSERT INTO Autores (Nome_Aut, Nacionalidade_Aut, Email_Aut) VALUES (@n,@na,@e)", conn)) { cmd.Parameters.AddWithValue("@n", nome); cmd.Parameters.AddWithValue("@na", nacional); cmd.Parameters.AddWithValue("@e", email); cmd.ExecuteNonQuery(); } } MessageBox.Show("Autor adicionado."); LoadData(); }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
+            string nome = LerTexto(txtAutorNome);
+            string nacionalidade = LerTexto(txtAutorNacionalidade);
+            string email = LerTexto(txtAutorEmail);
+
+            if (nome == "")
+            {
+                MessageBox.Show("Informe o nome.");
+                return;
+            }
+
+            try
+            {
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                MySqlCommand cmd = new MySqlCommand(
+                    "INSERT INTO Autores (Nome_Aut, Nacionalidade_Aut, Email_Aut) VALUES (@n,@na,@e)",
+                    conexao
+                );
+
+                cmd.Parameters.AddWithValue("@n", nome);
+                cmd.Parameters.AddWithValue("@na", nacionalidade);
+                cmd.Parameters.AddWithValue("@e", email);
+
+                cmd.ExecuteNonQuery();
+
+                conexao.Close();
+
+                MessageBox.Show("Autor adicionado.");
+                CarregarAutores();
+            }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro: " + erro.Message);
+            }
         }
 
-        private void EditAutor()
+        private void btnAutorEdit_Click(object sender, EventArgs e)
         {
-            if (dgvAutores.SelectedRows.Count == 0) { MessageBox.Show("Selecione um autor."); return; }
-            int id = Convert.ToInt32(dgvAutores.SelectedRows[0].Cells["IdAutores"].Value);
-            string nome = GetText(txtAutorNome);
-            string nacional = GetText(txtAutorNacionalidade);
-            string email = GetText(txtAutorEmail);
-            try { using (var conn = Conexao.Conectar()) { conn.Open(); using (var cmd = new MySqlCommand("UPDATE Autores SET Nome_Aut=@n,Nacionalidade_Aut=@na,Email_Aut=@e WHERE IdAutores=@id", conn)) { cmd.Parameters.AddWithValue("@n", nome); cmd.Parameters.AddWithValue("@na", nacional); cmd.Parameters.AddWithValue("@e", email); cmd.Parameters.AddWithValue("@id", id); cmd.ExecuteNonQuery(); } } MessageBox.Show("Atualizado."); LoadData(); }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
+            if (dgvAutores.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecione um autor.");
+                return;
+            }
+
+            int id = int.Parse(dgvAutores.SelectedRows[0].Cells["IdAutores"].Value.ToString());
+
+            string nome = LerTexto(txtAutorNome);
+            string nacionalidade = LerTexto(txtAutorNacionalidade);
+            string email = LerTexto(txtAutorEmail);
+
+            try
+            {
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                MySqlCommand cmd = new MySqlCommand(
+                    "UPDATE Autores SET Nome_Aut=@n, Nacionalidade_Aut=@na, Email_Aut=@e WHERE IdAutores=@id",
+                    conexao
+                );
+
+                cmd.Parameters.AddWithValue("@n", nome);
+                cmd.Parameters.AddWithValue("@na", nacionalidade);
+                cmd.Parameters.AddWithValue("@e", email);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                cmd.ExecuteNonQuery();
+
+                conexao.Close();
+
+                MessageBox.Show("Atualizado.");
+                CarregarAutores();
+            }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro: " + erro.Message);
+            }
         }
 
-        private void DeleteAutor()
+        private void btnAutorDelete_Click(object sender, EventArgs e)
         {
-            if (dgvAutores.SelectedRows.Count == 0) { MessageBox.Show("Selecione um autor."); return; }
-            int id = Convert.ToInt32(dgvAutores.SelectedRows[0].Cells["IdAutores"].Value);
-            if (MessageBox.Show("Confirma exclusão?", "Excluir", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
-            try { using (var conn = Conexao.Conectar()) { conn.Open(); using (var cmd = new MySqlCommand("DELETE FROM Autores_Has_Livros WHERE IdAutores=@id", conn)) { cmd.Parameters.AddWithValue("@id", id); cmd.ExecuteNonQuery(); } using (var cmd2 = new MySqlCommand("DELETE FROM Autores WHERE IdAutores=@id", conn)) { cmd2.Parameters.AddWithValue("@id", id); cmd2.ExecuteNonQuery(); } } MessageBox.Show("Excluído."); LoadData(); }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
+            if (dgvAutores.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecione um autor.");
+                return;
+            }
+
+            int id = int.Parse(dgvAutores.SelectedRows[0].Cells["IdAutores"].Value.ToString());
+
+            DialogResult resp = MessageBox.Show(
+                "Confirma exclusão?", "Excluir", MessageBoxButtons.YesNo
+            );
+
+            if (resp != DialogResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                MySqlCommand cmd1 = new MySqlCommand(
+                    "DELETE FROM Autores_Has_Livros WHERE IdAutores=@id",
+                    conexao
+                );
+                cmd1.Parameters.AddWithValue("@id", id);
+                cmd1.ExecuteNonQuery();
+
+                MySqlCommand cmd2 = new MySqlCommand(
+                    "DELETE FROM Autores WHERE IdAutores=@id",
+                    conexao
+                );
+                cmd2.Parameters.AddWithValue("@id", id);
+                cmd2.ExecuteNonQuery();
+
+                conexao.Close();
+
+                MessageBox.Show("Excluído.");
+                CarregarAutores();
+            }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro: " + erro.Message);
+            }
         }
 
-        private void FillSelected()
+        private void btnAutorRefresh_Click(object sender, EventArgs e)
         {
-            if (dgvAutores.SelectedRows.Count == 0) return;
-            var r = dgvAutores.SelectedRows[0];
-            txtAutorNome.Text = r.Cells["Nome_Aut"].Value?.ToString() ?? "";
-            txtAutorNacionalidade.Text = r.Cells["Nacionalidade_Aut"].Value?.ToString() ?? "";
-            txtAutorEmail.Text = r.Cells["Email_Aut"].Value?.ToString() ?? "";
+            CarregarAutores();
+        }
+
+        private void dgvAutores_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvAutores.SelectedRows.Count == 0)
+            {
+                return;
+            }
+
+            DataGridViewRow linha = dgvAutores.SelectedRows[0];
+
+            txtAutorNome.Text = linha.Cells["Nome_Aut"].Value.ToString();
+            txtAutorNome.ForeColor = System.Drawing.Color.Black;
+
+            txtAutorNacionalidade.Text = linha.Cells["Nacionalidade_Aut"].Value.ToString();
+            txtAutorNacionalidade.ForeColor = System.Drawing.Color.Black;
+
+            txtAutorEmail.Text = linha.Cells["Email_Aut"].Value.ToString();
+            txtAutorEmail.ForeColor = System.Drawing.Color.Black;
         }
     }
 }

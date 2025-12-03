@@ -31,3 +31,17 @@ C:\Users\lab1064\Desktop\Abobora\tws-editora-sistema\obj\Debug\Sistema-.3A23BD37
 C:\Users\lab1064\Desktop\Abobora\tws-editora-sistema\obj\Debug\Sistema-TWS.exe
 C:\Users\lab1064\Desktop\Abobora\tws-editora-sistema\obj\Debug\Sistema-TWS.pdb
 C:\Users\lab1064\Desktop\Abobora\tws-editora-sistema\obj\Debug\Sistema_tws.FormMenu.resources
+C:\Users\batis\Downloads\TWS\tws-editora-sistema\bin\Debug\Sistema-TWS.exe.config
+C:\Users\batis\Downloads\TWS\tws-editora-sistema\bin\Debug\Sistema-TWS.exe
+C:\Users\batis\Downloads\TWS\tws-editora-sistema\bin\Debug\Sistema-TWS.pdb
+C:\Users\batis\Downloads\TWS\tws-editora-sistema\bin\Debug\System.Memory.dll
+C:\Users\batis\Downloads\TWS\tws-editora-sistema\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\batis\Downloads\TWS\tws-editora-sistema\obj\Debug\Sistema-TWS.csproj.AssemblyReference.cache
+C:\Users\batis\Downloads\TWS\tws-editora-sistema\obj\Debug\Sistema-TWS.exe.config
+C:\Users\batis\Downloads\TWS\tws-editora-sistema\obj\Debug\Sistema_tws.FormMenu.resources
+C:\Users\batis\Downloads\TWS\tws-editora-sistema\obj\Debug\Sistema_TWS.Properties.Resources.resources
+C:\Users\batis\Downloads\TWS\tws-editora-sistema\obj\Debug\Sistema-TWS.csproj.GenerateResource.cache
+C:\Users\batis\Downloads\TWS\tws-editora-sistema\obj\Debug\Sistema-TWS.csproj.CoreCompileInputs.cache
+C:\Users\batis\Downloads\TWS\tws-editora-sistema\obj\Debug\Sistema-.3A23BD37.Up2Date
+C:\Users\batis\Downloads\TWS\tws-editora-sistema\obj\Debug\Sistema-TWS.exe
+C:\Users\batis\Downloads\TWS\tws-editora-sistema\obj\Debug\Sistema-TWS.pdb

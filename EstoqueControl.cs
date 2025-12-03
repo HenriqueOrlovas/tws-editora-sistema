@@ -1,5 +1,4 @@
-﻿// EstoqueControl.cs
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using SeuProjeto;
 using System;
 using System.Windows.Forms;
@@ -11,60 +10,150 @@ namespace Sistema_tws
         public EstoqueControl()
         {
             InitializeComponent();
-            Wire();
-            LoadLivros();
+
+            btnEstoqueEntrada.Click += btnEstoqueEntrada_Click;
+            btnEstoqueSaida.Click += btnEstoqueSaida_Click;
+            btnEstoqueRefresh.Click += btnEstoqueRefresh_Click;
+
+            CarregarLivros();
         }
 
-        private void Wire()
-        {
-            btnEstoqueEntrada.Click += (s, e) => AjustarEstoque(true);
-            btnEstoqueSaida.Click += (s, e) => AjustarEstoque(false);
-            btnEstoqueRefresh.Click += (s, e) => LoadLivros();
-        }
-
-        private void LoadLivros()
+        private void CarregarLivros()
         {
             try
             {
                 cmbEstoqueLivro.Items.Clear();
-                using (var conn = Conexao.Conectar())
+
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                string sql =
+                    "SELECT IdLivros, Titulo_Liv, Estoque_Liv " +
+                    "FROM Livros ORDER BY Titulo_Liv";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conexao);
+                MySqlDataReader leitor = cmd.ExecuteReader();
+
+                while (leitor.Read())
                 {
-                    conn.Open();
-                    using (var cmd = new MySqlCommand("SELECT IdLivros, Titulo_Liv, Estoque_Liv FROM Livros ORDER BY Titulo_Liv", conn))
-                    using (var r = cmd.ExecuteReader())
-                    {
-                        while (r.Read()) cmbEstoqueLivro.Items.Add(new ComboItem(r.GetInt32("IdLivros"), $"{r.GetInt32("IdLivros")} - {r.GetString("Titulo_Liv")} (Est:{r.GetInt32("Estoque_Liv")})"));
-                    }
+                    int idLivro = leitor.GetInt32("IdLivros");
+                    string titulo = leitor.GetString("Titulo_Liv");
+                    int estoque = leitor.GetInt32("Estoque_Liv");
+
+                    string texto =
+                        idLivro.ToString() +
+                        " - " +
+                        titulo +
+                        " (Est: " +
+                        estoque.ToString() +
+                        ")";
+
+                    cmbEstoqueLivro.Items.Add(new ComboItem(idLivro, texto));
                 }
+
+                leitor.Close();
+                conexao.Close();
             }
-            catch (Exception ex) { MessageBox.Show("Erro ao carregar livros: " + ex.Message); }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro ao carregar livros: " + erro.Message);
+            }
         }
 
-        private void AjustarEstoque(bool entrada)
+        private void AjustarEstoque(int idLivro, int quantidade, bool entrada)
         {
-            if (cmbEstoqueLivro.SelectedItem == null) { MessageBox.Show("Selecione um livro."); return; }
-            int id = ((ComboItem)cmbEstoqueLivro.SelectedItem).Id;
-            int qtd = (int)nudEstoqueQtd.Value;
-            if (qtd <= 0) { MessageBox.Show("Quantidade inválida."); return; }
             try
             {
-                using (var conn = Conexao.Conectar())
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                string sql;
+
+                if (entrada)
                 {
-                    conn.Open();
-                    string op = entrada ? "+" : "-";
-                    using (var cmd = new MySqlCommand($"UPDATE Livros SET Estoque_Liv = Estoque_Liv {op} @q WHERE IdLivros=@id", conn))
-                    {
-                        cmd.Parameters.AddWithValue("@q", qtd);
-                        cmd.Parameters.AddWithValue("@id", id);
-                        cmd.ExecuteNonQuery();
-                    }
+                    sql = "UPDATE Livros SET Estoque_Liv = Estoque_Liv + @q WHERE IdLivros=@id";
                 }
+                else
+                {
+                    sql = "UPDATE Livros SET Estoque_Liv = Estoque_Liv - @q WHERE IdLivros=@id";
+                }
+
+                MySqlCommand cmd = new MySqlCommand(sql, conexao);
+                cmd.Parameters.AddWithValue("@q", quantidade);
+                cmd.Parameters.AddWithValue("@id", idLivro);
+                cmd.ExecuteNonQuery();
+
+                conexao.Close();
+
                 MessageBox.Show("Estoque ajustado.");
-                LoadLivros();
+                CarregarLivros();
             }
-            catch (Exception ex) { MessageBox.Show("Erro ao ajustar estoque: " + ex.Message); }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro ao ajustar estoque: " + erro.Message);
+            }
         }
 
-        private class ComboItem { public int Id; public string Text; public ComboItem(int id, string t) { Id = id; Text = t; } public override string ToString() => Text; }
+        private void btnEstoqueEntrada_Click(object sender, EventArgs e)
+        {
+            if (cmbEstoqueLivro.SelectedItem == null)
+            {
+                MessageBox.Show("Selecione um livro.");
+                return;
+            }
+
+            ComboItem item = (ComboItem)cmbEstoqueLivro.SelectedItem;
+            int quantidade = (int)nudEstoqueQtd.Value;
+
+            if (quantidade <= 0)
+            {
+                MessageBox.Show("Quantidade inválida.");
+                return;
+            }
+
+            AjustarEstoque(item.Id, quantidade, true);
+        }
+
+        private void btnEstoqueSaida_Click(object sender, EventArgs e)
+        {
+            if (cmbEstoqueLivro.SelectedItem == null)
+            {
+                MessageBox.Show("Selecione um livro.");
+                return;
+            }
+
+            ComboItem item = (ComboItem)cmbEstoqueLivro.SelectedItem;
+            int quantidade = (int)nudEstoqueQtd.Value;
+
+            if (quantidade <= 0)
+            {
+                MessageBox.Show("Quantidade inválida.");
+                return;
+            }
+
+            AjustarEstoque(item.Id, quantidade, false);
+        }
+
+        private void btnEstoqueRefresh_Click(object sender, EventArgs e)
+        {
+            CarregarLivros();
+        }
+
+        private class ComboItem
+        {
+            public int Id;
+            public string Texto;
+
+            public ComboItem(int i, string t)
+            {
+                Id = i;
+                Texto = t;
+            }
+
+            public override string ToString()
+            {
+                return Texto;
+            }
+        }
     }
 }

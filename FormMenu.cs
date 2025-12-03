@@ -6,10 +6,14 @@ namespace Sistema_tws
 {
     public partial class FormMenu : Form
     {
-        // BOTÕES DO MENU
-        private Button btnHome, btnLivros, btnAutores, btnEstoque, btnVendas, btnCupons, btnRelatorios;
+        private Button btnHome;
+        private Button btnLivros;
+        private Button btnAutores;
+        private Button btnEstoque;
+        private Button btnVendas;
+        private Button btnCupons;
+        private Button btnRelatorios;
 
-        // UserControls
         private HomeControl homeControl;
         private LivrosControl livrosControl;
         private AutoresControl autoresControl;
@@ -18,7 +22,6 @@ namespace Sistema_tws
         private CuponsControl cuponsControl;
         private RelatoriosControl relatoriosControl;
 
-        // Menu
         private bool menuAberto = true;
         private int larguraMenu = 200;
 
@@ -28,7 +31,7 @@ namespace Sistema_tws
         {
             InitializeComponent();
             CriarMenu();
-            WireEvents();
+            RegistrarEventos();
             LoadHome();
         }
 
@@ -38,58 +41,57 @@ namespace Sistema_tws
             btnToggleMenu.BringToFront();
         }
 
-        // -------------------------- CRIAR MENU --------------------------
-
         private void CriarMenu()
         {
-            btnHome = CreateButton("Home", 120);
-            btnLivros = CreateButton("Livros", 170);
-            btnAutores = CreateButton("Autores", 220);
-            btnEstoque = CreateButton("Estoque", 270);
-            btnVendas = CreateButton("Vendas", 320);
-            btnCupons = CreateButton("Cupons", 370);
-            btnRelatorios = CreateButton("Relatórios", 420);
+            btnHome = CriarBotao("Home", 120);
+            btnLivros = CriarBotao("Livros", 170);
+            btnAutores = CriarBotao("Autores", 220);
+            btnEstoque = CriarBotao("Estoque", 270);
+            btnVendas = CriarBotao("Vendas", 320);
+            btnCupons = CriarBotao("Cupons", 370);
+            btnRelatorios = CriarBotao("Relatórios", 420);
 
-            pnlSidebar.Controls.AddRange(new Control[]
-            {
-                btnHome, btnLivros, btnAutores, btnEstoque,
-                btnVendas, btnCupons, btnRelatorios
-            });
+            pnlSidebar.Controls.Add(btnHome);
+            pnlSidebar.Controls.Add(btnLivros);
+            pnlSidebar.Controls.Add(btnAutores);
+            pnlSidebar.Controls.Add(btnEstoque);
+            pnlSidebar.Controls.Add(btnVendas);
+            pnlSidebar.Controls.Add(btnCupons);
+            pnlSidebar.Controls.Add(btnRelatorios);
         }
 
-        private Button CreateButton(string text, int top)
+        private Button CriarBotao(string texto, int top)
         {
-            return new Button()
-            {
-                Text = text,
-                Width = 170,
-                Height = 40,
-                Left = 15,
-                Top = top,
-                BackColor = colorPrimary,
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                TabStop = false
-            };
-        }
+            Button b = new Button();
+            b.Text = texto;
+            b.Width = 170;
+            b.Height = 40;
+            b.Left = 15;
+            b.Top = top;
+            b.BackColor = colorPrimary;
+            b.ForeColor = Color.White;
+            b.FlatStyle = FlatStyle.Flat;
+            b.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            b.TabStop = false;
 
-        // -------------------------- MENU ABRIR/FECHAR --------------------------
+            return b;
+        }
 
         private void btnToggleMenu_Click(object sender, EventArgs e)
         {
-            if (menuAberto)
+            if (menuAberto == true)
             {
                 pnlSidebar.Width = 50;
                 btnToggleMenu.Text = "☰";
                 menuAberto = false;
 
-                // EVITA ERRO DE PICTUREBOX
-                foreach (Control c in pnlSidebar.Controls)
-                {
-                    if (c is Button b)
-                        b.Text = "";
-                }
+                btnHome.Text = "";
+                btnLivros.Text = "";
+                btnAutores.Text = "";
+                btnEstoque.Text = "";
+                btnVendas.Text = "";
+                btnCupons.Text = "";
+                btnRelatorios.Text = "";
             }
             else
             {
@@ -109,20 +111,51 @@ namespace Sistema_tws
             btnToggleMenu.Left = this.ClientSize.Width - btnToggleMenu.Width - 10;
         }
 
-        // -------------------------- EVENTOS DOS BOTÕES --------------------------
-
-        private void WireEvents()
+        private void RegistrarEventos()
         {
-            btnHome.Click += (s, e) => LoadHome();
-            btnLivros.Click += (s, e) => LoadLivros();
-            btnAutores.Click += (s, e) => LoadAutores();
-            btnEstoque.Click += (s, e) => LoadEstoque();
-            btnVendas.Click += (s, e) => LoadVendas();
-            btnCupons.Click += (s, e) => LoadCupons();
-            btnRelatorios.Click += (s, e) => LoadRelatorios();
+            btnHome.Click += btnHome_Click;
+            btnLivros.Click += btnLivros_Click;
+            btnAutores.Click += btnAutores_Click;
+            btnEstoque.Click += btnEstoque_Click;
+            btnVendas.Click += btnVendas_Click;
+            btnCupons.Click += btnCupons_Click;
+            btnRelatorios.Click += btnRelatorios_Click;
         }
 
-        // -------------------------- TROCA DE TELAS --------------------------
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            LoadHome();
+        }
+
+        private void btnLivros_Click(object sender, EventArgs e)
+        {
+            LoadLivros();
+        }
+
+        private void btnAutores_Click(object sender, EventArgs e)
+        {
+            LoadAutores();
+        }
+
+        private void btnEstoque_Click(object sender, EventArgs e)
+        {
+            LoadEstoque();
+        }
+
+        private void btnVendas_Click(object sender, EventArgs e)
+        {
+            LoadVendas();
+        }
+
+        private void btnCupons_Click(object sender, EventArgs e)
+        {
+            LoadCupons();
+        }
+
+        private void btnRelatorios_Click(object sender, EventArgs e)
+        {
+            LoadRelatorios();
+        }
 
         private void LoadUserControl(UserControl uc)
         {
@@ -132,46 +165,68 @@ namespace Sistema_tws
             uc.BringToFront();
         }
 
-        private void LoadHome()
+        public void LoadHome()
         {
-            if (homeControl == null) homeControl = new HomeControl();
+            if (homeControl == null)
+            {
+                homeControl = new HomeControl();
+            }
             LoadUserControl(homeControl);
         }
 
-        private void LoadLivros()
+        public void LoadLivros()
         {
-            if (livrosControl == null) livrosControl = new LivrosControl();
+            if (livrosControl == null)
+            {
+                livrosControl = new LivrosControl();
+            }
             LoadUserControl(livrosControl);
         }
 
-        private void LoadAutores()
+        public void LoadAutores()
         {
-            if (autoresControl == null) autoresControl = new AutoresControl();
+            if (autoresControl == null)
+            {
+                autoresControl = new AutoresControl();
+            }
             LoadUserControl(autoresControl);
         }
 
-        private void LoadEstoque()
+        public void LoadEstoque()
         {
-            if (estoqueControl == null) estoqueControl = new EstoqueControl();
+            if (estoqueControl == null)
+            {
+                estoqueControl = new EstoqueControl();
+            }
             LoadUserControl(estoqueControl);
         }
 
-        private void LoadVendas()
+        public void LoadVendas()
         {
-            if (vendasControl == null) vendasControl = new VendasControl();
+            if (vendasControl == null)
+            {
+                vendasControl = new VendasControl();
+            }
             LoadUserControl(vendasControl);
         }
 
-        private void LoadCupons()
+        public void LoadCupons()
         {
-            if (cuponsControl == null) cuponsControl = new CuponsControl();
+            if (cuponsControl == null)
+            {
+                cuponsControl = new CuponsControl();
+            }
             LoadUserControl(cuponsControl);
         }
 
-        private void LoadRelatorios()
+        public void LoadRelatorios()
         {
-            if (relatoriosControl == null) relatoriosControl = new RelatoriosControl();
+            if (relatoriosControl == null)
+            {
+                relatoriosControl = new RelatoriosControl();
+            }
             LoadUserControl(relatoriosControl);
         }
+
     }
 }

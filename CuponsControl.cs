@@ -1,5 +1,4 @@
-﻿// CuponsControl.cs
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using SeuProjeto;
 using System;
 using System.Data;
@@ -12,42 +11,138 @@ namespace Sistema_tws
         public CuponsControl()
         {
             InitializeComponent();
-            Wire();
-            RefreshCupons();
+
+            btnCupomAdd.Click += btnCupomAdd_Click;
+            btnCupomDelete.Click += btnCupomDelete_Click;
+
+            CarregarCupons();
         }
 
-        private void Wire()
+        private string LerTexto(TextBox caixa)
         {
-            btnCupomAdd.Click += (s, e) => AddCupom();
-            btnCupomDelete.Click += (s, e) => DeleteCupom();
+            if (caixa == null)
+            {
+                return "";
+            }
+
+            if (caixa.ForeColor == System.Drawing.Color.Gray)
+            {
+                return "";
+            }
+
+            return caixa.Text.Trim();
         }
 
-        private string GetText(TextBox tb) => tb == null ? "" : (tb.ForeColor == System.Drawing.Color.Gray ? "" : tb.Text.Trim());
-
-        private void AddCupom()
+        private void btnCupomAdd_Click(object sender, EventArgs e)
         {
-            string codigo = GetText(txtCupomCodigo);
+            string codigo = LerTexto(txtCupomCodigo);
             decimal desconto = nudCupomDesconto.Value;
             DateTime validade = dtpCupomValidade.Value.Date;
             int usoMax = (int)nudCupomUsoMax.Value;
-            if (string.IsNullOrWhiteSpace(codigo)) { MessageBox.Show("Informe o código."); return; }
-            try { using (var conn = Conexao.Conectar()) { conn.Open(); using (var cmd = new MySqlCommand("INSERT INTO Cupons (Codigo, DescontoPercentual, DataValidade, UsoMaximo) VALUES (@c,@d,@v,@u)", conn)) { cmd.Parameters.AddWithValue("@c", codigo); cmd.Parameters.AddWithValue("@d", desconto); cmd.Parameters.AddWithValue("@v", validade.ToString("yyyy-MM-dd")); cmd.Parameters.AddWithValue("@u", usoMax); cmd.ExecuteNonQuery(); } } MessageBox.Show("Cupom adicionado."); RefreshCupons(); }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
+
+            if (codigo == "")
+            {
+                MessageBox.Show("Informe o código.");
+                return;
+            }
+
+            try
+            {
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                string sql =
+                    "INSERT INTO Cupons (Codigo, DescontoPercentual, DataValidade, UsoMaximo) " +
+                    "VALUES (@c, @d, @v, @u)";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conexao);
+                cmd.Parameters.AddWithValue("@c", codigo);
+                cmd.Parameters.AddWithValue("@d", desconto);
+                cmd.Parameters.AddWithValue("@v", validade.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@u", usoMax);
+
+                cmd.ExecuteNonQuery();
+
+                conexao.Close();
+
+                MessageBox.Show("Cupom adicionado.");
+                CarregarCupons();
+            }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro ao adicionar cupom: " + erro.Message);
+            }
         }
 
-        private void DeleteCupom()
+        private void btnCupomDelete_Click(object sender, EventArgs e)
         {
-            if (dgvCupons.SelectedRows.Count == 0) { MessageBox.Show("Selecione um cupom."); return; }
-            int id = Convert.ToInt32(dgvCupons.SelectedRows[0].Cells["IdCupons"].Value);
-            if (MessageBox.Show("Confirma exclusão?", "Excluir", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
-            try { using (var conn = Conexao.Conectar()) { conn.Open(); using (var cmd = new MySqlCommand("DELETE FROM Cupons WHERE IdCupons=@id", conn)) { cmd.Parameters.AddWithValue("@id", id); cmd.ExecuteNonQuery(); } } MessageBox.Show("Cupom excluído."); RefreshCupons(); }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
+            if (dgvCupons.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecione um cupom.");
+                return;
+            }
+
+            string textoId = dgvCupons.SelectedRows[0].Cells["IdCupons"].Value.ToString();
+            int id = int.Parse(textoId);
+
+            DialogResult resp = MessageBox.Show(
+                "Confirma exclusão?",
+                "Excluir",
+                MessageBoxButtons.YesNo
+            );
+
+            if (resp != DialogResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                MySqlCommand cmd = new MySqlCommand(
+                    "DELETE FROM Cupons WHERE IdCupons=@id",
+                    conexao
+                );
+
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+
+                conexao.Close();
+
+                MessageBox.Show("Cupom excluído.");
+                CarregarCupons();
+            }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro ao excluir cupom: " + erro.Message);
+            }
         }
 
-        private void RefreshCupons()
+        private void CarregarCupons()
         {
-            try { using (var conn = Conexao.Conectar()) { conn.Open(); using (var da = new MySqlDataAdapter("SELECT IdCupons, Codigo, DescontoPercentual, DataValidade, UsoMaximo FROM Cupons ORDER BY IdCupons DESC", conn)) { var dt = new DataTable(); da.Fill(dt); dgvCupons.DataSource = dt; } } }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
+            try
+            {
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                string sql =
+                    "SELECT IdCupons, Codigo, DescontoPercentual, DataValidade, UsoMaximo " +
+                    "FROM Cupons ORDER BY IdCupons DESC";
+
+                MySqlDataAdapter adaptador = new MySqlDataAdapter(sql, conexao);
+                DataTable tabela = new DataTable();
+                adaptador.Fill(tabela);
+
+                dgvCupons.DataSource = tabela;
+
+                conexao.Close();
+            }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro ao carregar cupons: " + erro.Message);
+            }
         }
     }
 }

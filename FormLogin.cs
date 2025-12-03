@@ -10,6 +10,9 @@ namespace Sistema_tws
         public FormLogin()
         {
             InitializeComponent();
+
+            btnLogin.Click += btnLogin_Click;
+            btnSair.Click += btnSair_Click;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -25,30 +28,32 @@ namespace Sistema_tws
 
             try
             {
-                using (MySqlConnection conexao = Conexao.Conectar())
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                string query = "SELECT Tipo_Usu FROM Usuarios WHERE Nome_Usu=@usuario AND Senha_Usu=@senha LIMIT 1";
+
+                MySqlCommand cmd = new MySqlCommand(query, conexao);
+                cmd.Parameters.AddWithValue("@usuario", usuario);
+                cmd.Parameters.AddWithValue("@senha", senha);
+
+                object resultado = cmd.ExecuteScalar();
+
+                if (resultado != null && usuario == "admin" && senha == "adminPIDS")
                 {
-                    conexao.Open();
-                    string query = "SELECT Tipo_Usu FROM Usuarios WHERE Nome_Usu=@usuario AND Senha_Usu=@senha LIMIT 1";
-                    MySqlCommand cmd = new MySqlCommand(query, conexao);
-                    cmd.Parameters.AddWithValue("@usuario", usuario);
-                    cmd.Parameters.AddWithValue("@senha", senha);
+                    MessageBox.Show("Login realizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    object resultado = cmd.ExecuteScalar();
-
-                    // Permitir apenas o admin específico
-                    if (resultado != null && usuario == "admin" && senha == "adminPIDS")
-                    {
-                        MessageBox.Show("Login realizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Hide();
-                        FormMenu formSistema = new FormMenu();
-                        formSistema.ShowDialog();
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Acesso negado. Apenas o admin pode entrar.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    this.Hide();
+                    FormMenu menu = new FormMenu();
+                    menu.ShowDialog();
+                    this.Close();
                 }
+                else
+                {
+                    MessageBox.Show("Acesso negado. Apenas o admin pode entrar.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                conexao.Close();
             }
             catch (Exception ex)
             {

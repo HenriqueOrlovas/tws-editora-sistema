@@ -1,5 +1,4 @@
-﻿// RelatoriosControl.cs
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using SeuProjeto;
 using System;
 using System.Data;
@@ -12,52 +11,77 @@ namespace Sistema_tws
         public RelatoriosControl()
         {
             InitializeComponent();
-            Wire();
+
+            btnRelTopVendidos.Click += btnRelTopVendidos_Click;
+            btnRelEstoqueBaixo.Click += btnRelEstoqueBaixo_Click;
         }
 
-        private void Wire()
+        private void btnRelTopVendidos_Click(object sender, EventArgs e)
         {
-            btnRelTopVendidos.Click += (s, e) => RelTopVendidos();
-            btnRelEstoqueBaixo.Click += (s, e) => RelEstoqueBaixo();
+            RelTopVendidos();
+        }
+
+        private void btnRelEstoqueBaixo_Click(object sender, EventArgs e)
+        {
+            RelEstoqueBaixo();
         }
 
         private void RelTopVendidos()
         {
             try
             {
-                using (var conn = Conexao.Conectar())
-                {
-                    conn.Open();
-                    string sql = @"
-                        SELECT l.Titulo_Liv AS Livro, SUM(lh.Quantidade) AS QtdVendida, SUM(lh.Subtotal) AS Total
-                        FROM Livros_Has_Vendas lh
-                        JOIN Livros l ON lh.IdLivros = l.IdLivros
-                        GROUP BY lh.IdLivros
-                        ORDER BY QtdVendida DESC
-                        LIMIT 50";
-                    using (var da = new MySqlDataAdapter(sql, conn))
-                    {
-                        var dt = new DataTable(); da.Fill(dt); dgvRelatorios.DataSource = dt;
-                    }
-                }
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                string sql =
+                    "SELECT l.Titulo_Liv AS Livro, " +
+                    "SUM(lh.Quantidade) AS QtdVendida, " +
+                    "SUM(lh.Subtotal) AS Total " +
+                    "FROM Livros_Has_Vendas lh " +
+                    "JOIN Livros l ON lh.IdLivros = l.IdLivros " +
+                    "GROUP BY lh.IdLivros " +
+                    "ORDER BY QtdVendida DESC " +
+                    "LIMIT 50";
+
+                MySqlDataAdapter adaptador = new MySqlDataAdapter(sql, conexao);
+                DataTable tabela = new DataTable();
+                adaptador.Fill(tabela);
+
+                dgvRelatorios.DataSource = tabela;
+
+                conexao.Close();
             }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro ao carregar relatório: " + erro.Message);
+            }
         }
 
         private void RelEstoqueBaixo()
         {
             try
             {
-                using (var conn = Conexao.Conectar())
-                {
-                    conn.Open();
-                    using (var da = new MySqlDataAdapter("SELECT IdLivros, Titulo_Liv, Estoque_Liv FROM Livros WHERE Estoque_Liv <= 5 ORDER BY Estoque_Liv ASC", conn))
-                    {
-                        var dt = new DataTable(); da.Fill(dt); dgvRelatorios.DataSource = dt;
-                    }
-                }
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                string sql =
+                    "SELECT IdLivros, Titulo_Liv, Estoque_Liv " +
+                    "FROM Livros " +
+                    "WHERE Estoque_Liv <= 5 " +
+                    "ORDER BY Estoque_Liv ASC";
+
+                MySqlDataAdapter adaptador = new MySqlDataAdapter(sql, conexao);
+                DataTable tabela = new DataTable();
+                adaptador.Fill(tabela);
+
+                dgvRelatorios.DataSource = tabela;
+
+                conexao.Close();
             }
-            catch (Exception ex) { MessageBox.Show("Erro: " + ex.Message); }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro ao carregar relatório: " + erro.Message);
+            }
         }
     }
 }

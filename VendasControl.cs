@@ -1,9 +1,7 @@
-﻿// VendasControl.cs
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using SeuProjeto;
 using System;
 using System.Data;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Sistema_tws
@@ -15,6 +13,7 @@ namespace Sistema_tws
         public VendasControl()
         {
             InitializeComponent();
+
             InitCart();
             Wire();
             LoadLivros();
@@ -24,17 +23,28 @@ namespace Sistema_tws
         private void InitCart()
         {
             vendaCarrinho.Columns.Add("IdLivro", typeof(int));
-            vendaCarrinho.Columns.Add("Título", typeof(string));
+            vendaCarrinho.Columns.Add("Titulo", typeof(string));
             vendaCarrinho.Columns.Add("Quantidade", typeof(int));
-            vendaCarrinho.Columns.Add("PreçoUnit", typeof(decimal));
+            vendaCarrinho.Columns.Add("PrecoUnit", typeof(decimal));
             vendaCarrinho.Columns.Add("Subtotal", typeof(decimal));
+
             dgvVendaCarrinho.DataSource = vendaCarrinho;
         }
 
         private void Wire()
         {
-            btnVendaAdicionarItem.Click += (s, e) => AddItemToCart();
-            btnVendaConcluir.Click += (s, e) => ConcluirVenda();
+            btnVendaAdicionarItem.Click += btnVendaAdicionarItem_Click;
+            btnVendaConcluir.Click += btnVendaConcluir_Click;
+        }
+
+        private void btnVendaAdicionarItem_Click(object sender, EventArgs e)
+        {
+            AddItemToCart();
+        }
+
+        private void btnVendaConcluir_Click(object sender, EventArgs e)
+        {
+            ConcluirVenda();
         }
 
         private void LoadLivros()
@@ -42,106 +52,229 @@ namespace Sistema_tws
             try
             {
                 cmbVendaLivro.Items.Clear();
-                using (var conn = Conexao.Conectar())
+
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                MySqlCommand cmd = new MySqlCommand(
+                    "SELECT IdLivros, Titulo_Liv, Preco_Liv, Estoque_Liv FROM Livros ORDER BY Titulo_Liv",
+                    conexao
+                );
+
+                MySqlDataReader r = cmd.ExecuteReader();
+
+                while (r.Read())
                 {
-                    conn.Open();
-                    using (var cmd = new MySqlCommand("SELECT IdLivros, Titulo_Liv, Preco_Liv, Estoque_Liv FROM Livros ORDER BY Titulo_Liv", conn))
-                    using (var r = cmd.ExecuteReader())
-                    {
-                        while (r.Read()) cmbVendaLivro.Items.Add(new ComboItem(r.GetInt32("IdLivros"), $"{r.GetInt32("IdLivros")} - {r.GetString("Titulo_Liv")} | R$ {r.GetDecimal("Preco_Liv")} (Est:{r.GetInt32("Estoque_Liv")})"));
-                    }
+                    int id = r.GetInt32("IdLivros");
+                    string texto =
+                        id +
+                        " - " +
+                        r.GetString("Titulo_Liv") +
+                        " | R$ " +
+                        r.GetDecimal("Preco_Liv") +
+                        " (Est:" +
+                        r.GetInt32("Estoque_Liv") +
+                        ")";
+
+                    cmbVendaLivro.Items.Add(new ComboItem(id, texto));
                 }
+
+                r.Close();
+                conexao.Close();
             }
-            catch (Exception ex) { MessageBox.Show("Erro ao carregar livros: " + ex.Message); }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro ao carregar livros: " + erro.Message);
+            }
         }
 
         private void AddItemToCart()
         {
-            if (cmbVendaLivro.SelectedItem == null) { MessageBox.Show("Selecione um livro."); return; }
-            int idLivro = ((ComboItem)cmbVendaLivro.SelectedItem).Id;
-            int qtd = (int)nudVendaQtd.Value;
-            if (qtd <= 0) { MessageBox.Show("Quantidade inválida."); return; }
+            if (cmbVendaLivro.SelectedItem == null)
+            {
+                MessageBox.Show("Selecione um livro.");
+                return;
+            }
+
+            ComboItem item = (ComboItem)cmbVendaLivro.SelectedItem;
+            int idLivro = item.Id;
+            int qtd = Convert.ToInt32(nudVendaQtd.Value);
+
+            if (qtd <= 0)
+            {
+                MessageBox.Show("Quantidade inválida.");
+                return;
+            }
+
             try
             {
-                using (var conn = Conexao.Conectar())
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                MySqlCommand cmd = new MySqlCommand(
+                    "SELECT Titulo_Liv, Preco_Liv, Estoque_Liv FROM Livros WHERE IdLivros=@id",
+                    conexao
+                );
+
+                cmd.Parameters.AddWithValue("@id", idLivro);
+
+                MySqlDataReader r = cmd.ExecuteReader();
+
+                if (r.Read())
                 {
-                    conn.Open();
-                    using (var cmd = new MySqlCommand("SELECT Titulo_Liv, Preco_Liv, Estoque_Liv FROM Livros WHERE IdLivros=@id", conn))
+                    string titulo = r.GetString("Titulo_Liv");
+                    decimal preco = r.GetDecimal("Preco_Liv");
+                    int estoque = r.GetInt32("Estoque_Liv");
+
+                    if (estoque < qtd)
                     {
-                        cmd.Parameters.AddWithValue("@id", idLivro);
-                        using (var r = cmd.ExecuteReader())
-                        {
-                            if (r.Read())
-                            {
-                                string titulo = r.GetString("Titulo_Liv");
-                                decimal preco = r.GetDecimal("Preco_Liv");
-                                int estoque = r.GetInt32("Estoque_Liv");
-                                if (estoque < qtd) { MessageBox.Show("Estoque insuficiente."); return; }
-                                decimal subtotal = preco * qtd;
-                                vendaCarrinho.Rows.Add(idLivro, titulo, qtd, preco, subtotal);
-                            }
-                        }
+                        MessageBox.Show("Estoque insuficiente.");
+                        r.Close();
+                        conexao.Close();
+                        return;
                     }
+
+                    decimal subtotal = preco * qtd;
+
+                    vendaCarrinho.Rows.Add(idLivro, titulo, qtd, preco, subtotal);
                 }
+
+                r.Close();
+                conexao.Close();
             }
-            catch (Exception ex) { MessageBox.Show("Erro ao adicionar item: " + ex.Message); }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro ao adicionar item: " + erro.Message);
+            }
         }
 
         private void ConcluirVenda()
         {
-            if (vendaCarrinho.Rows.Count == 0) { MessageBox.Show("Carrinho vazio."); return; }
+            if (vendaCarrinho.Rows.Count == 0)
+            {
+                MessageBox.Show("Carrinho vazio.");
+                return;
+            }
+
             try
             {
-                using (var conn = Conexao.Conectar())
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                // Somar quantidade total
+                int totalQtd = 0;
+                int i;
+
+                for (i = 0; i < vendaCarrinho.Rows.Count; i++)
                 {
-                    conn.Open();
-                    int totalQtd = vendaCarrinho.AsEnumerable().Sum(r => r.Field<int>("Quantidade"));
-                    decimal total = vendaCarrinho.AsEnumerable().Sum(r => r.Field<decimal>("Subtotal"));
-
-                    using (var cmd = new MySqlCommand("INSERT INTO Vendas (IdCliente,IdFuncionarios,IdFretes,Data_Ven,Quantidade_Ven,Valor_Total_Ven,Status_Ven) VALUES (NULL,NULL,NULL,@d,@q,@v,'Pago')", conn))
-                    {
-                        cmd.Parameters.AddWithValue("@d", DateTime.Now.ToString("yyyy-MM-dd"));
-                        cmd.Parameters.AddWithValue("@q", totalQtd);
-                        cmd.Parameters.AddWithValue("@v", total);
-                        cmd.ExecuteNonQuery();
-                    }
-                    long idVenda;
-                    using (var cmd2 = new MySqlCommand("SELECT LAST_INSERT_ID()", conn)) { idVenda = Convert.ToInt64(cmd2.ExecuteScalar()); }
-
-                    foreach (DataRow row in vendaCarrinho.Rows)
-                    {
-                        int idLivro = Convert.ToInt32(row["IdLivro"]);
-                        int qtd = Convert.ToInt32(row["Quantidade"]);
-                        decimal subtotal = Convert.ToDecimal(row["Subtotal"]);
-                        using (var cmd3 = new MySqlCommand("INSERT INTO Livros_Has_Vendas (IdLivros,IdVendas,Quantidade,Subtotal) VALUES (@l,@v,@q,@s)", conn))
-                        { cmd3.Parameters.AddWithValue("@l", idLivro); cmd3.Parameters.AddWithValue("@v", idVenda); cmd3.Parameters.AddWithValue("@q", qtd); cmd3.Parameters.AddWithValue("@s", subtotal); cmd3.ExecuteNonQuery(); }
-                        using (var cmd4 = new MySqlCommand("UPDATE Livros SET Estoque_Liv = Estoque_Liv - @q WHERE IdLivros=@l", conn))
-                        { cmd4.Parameters.AddWithValue("@q", qtd); cmd4.Parameters.AddWithValue("@l", idLivro); cmd4.ExecuteNonQuery(); }
-                    }
+                    totalQtd += Convert.ToInt32(vendaCarrinho.Rows[i]["Quantidade"]);
                 }
+
+                // Somar valor total
+                decimal valorTotal = 0;
+
+                for (i = 0; i < vendaCarrinho.Rows.Count; i++)
+                {
+                    valorTotal += Convert.ToDecimal(vendaCarrinho.Rows[i]["Subtotal"]);
+                }
+
+                // Registrar venda
+                MySqlCommand cmd = new MySqlCommand(
+                    "INSERT INTO Vendas (IdCliente,IdFuncionarios,IdFretes,Data_Ven,Quantidade_Ven,Valor_Total_Ven,Status_Ven) VALUES (NULL,NULL,NULL,@d,@q,@v,'Pago')",
+                    conexao
+                );
+
+                cmd.Parameters.AddWithValue("@d", DateTime.Now.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@q", totalQtd);
+                cmd.Parameters.AddWithValue("@v", valorTotal);
+
+                cmd.ExecuteNonQuery();
+
+                // Obter ID da venda
+                MySqlCommand cmd2 = new MySqlCommand("SELECT LAST_INSERT_ID()", conexao);
+                long idVenda = Convert.ToInt64(cmd2.ExecuteScalar());
+
+                // Inserir itens e baixar estoque
+                for (i = 0; i < vendaCarrinho.Rows.Count; i++)
+                {
+                    int idLivro = Convert.ToInt32(vendaCarrinho.Rows[i]["IdLivro"]);
+                    int qtd = Convert.ToInt32(vendaCarrinho.Rows[i]["Quantidade"]);
+                    decimal sub = Convert.ToDecimal(vendaCarrinho.Rows[i]["Subtotal"]);
+
+                    MySqlCommand cmd3 = new MySqlCommand(
+                        "INSERT INTO Livros_Has_Vendas (IdLivros,IdVendas,Quantidade,Subtotal) VALUES (@l,@v,@q,@s)",
+                        conexao
+                    );
+
+                    cmd3.Parameters.AddWithValue("@l", idLivro);
+                    cmd3.Parameters.AddWithValue("@v", idVenda);
+                    cmd3.Parameters.AddWithValue("@q", qtd);
+                    cmd3.Parameters.AddWithValue("@s", sub);
+                    cmd3.ExecuteNonQuery();
+
+                    MySqlCommand cmd4 = new MySqlCommand(
+                        "UPDATE Livros SET Estoque_Liv = Estoque_Liv - @q WHERE IdLivros=@l",
+                        conexao
+                    );
+
+                    cmd4.Parameters.AddWithValue("@q", qtd);
+                    cmd4.Parameters.AddWithValue("@l", idLivro);
+                    cmd4.ExecuteNonQuery();
+                }
+
+                conexao.Close();
+
                 MessageBox.Show("Venda concluída!");
+
                 vendaCarrinho.Clear();
-                LoadLivros(); RefreshVendasHistorico();
+                LoadLivros();
+                RefreshVendasHistorico();
             }
-            catch (Exception ex) { MessageBox.Show("Erro ao concluir venda: " + ex.Message); }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro ao concluir venda: " + erro.Message);
+            }
         }
 
         private void RefreshVendasHistorico()
         {
             try
             {
-                using (var conn = Conexao.Conectar())
-                {
-                    conn.Open();
-                    using (var da = new MySqlDataAdapter("SELECT IdVendas, Data_Ven, Quantidade_Ven, Valor_Total_Ven, Status_Ven FROM Vendas ORDER BY Data_Ven DESC LIMIT 200", conn))
-                    {
-                        var dt = new DataTable(); da.Fill(dt); dgvVendasHistorico.DataSource = dt;
-                    }
-                }
+                MySqlConnection conexao = Conexao.Conectar();
+                conexao.Open();
+
+                MySqlDataAdapter da = new MySqlDataAdapter(
+                    "SELECT IdVendas, Data_Ven, Quantidade_Ven, Valor_Total_Ven, Status_Ven FROM Vendas ORDER BY Data_Ven DESC LIMIT 200",
+                    conexao
+                );
+
+                DataTable tabela = new DataTable();
+                da.Fill(tabela);
+
+                dgvVendasHistorico.DataSource = tabela;
+
+                conexao.Close();
             }
-            catch { }
+            catch
+            {
+            }
         }
 
-        private class ComboItem { public int Id; public string Text; public ComboItem(int id, string t) { Id = id; Text = t; } public override string ToString() => Text; }
+        private class ComboItem
+        {
+            public int Id;
+            public string Text;
+
+            public ComboItem(int id, string t)
+            {
+                Id = id;
+                Text = t;
+            }
+
+            public override string ToString()
+            {
+                return Text;
+            }
+        }
     }
 }
